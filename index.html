@@ -2169,19 +2169,80 @@ cansend vcan0 7E0#<span class="hl-green">02</span><span class="hl-amber">10</spa
             <span class="badge badge-red">Hard</span>
           </div>
           <div class="challenge-body">
+
             <p>
-              <span class="en">Authenticate using the UDS Security Access service (SID <code>0x27</code>) to unlock the protected session. The handshake is a two-step seed-key exchange: the ECU sends a random seed, and you must derive the correct key from it. In this lab, the algorithm is simpler than it looks - it is tied to information you already found in challenge 04.</span>
-              <span class="fr">Authentifiez-vous en utilisant le service Security Access UDS (SID <code>0x27</code>) pour déverrouiller la session protégée. La poignée de main est un échange graine-clé en deux étapes : l'ECU envoie une graine aléatoire, et vous devez en dériver la clé correcte. Dans ce lab, l'algorithme est plus simple qu'il n'y paraît - il est lié à des informations que vous avez déjà trouvées dans le défi 04.</span>
+              <span class="en">The UDS <strong>Security Access</strong> service (SID <code>0x27</code>) is a two-step <strong>seed-key challenge-response</strong> that gates privileged operations such as reprogramming. The ECU generates a fresh <strong>2-byte random seed</strong> on every request; you must transform it into the correct key and send it back. A wrong key returns NRC <code>0x35</code> (invalidKey). Repeated failures trigger a lockout - NRC <code>0x36</code> (exceedNumberOfAttempts) - and the ECU stops accepting key attempts until it is reset.</span>
+              <span class="fr">Le service UDS <strong>Security Access</strong> (SID <code>0x27</code>) est un <strong>challenge-réponse graine-clé</strong> en deux étapes qui protège les opérations privilégiées telles que la reprogrammation. L'ECU génère une nouvelle <strong>graine aléatoire de 2 octets</strong> à chaque requête ; vous devez la transformer en clé correcte et la renvoyer. Une mauvaise clé renvoie NRC <code>0x35</code> (invalidKey). Des échecs répétés déclenchent un verrouillage - NRC <code>0x36</code> (exceedNumberOfAttempts) - et l'ECU cesse d'accepter les tentatives de clé jusqu'à réinitialisation.</span>
             </p>
+
             <p>
-              <span class="en">Solve challenge 04 first. The key derivation algorithm uses the last two characters of the VIN you retrieved. Once you have the key, the positive response <code>0x67 0x02</code> confirms that Security Access is unlocked.</span>
-              <span class="fr">Résolvez d'abord le défi 04. L'algorithme de dérivation de clé utilise les deux derniers caractères du VIN que vous avez récupéré. Une fois la clé trouvée, la réponse positive <code>0x67 0x02</code> confirme que le Security Access est déverrouillé.</span>
+              <span class="en"><strong>Session prerequisite.</strong> The firmware only processes Security Access in the <strong>Secret/Programming session (<code>0x03</code>)</strong>. Attempting from any other session returns NRC <code>0x7F</code> (serviceNotSupportedInSession). Open session <code>0x03</code> before requesting the seed, and keep it alive with TesterPresent - the session times out after 3.5 seconds of silence.</span>
+              <span class="fr"><strong>Prérequis de session.</strong> Le firmware ne traite les requêtes Security Access qu'en <strong>session Secret/Programming (<code>0x03</code>)</strong>. Toute tentative depuis une autre session renvoie NRC <code>0x7F</code> (serviceNotSupportedInSession). Ouvrez la session <code>0x03</code> avant de demander la graine, et maintenez-la avec TesterPresent - la session expire après 3,5 secondes de silence.</span>
             </p>
+
+            <p>
+              <span class="en"><strong>The key derivation algorithm - <em>barbhack_vin50</em>.</strong> The firmware XOR-s each seed byte with one of the last two ASCII characters of the VIN (the same VIN you found in challenge 04). The two characters alternate: byte 0 uses the first, byte 1 uses the second, and so on for longer seeds. Because XOR is its own inverse, the same formula also recovers the seed from a known key.</span>
+              <span class="fr"><strong>L'algorithme de dérivation de clé - <em>barbhack_vin50</em>.</strong> Le firmware XOR chaque octet de la graine avec l'un des deux derniers caractères ASCII du VIN (le même VIN trouvé au défi 04). Les deux caractères alternent : l'octet 0 utilise le premier, l'octet 1 le second, et ainsi de suite pour les graines plus longues. Comme le XOR est sa propre inverse, la même formule permet aussi de retrouver la graine depuis une clé connue.</span>
+            </p>
+
+            <!-- Algorithm formula -->
+            <div class="frame-anatomy" style="padding:1rem 1.5rem;margin:1rem 0">
+              <div class="frame-anatomy-label">Algorithm - barbhack_vin50</div>
+              <p style="font-family:var(--mono);font-size:0.85rem;margin:0.6rem 0 0.2rem;color:var(--text)">
+                key[0] = seed[0] <span style="color:var(--amber)">XOR</span> <span style="color:var(--cyan)">0x35</span>&nbsp;&nbsp;<span style="color:var(--text-dim)">← ASCII '5', the second-to-last VIN character</span>
+              </p>
+              <p style="font-family:var(--mono);font-size:0.85rem;margin:0.2rem 0 0.6rem;color:var(--text)">
+                key[1] = seed[1] <span style="color:var(--amber)">XOR</span> <span style="color:var(--cyan)">0x30</span>&nbsp;&nbsp;<span style="color:var(--text-dim)">← ASCII '0', the last VIN character</span>
+              </p>
+            </div>
+
+            <!-- Frame anatomy -->
+            <div class="frame-anatomy">
+              <div class="frame-anatomy-label"><span class="en">Step 1 - Request seed (sub-fn 0x01)</span><span class="fr">Étape 1 - Demander la graine (sous-fn 0x01)</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E0 →</div>
+                <div class="istp-cell istp-len">02<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid">27<br><span style="font-size:0.6rem;opacity:0.7">SID</span></div>
+                <div class="istp-cell istp-act">01<br><span style="font-size:0.6rem;opacity:0.7">RequestSeed</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:0.75rem"><span class="en">ECU response - fresh random seed (changes every session)</span><span class="fr">Réponse ECU - graine aléatoire fraîche (change à chaque session)</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E8 →</div>
+                <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">67<br><span style="font-size:0.6rem;opacity:0.7">+RSP</span></div>
+                <div class="istp-cell istp-act">01<br><span style="font-size:0.6rem;opacity:0.7">Echo</span></div>
+                <div class="istp-cell istp-unknown">S0<br><span style="font-size:0.6rem;opacity:0.7">seed[0]</span></div>
+                <div class="istp-cell istp-unknown">S1<br><span style="font-size:0.6rem;opacity:0.7">seed[1]</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:0.75rem"><span class="en">Step 2 - Send derived key (sub-fn 0x02)</span><span class="fr">Étape 2 - Envoyer la clé dérivée (sous-fn 0x02)</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E0 →</div>
+                <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid">27<br><span style="font-size:0.6rem;opacity:0.7">SID</span></div>
+                <div class="istp-cell istp-act">02<br><span style="font-size:0.6rem;opacity:0.7">SendKey</span></div>
+                <div class="istp-cell istp-unknown">K0<br><span style="font-size:0.6rem;opacity:0.7">S0 ⊕ 0x35</span></div>
+                <div class="istp-cell istp-unknown">K1<br><span style="font-size:0.6rem;opacity:0.7">S1 ⊕ 0x30</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:0.75rem"><span class="en">ECU positive response - Security Access unlocked</span><span class="fr">Réponse positive ECU - Security Access déverrouillé</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E8 →</div>
+                <div class="istp-cell istp-len">02<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">67<br><span style="font-size:0.6rem;opacity:0.7">+RSP</span></div>
+                <div class="istp-cell istp-act" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">02<br><span style="font-size:0.6rem;opacity:0.7">UNLOCKED</span></div>
+              </div>
+              <div class="istp-legend">
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--cyan)"></div><span class="en">SID fixed - 0x27 request / 0x67 positive response</span><span class="fr">SID fixe - 0x27 requête / 0x67 réponse positive</span></div>
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--red)"></div><span class="en">S0 S1 - random bytes generated by the ECU each session; read them from the response</span><span class="fr">S0 S1 - octets aléatoires générés par l'ECU à chaque session ; à lire dans la réponse</span></div>
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--green)"></div><span class="en">K0 K1 - derived: K0 = S0 XOR 0x35 · K1 = S1 XOR 0x30</span><span class="fr">K0 K1 - dérivés : K0 = S0 XOR 0x35 · K1 = S1 XOR 0x30</span></div>
+              </div>
+            </div>
+
             <div class="challenge-hint">
               <strong>Hint</strong>
-              <span class="en">Request seed: <code>02 27 01</code>. Key = ASCII byte values of the last 2 VIN characters <code>"50"</code> → <code>0x35 0x30</code>. Send: <code>04 27 02 35 30</code>.</span>
-              <span class="fr">Demandez le seed : <code>02 27 01</code>. Clé = valeurs ASCII des 2 derniers caractères VIN <code>"50"</code> → <code>0x35 0x30</code>. Envoyez : <code>04 27 02 35 30</code>.</span>
+              <span class="en">The seed is random - you cannot pre-compute the key. Your workflow: open session <code>0x03</code>, send <code>02 27 01</code>, extract bytes <code>S0 S1</code> from the response, compute <code>K0 = S0 XOR 0x35</code> and <code>K1 = S1 XOR 0x30</code> (use Python, a calculator, or mental XOR for small values), then send <code>04 27 02 K0 K1</code>. Consider writing a script that does all five steps in one shot - you will need to reuse it if the ECU resets.</span>
+              <span class="fr">La graine est aléatoire - vous ne pouvez pas pré-calculer la clé. Votre procédure : ouvrez la session <code>0x03</code>, envoyez <code>02 27 01</code>, extrayez les octets <code>S0 S1</code> de la réponse, calculez <code>K0 = S0 XOR 0x35</code> et <code>K1 = S1 XOR 0x30</code> (avec Python, une calculatrice, ou XOR mental pour de petites valeurs), puis envoyez <code>04 27 02 K0 K1</code>. Pensez à écrire un script qui enchaîne les cinq étapes d'un coup - vous en aurez besoin si l'ECU se réinitialise.</span>
             </div>
+
           </div>
           <div class="challenge-footer">
             <button class="sol-btn" onclick="showSolution('6')">Solution →</button>
@@ -2435,30 +2496,144 @@ cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><
           <div class="sol-diff hard">Hard</div>
         </div>
         <div class="sol-body">
-          <p><span class="en">Security Access (SID 0x27) uses a two-step seed-key handshake. In this lab, the key
-              algorithm is: take the last two ASCII characters of the VIN (which you found in challenge 04), and send
-              their byte values directly as the key. VIN ends in "50" → ASCII 0x35, 0x30.</span>
-            <span class="fr">Security Access (SID 0x27) utilise une poignée de main graine-clé en deux étapes. Dans ce
-              lab, l'algorithme de clé est : prendre les deux derniers caractères ASCII du VIN (trouvé au défi 04), et
-              envoyer leurs valeurs d'octets directement comme clé. Le VIN se termine par "50" → ASCII 0x35,
-              0x30.</span>
+
+          <p><span class="en"><strong>Why the seed matters.</strong> The ECU calls <code>rand()</code> to generate both seed bytes - a new pair every time you request one. You cannot pre-compute the key offline. The algorithm is fixed, but the input changes: you must read the seed from the bus, compute the XOR, and reply - all within the same session window.</span>
+          <span class="fr"><strong>Pourquoi la graine est importante.</strong> L'ECU appelle <code>rand()</code> pour générer les deux octets de graine - une nouvelle paire à chaque demande. Vous ne pouvez pas pré-calculer la clé hors ligne. L'algorithme est fixe, mais l'entrée change : vous devez lire la graine sur le bus, calculer le XOR, et répondre - le tout dans la même fenêtre de session.</span>
           </p>
-          <pre><code><span class="hl-dim"># 1. Open extended diagnostic session</span>
-cansend vcan0 7E0#021002
-<span class="hl-dim"># Response: 7E8#03 50 02 ...</span>
 
-<span class="hl-dim"># 2. Request a seed (step 1 of Security Access)</span>
-cansend vcan0 7E0#022701
-<span class="hl-dim"># Response: 7E8#04 67 01 SS SS  (SS = seed, ignored in this lab)</span>
+          <p><span class="en"><strong>Step 1 - Open the Secret/Programming session (<code>0x03</code>).</strong> The firmware explicitly checks <code>diagSession == 0x03</code> before processing any Security Access request. Default (<code>0x01</code>) and Extended (<code>0x02</code>) sessions return NRC <code>0x7F</code> (serviceNotSupportedInSession). Send <code>02 10 03</code> and confirm the <code>50 03</code> positive response.</span>
+          <span class="fr"><strong>Étape 1 - Ouvrir la session Secret/Programming (<code>0x03</code>).</strong> Le firmware vérifie explicitement <code>diagSession == 0x03</code> avant de traiter toute requête Security Access. Les sessions Default (<code>0x01</code>) et Extended (<code>0x02</code>) renvoient NRC <code>0x7F</code> (serviceNotSupportedInSession). Envoyez <code>02 10 03</code> et confirmez la réponse positive <code>50 03</code>.</span>
+          </p>
 
-<span class="hl-dim"># 3. Send the key (step 2 of Security Access)</span>
-<span class="hl-dim"># Key = ASCII of VIN last 2 chars: '5' = 0x35, '0' = 0x30</span>
-cansend vcan0 7E0#0427023530
-<span class="hl-dim"># Positive response: 7E8#02 67 02  → Security Access UNLOCKED!</span>
-<span class="hl-dim"># Negative response: 7E8#03 7F 27 35 → invalidKey (wrong key)</span>
+          <p><span class="en"><strong>Step 2 - Request the seed (<code>02 27 01</code>).</strong> The ECU responds with <code>04 67 01 S0 S1</code> where <code>S0</code> and <code>S1</code> are freshly randomised. Read these two bytes from the response - they are your input to the key derivation function.</span>
+          <span class="fr"><strong>Étape 2 - Demander la graine (<code>02 27 01</code>).</strong> L'ECU répond avec <code>04 67 01 S0 S1</code> où <code>S0</code> et <code>S1</code> sont fraîchement aléatoirisés. Lisez ces deux octets dans la réponse - ils sont votre entrée dans la fonction de dérivation de clé.</span>
+          </p>
 
-<span class="hl-dim"># 4. You now have access to programming session services</span>
-cansend vcan0 7E0#021003   <span class="hl-dim"># open programming session</span></code></pre>
+          <p><span class="en"><strong>Step 3 - Derive the key.</strong> Apply XOR with the ASCII values of the last two VIN characters (<code>'5'</code> = <code>0x35</code>, <code>'0'</code> = <code>0x30</code>) in alternation. This is the <em>barbhack_vin50</em> algorithm:</span>
+          <span class="fr"><strong>Étape 3 - Dériver la clé.</strong> Appliquez XOR avec les valeurs ASCII des deux derniers caractères du VIN (<code>'5'</code> = <code>0x35</code>, <code>'0'</code> = <code>0x30</code>) en alternance. C'est l'algorithme <em>barbhack_vin50</em> :</span>
+          </p>
+
+          <!-- Worked example -->
+          <div style="margin:1.25rem 0">
+            <div class="frame-anatomy-label"><span class="en">Worked example - seed 0xA7 0x1C</span><span class="fr">Exemple concret - graine 0xA7 0x1C</span></div>
+            <div class="istp-row">
+              <div class="istp-label" style="min-width:80px">seed</div>
+              <div class="istp-cell istp-unknown">A7<br><span style="font-size:0.6rem;opacity:0.7">S0</span></div>
+              <div class="istp-cell istp-unknown">1C<br><span style="font-size:0.6rem;opacity:0.7">S1</span></div>
+            </div>
+            <div class="istp-row">
+              <div class="istp-label" style="min-width:80px">XOR</div>
+              <div class="istp-cell istp-act">35<br><span style="font-size:0.6rem;opacity:0.7">'5'</span></div>
+              <div class="istp-cell istp-act">30<br><span style="font-size:0.6rem;opacity:0.7">'0'</span></div>
+            </div>
+            <div class="istp-row">
+              <div class="istp-label" style="min-width:80px">key</div>
+              <div class="istp-cell" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">92<br><span style="font-size:0.6rem;opacity:0.7">K0</span></div>
+              <div class="istp-cell" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">2C<br><span style="font-size:0.6rem;opacity:0.7">K1</span></div>
+            </div>
+            <p style="font-family:var(--mono);font-size:0.75rem;color:var(--text-dim);margin:0.4rem 0 0">
+              0xA7 XOR 0x35 = 0x92 &nbsp;·&nbsp; 0x1C XOR 0x30 = 0x2C &nbsp;→&nbsp; send <span style="color:var(--green)">04 27 02 92 2C</span>
+            </p>
+          </div>
+
+          <p><span class="en"><strong>Step 4 - Send the key (<code>04 27 02 K0 K1</code>).</strong> The ECU validates both bytes. On success it responds with <code>02 67 02</code> and the session becomes unlocked. On failure (wrong key) it responds with NRC <code>0x35</code> (invalidKey). After too many wrong attempts it locks with NRC <code>0x36</code> (exceedNumberOfAttempts) - restart the ECU or wait.</span>
+          <span class="fr"><strong>Étape 4 - Envoyer la clé (<code>04 27 02 K0 K1</code>).</strong> L'ECU valide les deux octets. En cas de succès, il répond avec <code>02 67 02</code> et la session est déverrouillée. En cas d'échec (mauvaise clé) il répond avec NRC <code>0x35</code> (invalidKey). Après trop de mauvaises tentatives, il se verrouille avec NRC <code>0x36</code> (exceedNumberOfAttempts) - redémarrez l'ECU ou attendez.</span>
+          </p>
+
+          <p><span class="en"><strong>Option A - Manual approach (requires you to calculate XOR by hand or with a calculator).</strong> Read the seed from <code>candump</code>, compute the XOR, assemble the <code>cansend</code> command:</span>
+          <span class="fr"><strong>Option A - Approche manuelle (nécessite de calculer le XOR à la main ou avec une calculatrice).</strong> Lisez la graine dans <code>candump</code>, calculez le XOR, assemblez la commande <code>cansend</code> :</span>
+          </p>
+
+          <pre><code><span class="hl-dim"># 1. Open Secret/Programming session (0x03)</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">02</span><span class="hl-amber">10</span>03
+<span class="hl-dim"># Positive response: 7E8#02 50 03</span>
+
+<span class="hl-dim"># 2. Keep the session alive while you work</span>
+<span class="hl-dim"># (send TesterPresent every ~900 ms, or use the inject tool's keepalive)</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#023E80       <span class="hl-dim"># 0x80 = suppress response</span>
+
+<span class="hl-dim"># 3. Request the seed</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#022701
+<span class="hl-dim"># Response: 7E8#04 67 01 S0 S1  ← read S0 and S1</span>
+
+<span class="hl-dim"># 4. Compute the key manually</span>
+<span class="hl-dim">#    K0 = S0 XOR 0x35    K1 = S1 XOR 0x30</span>
+<span class="hl-dim"># Example: seed = A7 1C → key = 92 2C</span>
+
+<span class="hl-dim"># 5. Send the computed key</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">27</span>02<span class="hl-red">922C</span>   <span class="hl-dim"># replace 92 2C with YOUR computed key</span>
+<span class="hl-dim"># Positive response: 7E8#02 67 02  → UNLOCKED</span>
+<span class="hl-dim"># Negative response: 7E8#03 7F 27 35  → invalidKey (wrong computation)</span></code></pre>
+
+          <p><span class="en"><strong>Option B - Python script (handles the full exchange automatically).</strong> This is the recommended approach: the script opens the session, requests the seed, derives the key, and sends it in one pass - no manual XOR required:</span>
+          <span class="fr"><strong>Option B - Script Python (gère l'échange complet automatiquement).</strong> C'est l'approche recommandée : le script ouvre la session, demande la graine, dérive la clé et l'envoie en une seule passe - sans XOR manuel :</span>
+          </p>
+
+          <pre><code><span class="hl-dim">#!/usr/bin/env python3</span>
+<span class="hl-dim"># security_unlock.py - barbhack_vin50 Security Access solver</span>
+import socket, struct, time
+
+IFACE    = <span class="hl-green">"vcan0"</span>
+TX_ID    = <span class="hl-cyan">0x7E0</span>
+RX_ID    = <span class="hl-cyan">0x7E8</span>
+CAN_FMT  = <span class="hl-green">"=IB3x8s"</span>
+
+<span class="hl-dim"># VIN last 2 chars: 'W B A R B H A C K F A 1 4 9 8 5 0'</span>
+SESSION_KEY = [<span class="hl-cyan">0x35</span>, <span class="hl-cyan">0x30</span>]   <span class="hl-dim"># ASCII '5', '0'</span>
+
+def send(sock, can_id, data):
+    padded = data.ljust(8, b<span class="hl-green">'\x00'</span>)[:8]
+    sock.send(struct.pack(CAN_FMT, can_id, len(data), padded))
+
+def recv(sock, timeout=<span class="hl-cyan">1.0</span>):
+    sock.settimeout(timeout)
+    try:
+        raw = sock.recv(16)
+    except socket.timeout:
+        return None
+    can_id, dlc, data = struct.unpack(CAN_FMT, raw)
+    return can_id & <span class="hl-cyan">0x1FFFFFFF</span>, bytes(data[:dlc])
+
+sock = socket.socket(socket.PF_CAN, socket.SOCK_RAW, socket.CAN_RAW)
+sock.bind((IFACE,))
+
+<span class="hl-dim"># Step 1 - open Secret/Programming session</span>
+send(sock, TX_ID, bytes([<span class="hl-cyan">0x02</span>, <span class="hl-cyan">0x10</span>, <span class="hl-cyan">0x03</span>]))
+r = recv(sock)
+assert r and r[1][<span class="hl-cyan">1</span>] == <span class="hl-cyan">0x50</span>, <span class="hl-green">"Session open failed"</span>
+print(<span class="hl-green">f"Session 0x03 opened: {r[1].hex()}"</span>)
+
+<span class="hl-dim"># Step 2 - request seed</span>
+send(sock, TX_ID, bytes([<span class="hl-cyan">0x02</span>, <span class="hl-cyan">0x27</span>, <span class="hl-cyan">0x01</span>]))
+r = recv(sock)
+assert r and r[1][<span class="hl-cyan">1</span>] == <span class="hl-cyan">0x67</span>, <span class="hl-green">"Seed request failed"</span>
+seed = r[1][<span class="hl-cyan">2</span>:<span class="hl-cyan">4</span>]
+print(<span class="hl-green">f"Seed: {seed.hex().upper()}"</span>)
+
+<span class="hl-dim"># Step 3 - derive key: key[i] = seed[i] XOR SESSION_KEY[i % 2]</span>
+key = bytes(b ^ SESSION_KEY[i % <span class="hl-cyan">2</span>] for i, b in enumerate(seed))
+print(<span class="hl-green">f"Key:  {key.hex().upper()}"</span>)
+
+<span class="hl-dim"># Step 4 - send key</span>
+send(sock, TX_ID, bytes([<span class="hl-cyan">0x04</span>, <span class="hl-cyan">0x27</span>, <span class="hl-cyan">0x02</span>]) + key)
+r = recv(sock)
+if r and r[1][<span class="hl-cyan">1</span>] == <span class="hl-cyan">0x67</span> and r[1][<span class="hl-cyan">2</span>] == <span class="hl-cyan">0x02</span>:
+    print(<span class="hl-green">"✔ Security Access UNLOCKED"</span>)
+else:
+    nrc = r[1][<span class="hl-cyan">2</span>] if r else <span class="hl-green">"timeout"</span>
+    print(<span class="hl-green">f"✘ Failed - NRC {nrc:#04x}"</span>)
+
+sock.close()</code></pre>
+
+          <pre><code><span class="hl-dim"># Run it</span>
+python3 security_unlock.py
+
+<span class="hl-dim"># Expected output:</span>
+<span class="hl-dim"># Session 0x03 opened: 0250 03</span>
+<span class="hl-dim"># Seed:  A71C</span>
+<span class="hl-dim"># Key:   922C</span>
+<span class="hl-dim"># ✔ Security Access UNLOCKED</span></code></pre>
+
         </div>
       </div>
 
