@@ -537,41 +537,8 @@
               <td class="dim"><span class="en">Read-only display - visual spoofing only</span><span class="fr">Affichage
                   lecture seule - usurpation visuelle uniquement</span></td>
             </tr>
-            <tr>
-              <td><code>0x244</code> speed frame</td>
-              <td><span class="en">Wheel speed sensor broadcast</span><span class="fr">Diffusion capteur vitesse
-                  roue</span></td>
-              <td class="dim"><span class="en">Speedometer spoof (display only)</span><span class="fr">Usurpation
-                  compteur (affichage uniquement)</span></td>
-            </tr>
-            <tr>
-              <td><code>0x19B</code> door frame</td>
-              <td><span class="en">Body Control Module (BCM) door state</span><span class="fr">Module carrosserie (BCM)
-                  état portes</span></td>
-              <td class="dim"><span class="en">Remote door unlock (actuator)</span><span class="fr">Déverrouillage porte
-                  à distance (actionneur)</span></td>
-            </tr>
-            <tr>
-              <td>UDS on <code>0x7E0</code></td>
-              <td><span class="en">OBD-II diagnostic interface</span><span class="fr">Interface diagnostic OBD-II</span>
-              </td>
-              <td class="dim"><span class="en">ECU reprogramming, fault clearing</span><span class="fr">Reprogrammation
-                  ECU, effacement défauts</span></td>
-            </tr>
           </tbody>
         </table>
-      </div>
-      <div class="info-block amber">
-        <div class="info-block-label"><span class="en">Key distinction</span><span class="fr">Distinction clé</span>
-        </div>
-        <p><span class="en">The speedometer is a <strong>read-only display</strong> - injecting a fake speed frame only
-            fools the gauge. Door locks are <strong>actuators</strong> - injecting the correct frame causes the physical
-            lock to move on a real vehicle. The distinction between sensor signals and command signals is fundamental to
-            understanding attack severity.</span>
-          <span class="fr">Le compteur de vitesse est un <strong>affichage lecture seule</strong> - injecter une fausse
-            trame de vitesse ne trompe que le compteur. Les verrous de portes sont des <strong>actionneurs</strong> -
-            injecter la bonne trame actionne le verrou physique sur un vrai véhicule.</span>
-        </p>
       </div>
     </div>
     <footer>
@@ -1848,7 +1815,7 @@ cansend vcan0 7E0#<span class="hl-green">02</span><span class="hl-amber">10</spa
         </table>
       </div>
       <p><span class="en">If you want more details: <a
-            href="https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html#knowledge-base-service-ecu-reset"
+            href="https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html"
             target="_blank"
             rel="noopener">https://uds.readthedocs.io/en/stable/pages/knowledge_base/service.html#knowledge-base-service-ecu-reset</a></span>
         <span class="fr">Si vous voulez plus de détails : <a
