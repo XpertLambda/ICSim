@@ -1,2 +1,2 @@
 t_*/
-src/firmware_src/
+*.bin
