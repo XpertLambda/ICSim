@@ -1,12 +1,11 @@
 #!/bin/bash
 # =============================================================================
-# CH-Workshop (Barbhack ICSim Fork) Setup Script — Part 1: CAN Bus Security Lab
-# Source    : https://github.com/phil-eqtech/CH-Workshop
+# ICSim Setup Script — CAN Bus Security Lab
+# Source    : https://github.com/XpertLambda/ICSim/tree/master/src/sim_src/CAN
 # Target OS : Kali Linux (tested on 2024.x)
 # Author    : IoV Security Lab — IMT Atlantique
 # =============================================================================
-# This script installs the CH-Workshop fork of ICSim, which extends the base
-# simulator with:
+# This script installs the ICSim CAN bus simulator, which includes:
 #   - Luminosity sensor & automatic headlights (new CAN signals)
 #   - UDS diagnostic protocol (sessions, Security Access, VIN via OBD-II)
 #   - 6 scored challenges (100 pts total)
@@ -14,7 +13,7 @@
 # Steps:
 #   1. Installs all required dependencies
 #   2. Loads the vcan kernel modules and creates a persistent vcan0 interface
-#   3. Clones and compiles CH-Workshop from source
+#   3. Clones and compiles ICSim from source
 #   4. Installs helper launch scripts in /usr/local/bin
 #   5. Creates a systemd service so vcan0 survives reboots
 #
@@ -30,8 +29,8 @@ error() { echo -e "${RED}[ERROR]${NC} $*"; exit 1; }
 
 [[ $EUID -ne 0 ]] && error "Please run this script as root: sudo bash $0"
 
-INSTALL_DIR="/opt/CH-Workshop"      # repository root
-BIN_DIR="/opt/CH-Workshop/CAN"     # binaries live in the CAN/ subdirectory
+INSTALL_DIR="/opt/ICSim"                    # repository root
+BIN_DIR="/opt/ICSim/src/sim_src/CAN"       # binaries live in the CAN/ subdirectory
 PID_FILE="/tmp/icsim.pids"         # stores PIDs of every process we launch
 
 # =============================================================================
@@ -110,17 +109,17 @@ info "vcan0.service enabled — auto-starts on every boot."
 # =============================================================================
 # STEP 4 — Clone & build CH-Workshop
 # =============================================================================
-info "Step 4/5 — Cloning CH-Workshop repository..."
+info "Step 4/5 — Cloning ICSim repository..."
 
 if [[ -d "$INSTALL_DIR" ]]; then
     warn "$INSTALL_DIR already exists — pulling latest changes."
     git -C "$INSTALL_DIR" pull
 else
-    git clone https://github.com/phil-eqtech/CH-Workshop.git "$INSTALL_DIR"
+    git clone https://github.com/XpertLambda/ICSim.git "$INSTALL_DIR"
 fi
 
-# The actual source and binaries live in the CAN/ subdirectory
-info "Building CH-Workshop (CAN module)..."
+# The actual source and binaries live in the src/sim_src/CAN/ subdirectory
+info "Building ICSim (CAN module)..."
 cd "$BIN_DIR"
 
 # Note: make clean does NOT remove lib.o — this is intentional.
@@ -131,7 +130,7 @@ make
 
 [[ -f "$BIN_DIR/icsim" ]]    || error "Build failed: icsim binary not found."
 [[ -f "$BIN_DIR/controls" ]] || error "Build failed: controls binary not found."
-info "CH-Workshop built successfully."
+info "ICSim built successfully."
 
 # =============================================================================
 # STEP 5 — Install helper launcher scripts
@@ -280,7 +279,7 @@ chmod +x /usr/local/bin/icsim-replay
 # =============================================================================
 echo ""
 echo -e "${GREEN}======================================================${NC}"
-echo -e "${GREEN}  CH-Workshop (Barbhack ICSim fork) installed!${NC}"
+echo -e "${GREEN}  ICSim installed!${NC}"
 echo -e "${GREEN}======================================================${NC}"
 echo ""
 echo "  Install directory : $INSTALL_DIR"
