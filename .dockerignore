@@ -1,0 +1,18 @@
+# Build context = repo root (so the Dockerfile can COPY src/secured_sim_src).
+# Keep the context lean: exclude everything the image build does not need.
+.git
+**/__pycache__
+**/*.pyc
+# Large distributable image tarballs (setup/_Docker, setup/_backup).
+**/*.tar
+**/*.tar.gz
+# GIMP/Inkscape art sources - not used at runtime.
+**/art
+# Host-built object files / binaries must never be shipped into the image
+# (it may be cross-built for another arch). They are recompiled inside.
+**/*.o
+src/secured_sim_src/CAN/icsim
+src/secured_sim_src/CAN/controls
+src/sim_src/CAN/icsim
+src/sim_src/CAN/controls
+setup/_backup

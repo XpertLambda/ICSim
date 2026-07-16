@@ -1,0 +1,53 @@
+{
+  "interface": "vcan0",
+  "light_threshold": "0x60",
+  "can_ids": {
+    "speed":      "0x244",
+    "signal":     "0x188",
+    "door":       "0x19B",
+    "luminosity": "0x39C",
+    "headlight":  "0x340",
+    "warning":    "0x42A",
+    "control":    "0x007"
+  },
+  "can_positions": {
+    "speed":      3,
+    "signal":     0,
+    "door":       2,
+    "luminosity": 3,
+    "headlight":  5,
+    "warning":    2
+  },
+  "uds": {
+    "tx_id":     "0x7E0",
+    "rx_id":     "0x7E8",
+    "tp_period": 0.9
+  },
+  "injection": {
+    "speed_hz": 100,
+    "lum_hz":   4,
+    "hl_hz":    4,
+    "turn_hz":  2
+  },
+  "routine_scan": {
+    "timeout_ms": 20,
+    "presets": {
+      "quick":    { "xx": ["0x40", "0x4F"], "yy": ["0x00", "0xFF"], "zz": ["0x01", "0x01"] },
+      "standard": { "xx": ["0x00", "0x7F"], "yy": ["0x00", "0xFF"], "zz": ["0x01", "0x01"] },
+      "full":     { "xx": ["0x00", "0xFF"], "yy": ["0x00", "0xFF"], "zz": ["0x01", "0x01"] }
+    }
+  },
+  "security": {
+    "plugins": [],
+    "algorithms": {
+      "enabled":  ["all"],
+      "disabled": [],
+      "custom": {
+        "xor_keys":   [],
+        "add_keys":   [],
+        "rol_bits":   [],
+        "xor2_pairs": []
+      }
+    }
+  }
+}

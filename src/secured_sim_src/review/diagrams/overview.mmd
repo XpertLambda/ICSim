@@ -1,0 +1,29 @@
+%% High-level view: where the two security layers sit on the CAN bus.
+flowchart LR
+    ATK[Attacker<br/>on the bus]:::bad
+    SND[Control panel<br/>legit sender]:::good
+    BUS((CAN bus))
+
+    SND -- signed frames --> BUS
+    ATK -- fake / replayed frames --> BUS
+    ATK -- diagnostic abuse --> BUS
+
+    BUS --> RCV[Instrument cluster<br/>receiver]
+
+    subgraph L1[LAYER 1 - SecOC]
+        V{Signature valid<br/>and fresh?}
+    end
+    subgraph L2[LAYER 2 - UDS hardening]
+        G{Crypto unlock +<br/>lockout + rate limit}
+    end
+
+    RCV -- driving messages --> V
+    RCV -- diagnostics --> G
+
+    V -- yes --> OK[Update dashboard]:::good
+    V -- no --> DROP[Drop frame]:::bad
+    G -- pass --> SVC[Allow service]:::good
+    G -- fail --> NRC[Reject]:::bad
+
+    classDef bad  fill:#7b1a1a,stroke:#e74c3c,color:#ffffff;
+    classDef good fill:#1a4a2a,stroke:#2ecc71,color:#ffffff;

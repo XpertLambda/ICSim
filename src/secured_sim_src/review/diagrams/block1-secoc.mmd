@@ -1,0 +1,21 @@
+%% Layer 1 (SecOC): sign on the way out, verify-or-drop on the way in.
+sequenceDiagram
+    participant S as Sender
+    participant B as CAN bus
+    participant R as Receiver
+    participant A as Attacker
+
+    S->>S: counter = counter + 1
+    S->>S: mac = CMAC(key, id + payload + counter)
+    S->>B: payload + counter + mac
+    B->>R: payload + counter + mac
+    R->>R: recompute mac, check counter is newer
+    R-->>R: valid & fresh -> update dashboard
+
+    A->>B: forged frame (no real key)
+    B->>R: forged frame
+    R-->>R: mac mismatch -> DROP
+
+    A->>B: replay of an old frame
+    B->>R: replay
+    R-->>R: stale counter -> DROP

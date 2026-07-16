@@ -1,0 +1,16 @@
+%% Layer 2 (Blocks 2A + 2B): the diagnostic "unlock" challenge.
+sequenceDiagram
+    participant T as Tester / Attacker
+    participant E as ECU (cluster)
+
+    T->>E: request seed (0x27 01)
+    E->>T: random 4-byte seed
+    Note over E: correct key = CMAC(secret_key, seed)<br/>cannot be guessed without the key
+
+    T->>E: send key (0x27 02)
+    alt key correct
+        E->>T: unlocked
+    else wrong key
+        E->>T: invalidKey 0x35 + forced wait
+        Note over E: 3 wrong in a row -> long lockout 0x36<br/>not cleared by reset / session change
+    end

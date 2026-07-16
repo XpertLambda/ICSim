@@ -1,0 +1,23 @@
+t_*/
+*.bin
+**/Docker/*
+_*
+# …but keep Python's double-underscore files (package markers, entry points).
+# __pycache__ is re-ignored below.
+!__*
+
+# Compiled simulator artifacts (rebuilt from source via Makefile)
+*.o
+**/CAN/icsim
+**/CAN/controls
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Local editor / tooling settings
+settings.local.json
+
+# OS / editor cruft
+.DS_Store
+*.swp

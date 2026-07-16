@@ -1,0 +1,21 @@
+%% Layer 2: the gates every diagnostic request must pass.
+flowchart TD
+    REQ[Diagnostic request]:::n --> SVC{Which service?}
+
+    SVC -- Routine --> RL{Arrived < 250 ms<br/>after last one?}
+    RL -- yes --> R21[Reject 0x21<br/>busy / slow down]:::bad
+    RL -- no --> SECRET{Secret routine?}
+    SECRET -- yes --> UNL{SecurityAccess<br/>passed?}
+    UNL -- no --> R33[Reject 0x33<br/>access denied]:::bad
+    UNL -- yes --> RUN[Run routine]:::good
+    SECRET -- no --> RUN
+
+    SVC -- SecurityAccess --> LCK{Locked out?}
+    LCK -- yes --> R37[Reject 0x37<br/>wait]:::bad
+    LCK -- no --> KEY{Crypto key<br/>correct?}
+    KEY -- yes --> OPEN[Unlock]:::good
+    KEY -- no --> R35[Reject 0x35/0x36<br/>+ start lockout]:::bad
+
+    classDef bad  fill:#7b1a1a,stroke:#e74c3c,color:#ffffff;
+    classDef good fill:#1a4a2a,stroke:#2ecc71,color:#ffffff;
+    classDef n    fill:#1e2a3a,stroke:#5b8dd9,color:#ffffff;
