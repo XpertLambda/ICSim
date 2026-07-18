@@ -21,3 +21,32 @@ settings.local.json
 # OS / editor cruft
 .DS_Store
 *.swp
+
+# Added by repo-doctor
+.claude/
+.command/
+.commandcode/
+.cursor/
+.aider*
+.continue/
+.windsurf/
+.env
+.env.*
+*.pem
+*.key
+Thumbs.db
+.idea/
+.vscode/
+*.log
+# …but keep the checked-in CAN sample traffic used as DEFAULT_CAN_TRAFFIC by the simulator.
+!**/data/sample-can.log
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+*.onnx
+*.h5
+
+# repo-doctor review artifact (local only, never commit)
+REPO_DOCTOR_REPORT.md

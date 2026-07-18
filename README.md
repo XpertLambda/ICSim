@@ -13,7 +13,7 @@ The project bundles:
 | Secured simulator | `src/secured_sim_src/` | Same simulator hardened with **SecOC** message authentication (AES-128-CMAC) and **UDS** hardening. See `src/secured_sim_src/SECURITY.md`. |
 | CAN injection tool | `scripts/automation-scripts/` | Interactive attacker tooling: frame injection, UDS client, SecurityAccess / RoutineControl scanners. |
 | Web lab | `web/` | Static guided lab (no backend). |
-| Setup / packaging | `setup/` | Host setup script and Docker workshop image build. |
+| Setup / packaging | `_set/` | Host setup script and Docker workshop image build. **Note:** kept local-only (git-ignored via `_*`), so it is not present in a fresh clone. |
 
 ## Quick start
 
@@ -34,6 +34,8 @@ The vulnerable build (`src/sim_src/CAN`) builds and runs the same way, without
 the `-lcrypto` dependency.
 
 ## License
+
+This project is licensed under the GNU GPL v3.0. See [LICENSE](LICENSE).
 
 This repository is distributed under the **GNU General Public License v3.0 or
 later** (`LICENSE`), consistent with its GPL-licensed upstream components.
