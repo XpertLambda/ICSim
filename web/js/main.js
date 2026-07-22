@@ -73,11 +73,11 @@ let setupMethod = 'docker';
 
 const VM_LEAD = {
   windows:
-    '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. No Docker, no WSL, fully offline.</span>' +
-    '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. Sans Docker, sans WSL, hors ligne.</span>',
+    '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. No WSL needed, fully offline.</span>' +
+    '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. Sans WSL, hors ligne.</span>',
   linux:
-    '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. (Native Docker also runs well on Linux.)</span>' +
-    '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. (Docker natif marche aussi bien sous Linux.)</span>',
+    '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. Fully offline.</span>' +
+    '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. Hors ligne.</span>',
   mac:
     '<span class="en">macOS splits by chip - <strong>Apple Silicon</strong> gets an arm64 image in UTM, <strong>Intel</strong> gets the x86 OVA. Pick yours below.</span>' +
     '<span class="fr">macOS se divise par puce - <strong>Apple Silicon</strong> reçoit une image arm64 dans UTM, <strong>Intel</strong> reçoit l\'OVA x86. Choisissez la vôtre ci-dessous.</span>'
@@ -88,13 +88,18 @@ function selectOS(os) {
   document.querySelectorAll('#os-cards .method-card').forEach(c => c.classList.remove('active'));
   const card = document.getElementById('os-' + os);
   if (card) card.classList.add('active');
-  // macOS: the VM path is recommended - flag it and default to it.
+  // macOS: Docker isn't offered - hide that card and force the VM path.
+  const isMac = (os === 'mac');
   const badge = document.getElementById('vm-rec-badge');
-  if (badge) badge.style.display = (os === 'mac') ? '' : 'none';
-  selectMethod(os === 'mac' ? 'vm' : setupMethod);
+  if (badge) badge.style.display = isMac ? '' : 'none';
+  const dcard = document.getElementById('method-docker');
+  if (dcard) dcard.style.display = isMac ? 'none' : '';
+  selectMethod(isMac ? 'vm' : setupMethod);
 }
 
 function selectMethod(method) {
+  // macOS ships as a VM only - never fall through to a Docker panel.
+  if (setupOS === 'mac') method = 'vm';
   setupMethod = method;
   document.querySelectorAll('#method-cards .method-card').forEach(c => c.classList.remove('active'));
   const mcard = document.getElementById('method-' + method);

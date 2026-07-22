@@ -463,7 +463,7 @@
           </div>
           <div class="hero-meta-item">
             <strong><span class="en">Environment</span><span class="fr">Environnement</span></strong>
-            <span>Kali Linux / ICSim / CH-Workshop</span>
+            <span>ICSim</span>
           </div>
           <div class="hero-meta-item">
             <strong><span class="en">Protocol</span><span class="fr">Protocole</span></strong>
@@ -1135,13 +1135,13 @@
               class="accent">LAB</span></span></h1>
         <p class="hero-sub">
           <span class="en">The lab ships two ways: a ready-made <strong>Docker</strong> image with a browser desktop, or a
-            ready-to-run <strong>virtual machine (OVA)</strong> you import into VirtualBox or VMware - no Docker, no
-            terminal, works offline. Pick the path that matches you below. Once the lab is up, head to
+            ready-to-run <strong>virtual machine</strong> you import into VirtualBox, VMware or UTM - works offline, on
+            macOS the virtual machine is the only path. Pick the one that matches you below. Once the lab is up, head to
             <a href="#" onclick="showPage('usage');return false;" style="color:inherit;text-decoration:underline;">Usage</a>.</span>
           <span class="fr">Le lab est proposé de deux façons : une image <strong>Docker</strong> prête à l'emploi avec un
-            bureau dans le navigateur, ou une <strong>machine virtuelle (OVA)</strong> prête à l'emploi à importer dans
-            VirtualBox ou VMware - sans Docker, sans terminal, hors ligne. Choisissez le chemin qui vous convient
-            ci-dessous. Une fois le lab lancé, rendez-vous dans
+            bureau dans le navigateur, ou une <strong>machine virtuelle</strong> prête à l'emploi à importer dans
+            VirtualBox, VMware ou UTM - hors ligne, et sur macOS la machine virtuelle est la seule voie. Choisissez celle
+            qui vous convient ci-dessous. Une fois le lab lancé, rendez-vous dans
             <a href="#" onclick="showPage('usage');return false;" style="color:inherit;text-decoration:underline;">Utilisation</a>.</span>
         </p>
       </div>
@@ -1410,8 +1410,8 @@
             </svg>
             <span class="en">macOS</span><span class="fr">macOS</span>
           </div>
-          <div class="method-card-desc"><span class="en">Intel or Apple Silicon.</span><span class="fr">Intel ou Apple
-              Silicon.</span></div>
+          <div class="method-card-desc"><span class="en">Intel or Apple Silicon - virtual machine only.</span><span
+              class="fr">Intel ou Apple Silicon - machine virtuelle uniquement.</span></div>
         </div>
       </div>
 
@@ -1446,8 +1446,8 @@
             </svg>
             <span class="en">Virtual Machine</span><span class="fr">Machine Virtuelle</span>
           </div>
-          <div class="method-card-desc"><span class="en">Ready-made VM. No Docker, works offline.</span><span
-              class="fr">VM prête à l'emploi. Sans Docker, hors ligne.</span></div>
+          <div class="method-card-desc"><span class="en">Ready-made VM. Import and run, works offline.</span><span
+              class="fr">VM prête à l'emploi. Importez et lancez, hors ligne.</span></div>
         </div>
       </div>
 
@@ -1473,12 +1473,12 @@
           <li><span class="n">2</span><span class="en">Install <strong>Docker Desktop</strong> and confirm it runs:
               <code>docker info</code>.</span><span class="fr">Installez <strong>Docker Desktop</strong> et vérifiez :
               <code>docker info</code>.</span></li>
-          <li><span class="n">3</span><span class="en">Download the files, put them in one folder, and
+          <li><span class="n">3</span><span class="en">Download <code>docker_windows.zip</code> below, extract it, and
               <strong>double-click <code>load-and-run.bat</code></strong>. It prints a browser URL when ready.</span><span
-              class="fr">Téléchargez les fichiers dans un dossier et <strong>double-cliquez
+              class="fr">Téléchargez <code>docker_windows.zip</code> ci-dessous, extrayez-le et <strong>double-cliquez
                 <code>load-and-run.bat</code></strong>. Il affiche une URL quand c'est prêt.</span></li>
         </ol>
-        <a class="dlbtn cyan" href="https://drive.google.com/drive/folders/1bUaB23h9sraSNCZUKcashAV63gLrzozk"
+        <a class="dlbtn cyan" href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Docker/docker_windows.zip"
           target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
@@ -1486,7 +1486,7 @@
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-          <span class="en">Download Windows files</span><span class="fr">Fichiers Windows</span>
+          <span class="en">Download docker_windows.zip</span><span class="fr">Télécharger docker_windows.zip</span>
         </a>
         <details class="fold">
           <summary><span class="en">Troubleshooting</span><span class="fr">Dépannage</span></summary>
@@ -1534,12 +1534,10 @@
 <span class="hl-amber">sudo</span> usermod -aG docker $USER   <span class="hl-comment"># then log out / in</span>
 <span class="hl-amber">sudo</span> modprobe vcan</code></pre>
         <ol class="steps" start="2">
-          <li><span class="n">2</span><span class="en">Download the files, then run the launcher:</span><span
-              class="fr">Téléchargez les fichiers, puis lancez le script :</span></li>
+          <li><span class="n">2</span><span class="en">Download <code>docker_linux.zip</code> and extract it:</span><span
+              class="fr">Téléchargez <code>docker_linux.zip</code> et extrayez-le :</span></li>
         </ol>
-        <pre><code><span class="hl-amber">chmod</span> +x load-and-run.sh
-./load-and-run.sh</code></pre>
-        <a class="dlbtn cyan" href="https://drive.google.com/drive/folders/1S4AwkgACcdeQCvjvI0wfKUS94LSlVcGt"
+        <a class="dlbtn cyan" href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Docker/docker_linux.zip"
           target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
@@ -1547,8 +1545,14 @@
             <polyline points="7 10 12 15 17 10" />
             <line x1="12" y1="15" x2="12" y2="3" />
           </svg>
-          <span class="en">Download Linux files</span><span class="fr">Fichiers Linux</span>
+          <span class="en">Download docker_linux.zip</span><span class="fr">Télécharger docker_linux.zip</span>
         </a>
+        <ol class="steps" start="3">
+          <li><span class="n">3</span><span class="en">From the extracted folder, run the launcher:</span><span
+              class="fr">Depuis le dossier extrait, lancez le script :</span></li>
+        </ol>
+        <pre><code><span class="hl-amber">chmod</span> +x load-and-run.sh
+./load-and-run.sh</code></pre>
         <details class="fold">
           <summary><span class="en">Troubleshooting</span><span class="fr">Dépannage</span></summary>
           <div class="fold-body">
@@ -1573,53 +1577,6 @@
         </details>
       </div>
 
-      <!-- ══════════════════ Docker · macOS ══════════════════ -->
-      <div class="option-panel" id="panel-docker-mac">
-        <h3><span class="en">macOS · Docker Desktop</span><span class="fr">macOS · Docker Desktop</span></h3>
-        <p class="panel-lead"><span class="en">Works on both <strong>Apple Silicon</strong> and <strong>Intel</strong> - the
-            launcher auto-detects your chip. If Docker gives trouble, the Virtual Machine path (Step 2) is smoother on
-            macOS.</span><span class="fr">Fonctionne sur <strong>Apple Silicon</strong> et <strong>Intel</strong> - le
-            lanceur détecte votre puce. Si Docker pose problème, la Machine Virtuelle (étape 2) est plus fluide sur
-            macOS.</span></p>
-        <ul class="req-chips">
-          <li><a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer"
-              style="color:var(--cyan)"><strong>Docker Desktop for Mac</strong></a></li>
-          <li>~10 GB <span class="en">disk</span><span class="fr">disque</span></li>
-          <li><span class="en">Web browser</span><span class="fr">Navigateur</span></li>
-        </ul>
-        <ol class="steps">
-          <li><span class="n">1</span><span class="en">Install <strong>Docker Desktop</strong> (pick the Apple-chip or
-              Intel-chip build) and confirm: <code>docker info</code>.</span><span class="fr">Installez <strong>Docker
-                Desktop</strong> (version puce Apple ou Intel) et vérifiez : <code>docker info</code>.</span></li>
-          <li><span class="n">2</span><span class="en">Download the files (same bundle as Linux), then in Terminal:</span><span
-              class="fr">Téléchargez les fichiers (même paquet que Linux), puis dans le Terminal :</span></li>
-        </ol>
-        <pre><code><span class="hl-amber">chmod</span> +x load-and-run.sh
-./load-and-run.sh</code></pre>
-        <a class="dlbtn cyan" href="https://drive.google.com/drive/folders/1S4AwkgACcdeQCvjvI0wfKUS94LSlVcGt"
-          target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          <span class="en">Download lab files</span><span class="fr">Fichiers du lab</span>
-        </a>
-        <details class="fold">
-          <summary><span class="en">Troubleshooting</span><span class="fr">Dépannage</span></summary>
-          <div class="fold-body">
-            <div class="info-block amber">
-              <div class="info-block-label"><code>could not create vcan0 interface</code></div>
-              <p><span class="en">Fully quit and relaunch Docker Desktop to restart its Linux VM, then re-run. Still stuck?
-                  Use the Virtual Machine path instead.</span><span class="fr">Quittez complètement puis relancez Docker
-                  Desktop pour redémarrer sa VM Linux, et relancez. Toujours bloqué ? Utilisez la Machine
-                  Virtuelle.</span></p>
-            </div>
-          </div>
-        </details>
-      </div>
-
       <!-- ══════════════════ Virtual Machine (shared, OS-aware) ══════════════════ -->
       <div class="option-panel" id="panel-vm">
         <h3><span class="en">Virtual Machine</span><span class="fr">Machine Virtuelle</span></h3>
@@ -1636,7 +1593,8 @@
               <p><span class="en">Native-speed <code>arm64</code> image, runs in <strong>UTM</strong>. The x86 OVA will
                   <em>not</em> boot here.</span><span class="fr">Image <code>arm64</code> à vitesse native, dans
                   <strong>UTM</strong>. L'OVA x86 ne démarre <em>pas</em> ici.</span></p>
-              <a class="dlbtn" href="https://drive.google.com/drive/folders/1aGDcj3OAUPzsjiTW-TCWbz7Ibw1zbCUp?usp=sharing"
+              <a class="dlbtn"
+                href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Virtual%20Machines/ARM/ICSim-Lab-arm64.qcow2"
                 target="_blank" rel="noopener noreferrer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1675,7 +1633,7 @@
                   standard, dans <strong>VirtualBox</strong> ou <strong>VMware</strong> Fusion - comme Windows /
                   Linux.</span></p>
               <a class="dlbtn"
-                href="https://drive.google.com/drive/folders/1DuZFNIRKSJJ6-UKBJpoDg6RLVs67ZoYE?usp=drive_link"
+                href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Virtual%20Machines/AMD/ICSim-Lab.ova"
                 target="_blank" rel="noopener noreferrer">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1715,7 +1673,7 @@
             <li><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener noreferrer"
                 style="color:var(--cyan)"><strong>VirtualBox</strong></a> <span class="en">or VMware</span><span
                 class="fr">ou VMware</span></li>
-            <li>~8 GB <span class="en">disk</span><span class="fr">disque</span></li>
+            <li>~2 GB <span class="en">disk</span><span class="fr">disque</span></li>
             <li>2 GB RAM · 2 <span class="en">cores</span><span class="fr">cœurs</span></li>
           </ul>
           <ol class="steps">
@@ -1734,7 +1692,8 @@
                 class="fr"><strong>Importez &amp; lancez</strong> - VirtualBox <em>Fichier → Importer…</em>, valeurs par
                 défaut, <strong>Terminer</strong>, puis <strong>Démarrer</strong>.</span></li>
           </ol>
-          <a class="dlbtn" href="https://drive.google.com/drive/folders/1DuZFNIRKSJJ6-UKBJpoDg6RLVs67ZoYE?usp=drive_link"
+          <a class="dlbtn"
+            href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Virtual%20Machines/AMD/ICSim-Lab.ova"
             target="_blank" rel="noopener noreferrer">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
               stroke-linecap="round" stroke-linejoin="round">
@@ -1755,19 +1714,7 @@
           </details>
         </div>
 
-        <!-- Shared: after boot -->
-        <div class="setup-step-label" style="margin-top:2rem;"><span class="en">Once it boots</span><span class="fr">Une
-            fois démarrée</span></div>
-        <p class="panel-lead"><span class="en">The VM auto-logs into a desktop. Double-click <strong>Start Lab
-              (vulnerable)</strong> to attack, or <strong>Start Lab (secured)</strong> to watch the same attacks fail -
-            plus <strong>CAN Injector</strong> and <strong>Terminal</strong>. Login <code>workshop</code> /
-            <code>workshop</code>. Then head to <a href="#" onclick="showPage('usage');return false;"
-              style="color:var(--cyan)">Usage</a>.</span><span class="fr">La VM se connecte automatiquement à un bureau.
-            Double-cliquez <strong>Start Lab (vulnerable)</strong> pour attaquer, ou <strong>Start Lab (secured)</strong>
-            pour voir les attaques échouer - plus <strong>CAN Injector</strong> et <strong>Terminal</strong>. Identifiant
-            <code>workshop</code> / <code>workshop</code>. Puis allez à <a href="#"
-              onclick="showPage('usage');return false;" style="color:var(--cyan)">Utilisation</a>.</span></p>
-        <details class="fold">
+        <details class="fold" style="margin-top:2rem;">
           <summary><span class="en">Troubleshooting</span><span class="fr">Dépannage</span></summary>
           <div class="fold-body">
             <div class="info-block red">
@@ -1903,10 +1850,10 @@
       <!-- ══════════════════ Usage · Virtual Machine ══════════════════ -->
       <div class="option-panel" id="panel-env-vm">
         <h3><span class="en">Use the VM desktop</span><span class="fr">Utiliser le bureau de la VM</span></h3>
-        <p class="panel-lead"><span class="en">No URL and no browser here - the VM window <em>is</em> the desktop, and it
-            logs in automatically as <code>workshop</code>. Launch everything from the desktop shortcuts:</span><span
-            class="fr">Pas d'URL ni de navigateur ici - la fenêtre de la VM <em>est</em> le bureau, et elle se connecte
-            automatiquement en <code>workshop</code>. Lancez tout depuis les raccourcis du bureau :</span></p>
+        <p class="panel-lead"><span class="en">The VM window <em>is</em> the desktop, and it logs in automatically as
+            <code>workshop</code>. Launch everything from the desktop shortcuts:</span><span class="fr">La fenêtre de la
+            VM <em>est</em> le bureau, et elle se connecte automatiquement en <code>workshop</code>. Lancez tout depuis
+            les raccourcis du bureau :</span></p>
         <ul class="steps">
           <li><span class="n">▸</span><span class="en"><strong style="color:var(--text)">Start Lab (vulnerable)</strong> -
               dashboard + controls. This is the target you attack.</span><span class="fr"><strong
@@ -1932,13 +1879,12 @@
 
         <h3 style="margin-top:1.75rem;"><span class="en">SSH into the VM (optional)</span><span class="fr">SSH vers la VM
             (optionnel)</span></h3>
-        <p class="panel-lead"><span class="en">Unlike the Docker lab, the VM listens on the normal port <code>22</code> at
-            its <strong>own IP</strong> - not <code>localhost:2222</code>. Find the IP with <code>ip a</code> in the VM's
-            Terminal, then from your machine:</span><span class="fr">Contrairement au lab Docker, la VM écoute sur le port
-            normal <code>22</code> à <strong>sa propre IP</strong> - pas <code>localhost:2222</code>. Trouvez l'IP avec
-            <code>ip a</code> dans le Terminal de la VM, puis depuis votre machine :</span></p>
-        <pre><code><span class="hl-amber">ssh</span> workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>       <span class="hl-comment"># password: workshop</span>
-<span class="hl-amber">ssh</span> -Y workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>    <span class="hl-comment"># run icsim on your own display (X11)</span></code></pre>
+        <p class="panel-lead"><span class="en">The VM listens on the standard port <code>22</code> at its
+            <strong>own IP</strong>. Find the IP with <code>ip a</code> in the VM's Terminal, then from your
+            machine:</span><span class="fr">La VM écoute sur le port standard <code>22</code> à <strong>sa propre
+              IP</strong>. Trouvez l'IP avec <code>ip a</code> dans le Terminal de la VM, puis depuis votre machine
+            :</span></p>
+        <pre><code><span class="hl-amber">ssh</span> workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>       <span class="hl-comment"># password: workshop</span></code></pre>
         <details class="fold">
           <summary><span class="en">Copy files in and out (scp)</span><span class="fr">Copier des fichiers (scp)</span>
           </summary>
@@ -1957,11 +1903,11 @@
 
         <h3 style="margin-top:1.75rem;"><span class="en">Stop &amp; restart</span><span class="fr">Arrêter &amp;
             redémarrer</span></h3>
-        <p class="panel-lead"><span class="en">There's no Docker here - just shut the VM down from its own menu
-            (<strong>Power off</strong> / <code>sudo poweroff</code>) and start it again from VirtualBox / VMware / UTM
-            whenever you like. Your work is saved inside the VM's disk.</span><span class="fr">Pas de Docker ici - éteignez
-            simplement la VM depuis son menu (<strong>Éteindre</strong> / <code>sudo poweroff</code>) et redémarrez-la
-            depuis VirtualBox / VMware / UTM quand vous voulez. Votre travail est conservé dans le disque de la VM.</span>
+        <p class="panel-lead"><span class="en">Shut the VM down from its own menu (<strong>Power off</strong> /
+            <code>sudo poweroff</code>) and start it again from VirtualBox / VMware / UTM whenever you like. Your work is
+            saved inside the VM's disk.</span><span class="fr">Éteignez la VM depuis son menu
+            (<strong>Éteindre</strong> / <code>sudo poweroff</code>) et redémarrez-la depuis VirtualBox / VMware / UTM
+            quand vous voulez. Votre travail est conservé dans le disque de la VM.</span>
         </p>
         <details class="fold">
           <summary><span class="en">Tip · snapshot before you break things</span><span class="fr">Astuce · snapshot avant de
@@ -2157,8 +2103,8 @@
       <hr class="divider">
       <div class="section-label"><span class="en">Frame Format</span><span class="fr">Format de Trame</span></div>
       <h2><span class="en">Anatomy of a CAN Frame</span><span class="fr">Anatomie d'une Trame CAN</span></h2>
-      <p><span class="en">In SocketCAN (Linux), candump displays frames as:</span><span class="fr">Dans SocketCAN
-          (Linux), candump affiche les trames comme suit :</span></p>
+      <p><span class="en">candump displays frames as:</span><span class="fr">candump affiche les trames comme suit
+          :</span></p>
       <div class="candump-anatomy"
         style="display:flex; flex-wrap:wrap; gap:1rem; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; margin:1.5rem 0; font-family:var(--mono);">
         <div class="cd-part"
@@ -4711,15 +4657,6 @@
         <span class="en">Rather than retyping every command, run the <strong>1.0 automation suite</strong>. It drives all of them dynamically against the weak sim - signal injection and replay, the VIN read, the RoutineControl scan and the full SecurityAccess seed-key handshake - so you can confirm they work before switching.</span>
         <span class="fr">Plutôt que de retaper chaque commande, lancez la <strong>suite d'automatisation 1.0</strong>. Elle les pilote toutes dynamiquement contre le sim faible - injection et rejeu de signaux, lecture du VIN, scan RoutineControl et tout le handshake graine-clé SecurityAccess - pour confirmer qu'elles marchent avant de basculer.</span>
       </p>
-      <div class="code-bg" style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0.75rem 0;">
-        <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-          <span><span class="en">Run the dynamic automation suite</span><span class="fr">Lancez la suite d'automatisation dynamique</span></span>
-          <span style="color:var(--green);">Bash</span>
-        </div>
-<pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># clone the lab, then:</span>
-cd scripts/automation-scripts/1.0
-<span class="hl-cyan">python3</span> inject.py</code></pre>
-      </div>
       <div class="info-block" style="margin:0.75rem 0 0.5rem">
         <div class="info-block-label">GitHub</div>
         <p style="margin:0;font-family:var(--mono);font-size:0.85rem">
@@ -4728,6 +4665,15 @@ cd scripts/automation-scripts/1.0
             <span class="fr">→ Suite d'automatisation ICSim 1.0 (Code Source Complet)</span>
           </a>
         </p>
+      </div>
+      <div class="code-bg" style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0.75rem 0;">
+        <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+          <span><span class="en">Run the dynamic automation suite</span><span class="fr">Lancez la suite d'automatisation dynamique</span></span>
+          <span style="color:var(--green);">Bash</span>
+        </div>
+<pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># clone the repo above, then:</span>
+cd scripts/automation-scripts/1.0
+<span class="hl-cyan">python3</span> inject.py</code></pre>
       </div>
 
       <!-- STEP 3 - open the secured sim -->
@@ -5892,7 +5838,7 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
             </div>
             <pre
               style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># 1. Run the scanner (raw CAN — works on Windows & Linux, no kernel module needed)</span>
-python3 scripts/brute_uds.py</code></pre>
+python3 routine_scanner_brute.py</code></pre>
             <pre style="margin:0; padding:1.25rem; background:transparent;" data-raw="1"><code><span class="hl-dim"># Expected output:</span>
 <span class="hl-dim"># ┌-------------------------------------┐</span>
 <span class="hl-dim"># │  Pass 1: 32768/32768 in ~8s         │</span>
@@ -6129,11 +6075,7 @@ cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><
       <div class="info-block" style="border-left-color:var(--cyan); margin:0 0 2.5rem;">
         <div class="info-block-label"><span class="en">A dynamic automated script exists for these attacks</span><span class="fr">Un script automatisé dynamique existe pour ces attaques</span></div>
         <div>
-          <p style="margin:0; font-size:0.9rem; line-height:1.5;">
-            <span class="en">Rather than replaying every challenge by hand, the <strong>1.0 automation suite</strong> drives them dynamically: signal injection and replay, the VIN read, the RoutineControl scan and the full SecurityAccess seed-key handshake. Clone it and run <code>python3 inject.py</code>.</span>
-            <span class="fr">Plutôt que de rejouer chaque défi à la main, la <strong>suite d'automatisation 1.0</strong> les pilote dynamiquement : injection et rejeu de signaux, lecture du VIN, scan RoutineControl et tout le handshake graine-clé SecurityAccess. Clonez-la et lancez <code>python3 inject.py</code>.</span>
-          </p>
-          <div class="info-block" style="margin:1rem 0 0">
+          <div class="info-block" style="margin:0 0 1rem">
             <div class="info-block-label">GitHub</div>
             <p style="margin:0;font-family:var(--mono);font-size:0.85rem">
               <a href="https://github.com/XpertLambda/ICSim/tree/master/scripts/automation-scripts/1.0" target="_blank" rel="noopener" style="color:var(--cyan)">
@@ -6142,6 +6084,10 @@ cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><
               </a>
             </p>
           </div>
+          <p style="margin:0; font-size:0.9rem; line-height:1.5;">
+            <span class="en">Rather than replaying every challenge by hand, the <strong>1.0 automation suite</strong> drives them dynamically: signal injection and replay, the VIN read, the RoutineControl scan and the full SecurityAccess seed-key handshake. Clone the repo above and run <code>python3 inject.py</code>.</span>
+            <span class="fr">Plutôt que de rejouer chaque défi à la main, la <strong>suite d'automatisation 1.0</strong> les pilote dynamiquement : injection et rejeu de signaux, lecture du VIN, scan RoutineControl et tout le handshake graine-clé SecurityAccess. Clonez le dépôt ci-dessus et lancez <code>python3 inject.py</code>.</span>
+          </p>
         </div>
       </div>
 
@@ -6478,11 +6424,11 @@ canplayer -l i -t -I candump-2026.log</code></pre>
 
     const VM_LEAD = {
       windows:
-        '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. No Docker, no WSL, fully offline.</span>' +
-        '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. Sans Docker, sans WSL, hors ligne.</span>',
+        '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. No WSL needed, fully offline.</span>' +
+        '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. Sans WSL, hors ligne.</span>',
       linux:
-        '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. (Native Docker also runs well on Linux.)</span>' +
-        '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. (Docker natif marche aussi bien sous Linux.)</span>',
+        '<span class="en">Install VirtualBox (or VMware), download the <code>.ova</code>, import it. Fully offline.</span>' +
+        '<span class="fr">Installez VirtualBox (ou VMware), téléchargez le <code>.ova</code>, importez-le. Hors ligne.</span>',
       mac:
         '<span class="en">macOS splits by chip - <strong>Apple Silicon</strong> gets an arm64 image in UTM, <strong>Intel</strong> gets the x86 OVA. Pick yours below.</span>' +
         '<span class="fr">macOS se divise par puce - <strong>Apple Silicon</strong> reçoit une image arm64 dans UTM, <strong>Intel</strong> reçoit l\'OVA x86. Choisissez la vôtre ci-dessous.</span>'
@@ -6493,13 +6439,18 @@ canplayer -l i -t -I candump-2026.log</code></pre>
       document.querySelectorAll('#os-cards .method-card').forEach(c => c.classList.remove('active'));
       const card = document.getElementById('os-' + os);
       if (card) card.classList.add('active');
-      // macOS: the VM path is recommended - flag it and default to it.
+      // macOS: Docker isn't offered - hide that card and force the VM path.
+      const isMac = (os === 'mac');
       const badge = document.getElementById('vm-rec-badge');
-      if (badge) badge.style.display = (os === 'mac') ? '' : 'none';
-      selectMethod(os === 'mac' ? 'vm' : setupMethod);
+      if (badge) badge.style.display = isMac ? '' : 'none';
+      const dcard = document.getElementById('method-docker');
+      if (dcard) dcard.style.display = isMac ? 'none' : '';
+      selectMethod(isMac ? 'vm' : setupMethod);
     }
 
     function selectMethod(method) {
+      // macOS ships as a VM only - never fall through to a Docker panel.
+      if (setupOS === 'mac') method = 'vm';
       setupMethod = method;
       document.querySelectorAll('#method-cards .method-card').forEach(c => c.classList.remove('active'));
       const mcard = document.getElementById('method-' + method);
