@@ -2186,12 +2186,20 @@
 
       <style>
         .terminal-window {
+          position: relative;
           background: var(--code-bg);
           border: 1px solid var(--border);
           border-radius: var(--radius);
           overflow: hidden;
           margin: 1.5rem 0 2rem;
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Reveal the copy button (shared .copy-btn styles live in styles.css)
+           on hover, mirroring the .code-wrap behaviour used elsewhere. */
+        .terminal-window:hover .copy-btn,
+        .terminal-window .copy-btn:focus-visible {
+          opacity: 1;
         }
 
         .terminal-header {
@@ -6674,10 +6682,30 @@ canplayer -l i -t -I candump-2026.log</code></pre>
         });
       }
 
+      // Terminal cards (.terminal-window) are styled containers rather than
+      // <pre> blocks, so give each one its own copy button. Full-line `#`
+      // comments are captions and are stripped from the copied text, matching
+      // the per-command boxes above.
+      function addTerminalButtons() {
+        document.querySelectorAll('.terminal-window').forEach(win => {
+          const body = win.querySelector('.terminal-body');
+          if (!body || win.querySelector('.copy-btn')) return;
+          win.appendChild(makeCopyBtn(() =>
+            body.innerText
+              .split('\n')
+              .filter(line => !line.trim().startsWith('#'))
+              .join('\n')
+              .trim()
+          ));
+        });
+      }
+
+      function init() { addButtons(); addTerminalButtons(); }
+
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', addButtons);
+        document.addEventListener('DOMContentLoaded', init);
       } else {
-        addButtons();
+        init();
       }
     })();
   </script>
