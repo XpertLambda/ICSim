@@ -418,14 +418,14 @@
         <div class="sidebar-group-label"><span class="en">Foundations</span><span class="fr">Fondations</span></div>
         <a href="#" onclick="return showPage('intro')" class="active" id="nav-intro"><span class="en">Introduction</span><span class="fr">Introduction</span></a>
         <a href="#" onclick="return showPage('setup')" id="nav-setup"><span class="en">Installation</span><span class="fr">Installation</span></a>
-        <a href="#" onclick="return showPage('usage')" id="nav-usage"><span class="en">Usage</span><span class="fr">Utilisation</span></a>
+        <a href="#" onclick="return showPage('usage')" id="nav-usage"><span class="en">Getting Started</span><span class="fr">Prise en main</span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label"><span class="en">The Protocol</span><span class="fr">Le Protocole</span></div>
         <a href="#" onclick="return showPage('can')" id="nav-can"><span class="en">CAN Bus</span><span class="fr">Bus CAN</span></a>
-        <a href="#" onclick="return showPage('cancmds')" id="nav-cancmds"><span class="en">CAN Commands</span><span class="fr">Commandes CAN</span></a>
         <a href="#" onclick="return showPage('encoding')" id="nav-encoding"><span class="en">Signal Encoding</span><span class="fr">Encodage</span></a>
         <a href="#" onclick="return showPage('uds')" id="nav-uds"><span class="en">UDS Diagnostics</span><span class="fr">Diagnostic UDS</span></a>
+        <a href="#" onclick="return showPage('cancmds')" id="nav-cancmds"><span class="en">CAN Commands</span><span class="fr">Commandes CAN</span></a>
         <a href="#" onclick="return showPage('reference')" id="nav-reference"><span class="en">Reference</span><span class="fr">Référence</span></a>
       </div>
       <div class="sidebar-group">
@@ -1135,19 +1135,19 @@
   <div class="page" id="page-setup">
     <div class="hero">
       <div class="hero-inner">
-        <div class="hero-tag"><span class="en">Getting Started</span><span class="fr">Démarrage</span></div>
+        <div class="hero-tag"><span class="en">Download &amp; Install</span><span class="fr">Téléchargement &amp; Installation</span></div>
         <h1><span class="en">LAB <span class="accent">SETUP</span></span><span class="fr">INSTALLATION <span
               class="accent">LAB</span></span></h1>
         <p class="hero-sub">
           <span class="en">The lab ships two ways: a ready-made <strong>Docker</strong> image with a browser desktop, or a
             ready-to-run <strong>virtual machine</strong> you import into VirtualBox, VMware or UTM - works offline, on
-            macOS the virtual machine is the only path. Pick the one that matches you below. Once the lab is up, head to
-            <a href="#" onclick="showPage('usage');return false;" style="color:inherit;text-decoration:underline;">Usage</a>.</span>
+            macOS the virtual machine is the only path. Pick the one that matches you below. Once it is installed, head to
+            <a href="#" onclick="showPage('usage');return false;" style="color:inherit;text-decoration:underline;">Getting Started</a>.</span>
           <span class="fr">Le lab est proposé de deux façons : une image <strong>Docker</strong> prête à l'emploi avec un
             bureau dans le navigateur, ou une <strong>machine virtuelle</strong> prête à l'emploi à importer dans
             VirtualBox, VMware ou UTM - hors ligne, et sur macOS la machine virtuelle est la seule voie. Choisissez celle
-            qui vous convient ci-dessous. Une fois le lab lancé, rendez-vous dans
-            <a href="#" onclick="showPage('usage');return false;" style="color:inherit;text-decoration:underline;">Utilisation</a>.</span>
+            qui vous convient ci-dessous. Une fois installé, rendez-vous dans
+            <a href="#" onclick="showPage('usage');return false;" style="color:inherit;text-decoration:underline;">Prise en main</a>.</span>
         </p>
       </div>
     </div>
@@ -1750,16 +1750,19 @@
   <div class="page" id="page-usage">
     <div class="hero">
       <div class="hero-inner">
-        <div class="hero-tag"><span class="en">Running the Lab</span><span class="fr">Utiliser le Lab</span></div>
-        <h1><span class="en">USING THE <span class="accent">LAB</span></span><span class="fr">UTILISER LE <span
-              class="accent">LAB</span></span></h1>
+        <div class="hero-tag"><span class="en">Getting Started</span><span class="fr">Prise en main</span></div>
+        <h1><span class="en">GETTING <span class="accent">STARTED</span></span><span class="fr">PRISE EN <span
+              class="accent">MAIN</span></span></h1>
         <p class="hero-sub">
-          <span class="en">Once the lab is running - Docker or virtual machine, on any OS - everything below gets you
-            working. Reach the desktop, connect over SSH, move files in and out, and confirm the simulator works. The
-            in-lab commands are identical either way.</span>
-          <span class="fr">Une fois le lab démarré - Docker ou machine virtuelle, sur n'importe quel OS - tout ce qui suit
-            vous met au travail. Accédez au bureau, connectez-vous en SSH, transférez des fichiers, et vérifiez que le
-            simulateur fonctionne. Les commandes dans le lab sont identiques dans les deux cas.</span>
+          <span class="en">You have installed the lab - now let's run it. Two quick steps get you going for your setup:
+            <strong>start the lab</strong>, then <strong>connect over SSH</strong> from your own machine. After that, a short
+            reference covers moving files (scp) and managing the lab for when you need it. Pick Docker or Virtual Machine
+            below and follow only the steps for your choice.</span>
+          <span class="fr">Vous avez installé le lab - maintenant, lançons-le. Deux étapes rapides vous lancent selon votre
+            installation : <strong>démarrer le lab</strong>, puis <strong>vous connecter en SSH</strong> depuis votre propre
+            machine. Ensuite, une courte référence couvre le transfert de fichiers (scp) et la gestion du lab pour quand vous
+            en aurez besoin. Choisissez Docker ou Machine Virtuelle ci-dessous et suivez uniquement les étapes de votre
+            choix.</span>
         </p>
       </div>
     </div>
@@ -1767,12 +1770,13 @@
       <div class="section-label"><span class="en">Your setup</span><span class="fr">Votre installation</span></div>
       <h2><span class="en">Which Setup Are You Running?</span><span class="fr">Quelle Installation Utilisez-Vous ?</span>
       </h2>
-      <p class="panel-lead"><span class="en">Only how you reach the desktop and connect differs. Everything further down -
-          the in-lab commands and the check that it works - is identical for both. This follows the choice you made on the
-          <a href="#" onclick="return showPage('setup')" style="color:var(--cyan)">Installation</a> page.</span><span
-          class="fr">Seuls l'accès au bureau et la connexion diffèrent. Tout le reste ci-dessous - les commandes du lab et
-          la vérification - est identique. Ceci suit le choix fait sur la page <a href="#"
-            onclick="return showPage('setup')" style="color:var(--cyan)">Installation</a>.</span></p>
+      <p class="panel-lead"><span class="en">How you start the lab and connect differs a little between the two; once you
+          are in, the commands you run are identical. Pick the one you installed - it follows the choice you made on the
+          <a href="#" onclick="return showPage('setup')" style="color:var(--cyan)">Installation</a> page - and the steps below
+          update to match.</span><span
+          class="fr">La façon de démarrer le lab et de s'y connecter diffère un peu entre les deux ; une fois à l'intérieur,
+          les commandes sont identiques. Choisissez celle que vous avez installée - cela suit le choix fait sur la page <a href="#"
+            onclick="return showPage('setup')" style="color:var(--cyan)">Installation</a> - et les étapes ci-dessous s'adaptent.</span></p>
 
       <div class="method-cards" id="env-cards">
         <div class="method-card active option-env" id="env-docker" onclick="selectEnv('docker')">
@@ -1807,73 +1811,115 @@
 
       <!-- ══════════════════ Usage · Docker ══════════════════ -->
       <div class="option-panel active" id="panel-env-docker">
-        <h3><span class="en">Open the browser desktop</span><span class="fr">Ouvrir le bureau navigateur</span></h3>
-        <p class="panel-lead"><span class="en">The launcher prints this URL when it finishes. You should see a car
-            dashboard, a controls panel, and a terminal. Black screen? Wait 10 seconds and refresh.</span><span
-            class="fr">Le lanceur affiche cette URL à la fin. Vous devriez voir un tableau de bord, un panneau de contrôle
-            et un terminal. Écran noir ? Attendez 10 secondes et rechargez.</span></p>
+
+        <!-- Step 1 · start the lab -->
+        <div class="setup-step-label"><span class="en">Step 1 · Start the lab</span><span class="fr">Étape 1 · Démarrer le lab</span></div>
+        <h3><span class="en">Open the browser desktop - the lab is already running</span><span class="fr">Ouvrir le bureau navigateur - le lab tourne déjà</span></h3>
+        <p class="panel-lead"><span class="en">On Docker you do <strong>not</strong> start anything by hand. The launcher
+            (<code>load-and-run</code>, from the Installation page) prints a URL when it finishes; open it in any browser and
+            you land on the lab desktop. The simulator <strong>auto-starts</strong>: the instrument cluster and the controls
+            window are already open, next to a terminal. Black screen? Wait ~10 seconds and refresh.</span><span
+            class="fr">Sur Docker, vous ne démarrez <strong>rien</strong> à la main. Le lanceur (<code>load-and-run</code>,
+            page Installation) affiche une URL à la fin ; ouvrez-la dans un navigateur et vous arrivez sur le bureau du lab.
+            Le simulateur <strong>démarre tout seul</strong> : le tableau de bord et la fenêtre de contrôle sont déjà
+            ouverts, à côté d'un terminal. Écran noir ? Attendez ~10 secondes et rechargez.</span></p>
         <div class="info-block">
           <div class="info-block-label"><span class="en">Browser URL</span><span class="fr">URL du navigateur</span></div>
           <p><code>http://localhost:6080/vnc.html?autoconnect=true&amp;resize=remote</code></p>
         </div>
+        <div class="info-block">
+          <div class="info-block-label"><span class="en">Need to restart the simulator?</span><span class="fr">Besoin de redémarrer le simulateur ?</span></div>
+          <p style="margin-bottom:0;"><span class="en">If a window closes or misbehaves, <strong>right-click the desktop
+              background → Restart Simulator</strong>, or run <code>icsim-stop</code> then <code>icsim-start</code> in a
+              terminal. To run the hardened build instead, use <code>icsim-start --secure</code> (see
+              <a href="#" onclick="return showPage('ids')" style="color:var(--cyan)">Detection &amp; Prevention</a>).</span>
+            <span class="fr">Si une fenêtre se ferme ou bug, <strong>clic droit sur le fond du bureau → Restart
+              Simulator</strong>, ou lancez <code>icsim-stop</code> puis <code>icsim-start</code> dans un terminal. Pour la
+              version durcie, utilisez <code>icsim-start --secure</code> (voir
+              <a href="#" onclick="return showPage('ids')" style="color:var(--cyan)">Détection &amp; Prévention</a>).</span></p>
+        </div>
 
-        <h3 style="margin-top:1.75rem;"><span class="en">SSH into the container</span><span class="fr">SSH vers le
-            conteneur</span></h3>
-        <p class="panel-lead"><span class="en">The SSH server is published on host port <code>2222</code>. Password
-            <code>workshop</code> - sudo needs no password.</span><span class="fr">Le serveur SSH est publié sur le port
-            hôte <code>2222</code>. Mot de passe <code>workshop</code> - sudo sans mot de passe.</span></p>
+        <!-- Step 2 · SSH -->
+        <div class="setup-step-label" style="margin-top:2rem;"><span class="en">Step 2 · Connect over SSH</span><span class="fr">Étape 2 · Se connecter en SSH</span></div>
+        <h3><span class="en">Open a real terminal from your own machine</span><span class="fr">Ouvrir un vrai terminal depuis votre machine</span></h3>
+        <p class="panel-lead"><span class="en">The browser terminal works, but an SSH session from your own computer is
+            faster, resizes properly, and copy-pastes cleanly - and you can open several at once, which many challenges need
+            (one window watching traffic, another injecting). An SSH client is <strong>already built in</strong>: use
+            <strong>PowerShell</strong> or <strong>Windows Terminal</strong> on Windows, <strong>Terminal</strong> on macOS,
+            or any shell on Linux.</span><span class="fr">Le terminal du navigateur fonctionne, mais une session SSH depuis
+            votre ordinateur est plus rapide, se redimensionne correctement et gère bien le copier-coller - et vous pouvez
+            en ouvrir plusieurs à la fois, ce dont beaucoup de défis ont besoin (une fenêtre qui écoute, une autre qui
+            injecte). Un client SSH est <strong>déjà intégré</strong> : <strong>PowerShell</strong> ou <strong>Windows
+            Terminal</strong> sur Windows, <strong>Terminal</strong> sur macOS, ou n'importe quel shell sur Linux.</span></p>
+        <div class="code-label"><span class="en">Run this on your host (not inside the browser desktop)</span><span class="fr">À lancer sur votre hôte (pas dans le bureau navigateur)</span></div>
         <pre><code><span class="hl-amber">ssh</span> -p <span class="hl-cyan">2222</span> workshop@localhost</code></pre>
-        <details class="fold">
-          <summary><span class="en">Copy files in and out (scp)</span><span class="fr">Copier des fichiers (scp)</span>
-          </summary>
-          <div class="fold-body">
-            <div class="code-label"><span class="en">Send a file / folder to the container</span><span class="fr">Envoyer un
-                fichier / dossier vers le conteneur</span></div>
-            <pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> ./myfile.txt workshop@localhost:~/myfile.txt
-<span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> <span class="hl-green">-r</span> ./my-folder/ workshop@localhost:~/my-folder/</code></pre>
-            <div class="code-label"><span class="en">Pull a file back to your host</span><span class="fr">Récupérer un
-                fichier vers l'hôte</span></div>
-            <pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> workshop@localhost:~/results.log ./results.log</code></pre>
-          </div>
-        </details>
+        <ul class="steps">
+          <li><span class="n">1</span><span class="en"><code>-p 2222</code> is the <strong>host port</strong> the container
+              publishes its SSH server on; <code>workshop</code> is the username; <code>localhost</code> is your own machine,
+              because that port is forwarded to it.</span><span class="fr"><code>-p 2222</code> est le <strong>port
+              hôte</strong> sur lequel le conteneur publie son serveur SSH ; <code>workshop</code> est l'utilisateur ;
+              <code>localhost</code> est votre propre machine, car ce port y est redirigé.</span></li>
+          <li><span class="n">2</span><span class="en">The <strong>first</strong> time it asks
+              <em>"The authenticity of host ... can't be established ... continue?"</em> - type <code>yes</code> and press
+              Enter.</span><span class="fr">La <strong>première</strong> fois, il demande <em>« The authenticity of host ...
+              can't be established ... continue? »</em> - tapez <code>yes</code> puis Entrée.</span></li>
+          <li><span class="n">3</span><span class="en">Password is <code>workshop</code>. Nothing shows as you type - that is
+              normal. <code>sudo</code> needs no password.</span><span class="fr">Le mot de passe est <code>workshop</code>.
+              Rien ne s'affiche pendant la saisie - c'est normal. <code>sudo</code> ne demande pas de mot de passe.</span></li>
+          <li><span class="n">4</span><span class="en">You land in <code>/home/workshop</code>. You are now in the lab: run
+              <code>candump vcan0</code>, <code>cansend</code>, <code>python3</code> scripts, and so on.</span><span
+              class="fr">Vous arrivez dans <code>/home/workshop</code>. Vous êtes dans le lab : lancez
+              <code>candump vcan0</code>, <code>cansend</code>, des scripts <code>python3</code>, etc.</span></li>
+        </ul>
 
-        <h3 style="margin-top:1.75rem;"><span class="en">Stop, restart, remove</span><span class="fr">Arrêter, redémarrer,
-            supprimer</span></h3>
-        <div class="code-label"><span class="en">Stop the container / start it again later</span><span class="fr">Arrêter le
-            conteneur / le redémarrer plus tard</span></div>
-        <pre><code><span class="hl-amber">docker</span> stop ch-workshop
-<span class="hl-amber">docker</span> start ch-workshop</code></pre>
-        <details class="fold">
-          <summary><span class="en">Remove it completely</span><span class="fr">Le supprimer complètement</span></summary>
-          <div class="fold-body">
-            <pre><code><span class="hl-amber">docker</span> rm -f ch-workshop
-<span class="hl-amber">docker</span> rmi ch-workshop:latest</code></pre>
-          </div>
-        </details>
+        <!-- Step 3 · confirm it works -->
+        <div class="setup-step-label" style="margin-top:2rem;"><span class="en">Step 3 · Confirm it works</span><span class="fr">Étape 3 · Vérifier que ça marche</span></div>
+        <h3><span class="en">See the bus come alive</span><span class="fr">Voir le bus s'animer</span></h3>
+        <p class="panel-lead"><span class="en">The instrument cluster and controls windows are already open (the lab
+            auto-started when the desktop loaded). To prove the bus is live, open an SSH terminal and watch the traffic while you
+            drive:</span><span class="fr">Les fenêtres tableau de bord et commandes sont déjà ouvertes (le lab a démarré tout
+            seul au chargement du bureau). Pour prouver que le bus est vivant, ouvrez un terminal SSH et observez le trafic
+            pendant que vous conduisez :</span></p>
+        <pre><code>candump vcan0</code></pre>
+        <p class="panel-lead"><span class="en">Click the <strong>controls window</strong> to focus it, then press the
+            up-arrow key: the speedometer needle should rise and frames should stream in <code>candump</code>. That is a
+            working lab - you are ready to attack it. (If a window ever closes, restart both with
+            <code>icsim-stop</code> then <code>icsim-start</code>.)</span><span class="fr">Cliquez sur la
+            <strong>fenêtre de contrôle</strong> pour lui donner le focus, puis appuyez sur la flèche haut : l'aiguille du
+            compteur doit monter et des trames défiler dans <code>candump</code>. C'est un lab qui fonctionne - vous êtes prêt
+            à l'attaquer. (Si une fenêtre se ferme, redémarrez les deux avec <code>icsim-stop</code> puis
+            <code>icsim-start</code>.)</span></p>
       </div>
 
       <!-- ══════════════════ Usage · Virtual Machine ══════════════════ -->
       <div class="option-panel" id="panel-env-vm">
-        <h3><span class="en">Use the VM desktop</span><span class="fr">Utiliser le bureau de la VM</span></h3>
-        <p class="panel-lead"><span class="en">The VM window <em>is</em> the desktop, and it logs in automatically as
-            <code>workshop</code>. Launch everything from the desktop shortcuts:</span><span class="fr">La fenêtre de la
-            VM <em>est</em> le bureau, et elle se connecte automatiquement en <code>workshop</code>. Lancez tout depuis
-            les raccourcis du bureau :</span></p>
+
+        <!-- Step 1 · start the lab -->
+        <div class="setup-step-label"><span class="en">Step 1 · Start the lab</span><span class="fr">Étape 1 · Démarrer le lab</span></div>
+        <h3><span class="en">Boot the VM, then double-click a desktop shortcut</span><span class="fr">Démarrez la VM, puis double-cliquez un raccourci</span></h3>
+        <p class="panel-lead"><span class="en">Start the VM from VirtualBox / VMware / UTM. Its window <em>is</em> the desktop
+            and it logs in automatically as <code>workshop</code>. Unlike Docker, the simulator does <strong>not</strong>
+            auto-start - you launch it yourself by <strong>double-clicking a desktop shortcut</strong>:</span><span
+            class="fr">Démarrez la VM depuis VirtualBox / VMware / UTM. Sa fenêtre <em>est</em> le bureau et elle se connecte
+            automatiquement en <code>workshop</code>. Contrairement à Docker, le simulateur ne démarre <strong>pas</strong>
+            tout seul - vous le lancez vous-même en <strong>double-cliquant un raccourci du bureau</strong> :</span></p>
         <ul class="steps">
           <li><span class="n">▸</span><span class="en"><strong style="color:var(--text)">Start Lab (vulnerable)</strong> -
-              dashboard + controls. This is the target you attack.</span><span class="fr"><strong
-                style="color:var(--text)">Start Lab (vulnerable)</strong> - tableau de bord + commandes. C'est la cible à
-              attaquer.</span></li>
+              the dashboard + controls windows. This is the target you attack; start here.</span><span class="fr"><strong
+                style="color:var(--text)">Start Lab (vulnerable)</strong> - les fenêtres tableau de bord + commandes. C'est
+              la cible à attaquer ; commencez ici.</span></li>
           <li><span class="n">▸</span><span class="en"><strong style="color:var(--text)">Start Lab (secured)</strong> - the
-              hardened build; re-run your attacks and watch them fail.</span><span class="fr"><strong
+              hardened build; re-run your attacks and watch them fail (see
+              <a href="#" onclick="return showPage('ids')" style="color:var(--cyan)">Detection &amp; Prevention</a>).</span><span class="fr"><strong
                 style="color:var(--text)">Start Lab (secured)</strong> - la version durcie ; relancez vos attaques et
-              regardez-les échouer.</span></li>
-          <li><span class="n">▸</span><span class="en"><strong style="color:var(--text)">Stop Lab</strong>, <strong
-                style="color:var(--text)">CAN Injector</strong>, <strong style="color:var(--text)">Web Lab</strong> (this
-              guide) and <strong style="color:var(--text)">Terminal</strong>.</span><span class="fr"><strong
-                style="color:var(--text)">Stop Lab</strong>, <strong style="color:var(--text)">CAN Injector</strong>,
-              <strong style="color:var(--text)">Web Lab</strong> (ce guide) et <strong
-                style="color:var(--text)">Terminal</strong>.</span></li>
+              regardez-les échouer (voir <a href="#" onclick="return showPage('ids')" style="color:var(--cyan)">Détection &amp; Prévention</a>).</span></li>
+          <li><span class="n">▸</span><span class="en"><strong style="color:var(--text)">Stop Lab</strong> stops everything
+              cleanly, <strong style="color:var(--text)">CAN Injector</strong> opens the attacker tool,
+              <strong style="color:var(--text)">Web Lab</strong> opens this guide, and <strong style="color:var(--text)">Terminal</strong>
+              opens a shell.</span><span class="fr"><strong style="color:var(--text)">Stop Lab</strong> arrête tout
+              proprement, <strong style="color:var(--text)">CAN Injector</strong> ouvre l'outil d'attaque,
+              <strong style="color:var(--text)">Web Lab</strong> ouvre ce guide, et <strong style="color:var(--text)">Terminal</strong>
+              ouvre un shell.</span></li>
         </ul>
         <div class="info-block">
           <div class="info-block-label"><span class="en">Login</span><span class="fr">Identifiants</span></div>
@@ -1882,31 +1928,108 @@
               <code>workshop</code>, et sudo fonctionne.</span></p>
         </div>
 
-        <h3 style="margin-top:1.75rem;"><span class="en">SSH into the VM (optional)</span><span class="fr">SSH vers la VM
-            (optionnel)</span></h3>
-        <p class="panel-lead"><span class="en">The VM listens on the standard port <code>22</code> at its
-            <strong>own IP</strong>. Find the IP with <code>ip a</code> in the VM's Terminal, then from your
-            machine:</span><span class="fr">La VM écoute sur le port standard <code>22</code> à <strong>sa propre
-              IP</strong>. Trouvez l'IP avec <code>ip a</code> dans le Terminal de la VM, puis depuis votre machine
-            :</span></p>
+        <!-- Step 2 · SSH -->
+        <div class="setup-step-label" style="margin-top:2rem;"><span class="en">Step 2 · Connect over SSH (optional)</span><span class="fr">Étape 2 · Se connecter en SSH (optionnel)</span></div>
+        <h3><span class="en">Reach the VM from your own machine</span><span class="fr">Atteindre la VM depuis votre machine</span></h3>
+        <p class="panel-lead"><span class="en">The VM already has its own desktop and Terminal, so SSH is optional - but handy
+            if you prefer your own terminal or want several windows at once. The VM's SSH server listens on the standard port
+            <code>22</code> at the VM's <strong>own IP address</strong>.</span><span class="fr">La VM a déjà son propre bureau
+            et son Terminal, donc SSH est optionnel - mais pratique si vous préférez votre terminal ou voulez plusieurs
+            fenêtres. Le serveur SSH de la VM écoute sur le port standard <code>22</code> à <strong>sa propre adresse
+            IP</strong>.</span></p>
+        <ul class="steps">
+          <li><span class="n">1</span><span class="en">In the VM's <strong>Terminal</strong>, run <code>ip a</code> and read
+              the address on the ethernet interface (a line like <code>inet 192.168.x.x</code>).</span><span class="fr">Dans
+              le <strong>Terminal</strong> de la VM, lancez <code>ip a</code> et lisez l'adresse de l'interface ethernet (une
+              ligne comme <code>inet 192.168.x.x</code>).</span></li>
+          <li><span class="n">2</span><span class="en">From your host, connect with that IP. Port <code>22</code> is the
+              default, so <strong>no</strong> <code>-p</code> is needed. Password is <code>workshop</code>.</span><span
+              class="fr">Depuis votre hôte, connectez-vous avec cette IP. Le port <code>22</code> est par défaut, donc
+              <strong>pas</strong> besoin de <code>-p</code>. Mot de passe <code>workshop</code>.</span></li>
+        </ul>
         <pre><code><span class="hl-amber">ssh</span> workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>       <span class="hl-comment"># password: workshop</span></code></pre>
-        <details class="fold">
-          <summary><span class="en">Copy files in and out (scp)</span><span class="fr">Copier des fichiers (scp)</span>
-          </summary>
-          <div class="fold-body">
-            <p style="margin:0 0 0.6rem;font-size:0.85rem;color:var(--text-dim);"><span class="en">Default port, so no
-                <code>-P</code> needed - just use the VM's IP.</span><span class="fr">Port par défaut, donc pas de
-                <code>-P</code> - utilisez simplement l'IP de la VM.</span></p>
-            <pre><code><span class="hl-amber">scp</span> ./myfile.txt workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:~/myfile.txt
-<span class="hl-amber">scp</span> <span class="hl-green">-r</span> ./my-folder/ workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:~/my-folder/
-<span class="hl-amber">scp</span> workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:~/results.log ./results.log</code></pre>
-            <p style="margin:0.6rem 0 0;font-size:0.85rem;color:var(--text-dim);"><span class="en">No network? Drag-and-drop
-                or a shared folder also works in VirtualBox / VMware / UTM.</span><span class="fr">Pas de réseau ? Le
-                glisser-déposer ou un dossier partagé fonctionne aussi dans VirtualBox / VMware / UTM.</span></p>
-          </div>
-        </details>
+        <div class="info-block amber">
+          <div class="info-block-label"><span class="en">Can't reach the VM's IP?</span><span class="fr">Impossible d'atteindre l'IP de la VM ?</span></div>
+          <p style="margin-bottom:0;"><span class="en">With the default <strong>NAT</strong> adapter the host often cannot
+              reach the VM directly. Switch the VM's network to a <strong>bridged</strong> or <strong>host-only</strong>
+              adapter (or add a VirtualBox port-forward for port 22), then re-check <code>ip a</code>. If in doubt, just use
+              the VM's own Terminal - everything works there too.</span><span class="fr">Avec l'adaptateur <strong>NAT</strong>
+              par défaut, l'hôte ne peut souvent pas atteindre la VM directement. Passez le réseau de la VM en
+              <strong>pont (bridged)</strong> ou <strong>hôte seul (host-only)</strong> (ou ajoutez une redirection de port 22
+              dans VirtualBox), puis revérifiez <code>ip a</code>. En cas de doute, utilisez le Terminal de la VM - tout y
+              fonctionne aussi.</span></p>
+        </div>
 
-        <h3 style="margin-top:1.75rem;"><span class="en">Stop &amp; restart</span><span class="fr">Arrêter &amp;
+        <!-- Step 3 · confirm it works -->
+        <div class="setup-step-label" style="margin-top:2rem;"><span class="en">Step 3 · Confirm it works</span><span class="fr">Étape 3 · Vérifier que ça marche</span></div>
+        <h3><span class="en">See the bus come alive</span><span class="fr">Voir le bus s'animer</span></h3>
+        <p class="panel-lead"><span class="en">After you double-clicked <strong>Start Lab (vulnerable)</strong> in Step 1,
+            the instrument cluster and controls windows appear. To prove the bus is live, open an <strong>SSH terminal</strong> (or the VM's Terminal) and
+            watch the traffic while you drive:</span><span class="fr">Après avoir double-cliqué <strong>Start Lab
+            (vulnerable)</strong> à l'étape 1, les fenêtres tableau de bord et commandes apparaissent. Pour prouver que le bus
+            est vivant, ouvrez un <strong>terminal SSH</strong> (ou le Terminal de la VM) et observez le trafic pendant que vous conduisez :</span></p>
+        <pre><code>candump vcan0</code></pre>
+        <p class="panel-lead"><span class="en">Click the <strong>controls window</strong> to focus it, then press the
+            up-arrow key: the speedometer needle should rise and frames should stream in <code>candump</code>. That is a
+            working lab - you are ready to attack it. (If a window closes, use <strong>Stop Lab</strong> then
+            <strong>Start Lab</strong> again.)</span><span class="fr">Cliquez sur la <strong>fenêtre de contrôle</strong> pour
+            lui donner le focus, puis appuyez sur la flèche haut : l'aiguille du compteur doit monter et des trames défiler
+            dans <code>candump</code>. C'est un lab qui fonctionne - vous êtes prêt à l'attaquer. (Si une fenêtre se ferme,
+            utilisez <strong>Stop Lab</strong> puis <strong>Start Lab</strong>.)</span></p>
+        <div class="info-block amber" style="margin-top:1.25rem;">
+          <div class="info-block-label"><span class="en">Mouse/keyboard trapped in the VM?</span><span class="fr">Souris /
+              clavier bloqués dans la VM ?</span></div>
+          <p style="margin-bottom:0;"><span class="en">Press the <strong>Host key</strong> to release them - by default the
+              <strong>Right Ctrl</strong> key in VirtualBox.</span><span class="fr">Appuyez sur la <strong>touche Hôte</strong>
+              pour les libérer - par défaut <strong>Ctrl droite</strong> dans VirtualBox.</span></p>
+        </div>
+      </div>
+
+      <!-- ══════════════════ DETACHED REFERENCE (for later) ══════════════════ -->
+      <hr class="divider" style="margin:2.5rem 0 1.75rem;">
+      <div class="section-label"><span class="en">Reference · for later</span><span class="fr">Référence · pour plus tard</span></div>
+      <h2><span class="en">Moving Files &amp; Managing the Lab</span><span class="fr">Fichiers &amp; Gestion du Lab</span></h2>
+      <p class="panel-lead" style="max-width:70ch;"><span class="en">That is the whole setup - simulator running, connected,
+          bus confirmed. The rest is <strong>reference</strong> you will come back to when a challenge needs it, not a step to
+          do now. It follows the same Docker / VM choice you made above.</span><span class="fr">C'est tout le paramétrage -
+          simulateur lancé, connecté, bus confirmé. Le reste est une <strong>référence</strong> à consulter quand un défi en
+          aura besoin, pas une étape à faire maintenant. Cela suit le même choix Docker / VM fait plus haut.</span></p>
+
+      <!-- Reference · Docker -->
+      <div class="option-panel active" id="panel-envref-docker" style="border-radius:var(--radius); margin-top:1.25rem;">
+        <h3 style="margin-top:0;"><span class="en">Move files in and out (scp)</span><span class="fr">Transférer des fichiers (scp)</span></h3>
+        <p class="panel-lead"><span class="en">Use <code>scp</code> (secure copy, over the same SSH) to push a script into the
+            lab or pull a capture back out. Note the capital <code>-P 2222</code> for the port - <code>scp</code> uses
+            <code>-P</code>, while <code>ssh</code> uses lowercase <code>-p</code>. Inside the lab, <code>~</code> is
+            <code>/home/workshop/</code>, where all your files live.</span><span class="fr">Utilisez <code>scp</code> (copie
+            sécurisée, via le même SSH) pour envoyer un script dans le lab ou récupérer une capture. Attention au
+            <code>-P 2222</code> majuscule pour le port - <code>scp</code> utilise <code>-P</code>, tandis que
+            <code>ssh</code> utilise <code>-p</code> minuscule. Dans le lab, <code>~</code> correspond à
+            <code>/home/workshop/</code>, où vivent tous vos fichiers.</span></p>
+        <div class="code-label"><span class="en">Send a file / folder into the lab</span><span class="fr">Envoyer un fichier / dossier dans le lab</span></div>
+        <pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> ./myfile.txt workshop@localhost:/home/workshop/
+<span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> <span class="hl-green">-r</span> ./my-folder/ workshop@localhost:/home/workshop/my-folder/</code></pre>
+        <div class="code-label"><span class="en">Pull a file back to your host</span><span class="fr">Récupérer un fichier vers l'hôte</span></div>
+        <pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> workshop@localhost:/home/workshop/results.log ./results.log</code></pre>
+      </div>
+
+      <!-- Reference · Virtual Machine -->
+      <div class="option-panel" id="panel-envref-vm" style="border-radius:var(--radius); margin-top:1.25rem;">
+        <h3 style="margin-top:0;"><span class="en">Move files in and out (scp)</span><span class="fr">Transférer des fichiers (scp)</span></h3>
+        <p class="panel-lead"><span class="en">Because the VM uses the default SSH port, <code>scp</code> needs
+            <strong>no</strong> <code>-P</code> - just the VM's IP. Inside the VM, <code>~</code> is
+            <code>/home/workshop/</code>.</span><span class="fr">Comme la VM utilise le port SSH par défaut, <code>scp</code>
+            n'a <strong>pas</strong> besoin de <code>-P</code> - juste l'IP de la VM. Dans la VM, <code>~</code> correspond à
+            <code>/home/workshop/</code>.</span></p>
+        <div class="code-label"><span class="en">Send in / pull back</span><span class="fr">Envoyer / récupérer</span></div>
+        <pre><code><span class="hl-amber">scp</span> ./myfile.txt workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:/home/workshop/
+<span class="hl-amber">scp</span> <span class="hl-green">-r</span> ./my-folder/ workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:/home/workshop/my-folder/
+<span class="hl-amber">scp</span> workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:/home/workshop/results.log ./results.log</code></pre>
+        <p style="margin:0.6rem 0 0;font-size:0.85rem;color:var(--text-dim);"><span class="en">No network set up? Drag-and-drop
+            or a shared folder also works in VirtualBox / VMware / UTM.</span><span class="fr">Pas de réseau configuré ? Le
+            glisser-déposer ou un dossier partagé fonctionne aussi dans VirtualBox / VMware / UTM.</span></p>
+
+        <h3 style="margin-top:2rem;"><span class="en">Stop &amp; restart</span><span class="fr">Arrêter &amp;
             redémarrer</span></h3>
         <p class="panel-lead"><span class="en">Shut the VM down from its own menu (<strong>Power off</strong> /
             <code>sudo poweroff</code>) and start it again from VirtualBox / VMware / UTM whenever you like. Your work is
@@ -1925,88 +2048,6 @@
                 arrière en quelques secondes au lieu de réimporter l'appliance.</span></p>
           </div>
         </details>
-        <div class="info-block amber" style="margin-top:1.1rem;">
-          <div class="info-block-label"><span class="en">Mouse/keyboard trapped in the VM?</span><span class="fr">Souris /
-              clavier bloqués dans la VM ?</span></div>
-          <p><span class="en">Press the <strong>Host key</strong> to release them - by default the <strong>Right
-                Ctrl</strong> key in VirtualBox.</span><span class="fr">Appuyez sur la <strong>touche Hôte</strong> pour les
-              libérer - par défaut <strong>Ctrl droite</strong> dans VirtualBox.</span></p>
-        </div>
-      </div>
-
-      <hr class="divider">
-      <div class="section-label"><span class="en">In-lab Commands</span><span class="fr">Commandes du Lab</span></div>
-      <h2><span class="en">Commands Inside the Lab Terminal</span><span class="fr">Commandes dans le Terminal du
-          Lab</span></h2>
-      <p class="panel-lead"><span class="en">Identical in the Docker container and the VM - open a <strong>Terminal</strong>
-          inside the lab and run these.</span><span class="fr">Identiques dans le conteneur Docker et la VM - ouvrez un
-          <strong>Terminal</strong> dans le lab et lancez-les.</span></p>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="en">Command</span><span class="fr">Commande</span></th>
-              <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>candump vcan0</code></td>
-              <td class="dim"><span class="en">Watch live CAN bus traffic</span><span class="fr">Observer le trafic
-                  CAN en direct</span></td>
-            </tr>
-            <tr>
-              <td><code>cansend vcan0 244#0000C0</code></td>
-              <td class="dim"><span class="en">Send one CAN frame</span><span class="fr">Envoyer une trame CAN</span>
-              </td>
-            </tr>
-            <tr>
-              <td><code>cangen vcan0</code></td>
-              <td class="dim"><span class="en">Send random frames</span><span class="fr">Envoyer des trames
-                  aléatoires</span></td>
-            </tr>
-            <tr>
-              <td><code>icsim-stop</code> then <code>icsim-start</code></td>
-              <td class="dim"><span class="en">Restart the simulator</span><span class="fr">Redémarrer le
-                  simulateur</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="info-block amber" style="margin-top:1.25rem;">
-        <div class="info-block-label"><span class="en">Note - Home directory</span><span class="fr">Note - Répertoire
-            personnel</span></div>
-        <p style="margin-bottom:0;"><span class="en">In both the container and the VM, <code>~</code> maps to
-            <code>/home/workshop/</code>. All your files and lab scripts live there.</span>
-          <span class="fr">Dans le conteneur comme dans la VM, <code>~</code> correspond à <code>/home/workshop/</code>.
-            Tous vos fichiers et scripts du lab s'y trouvent.</span>
-        </p>
-      </div>
-
-      <hr class="divider">
-      <div class="section-label"><span class="en">Verification</span><span class="fr">Vérification</span></div>
-      <h2><span class="en">Confirm the Lab Works</span><span class="fr">Confirmer que le Lab Fonctionne</span></h2>
-      <div class="code-label"><span class="en">Terminal 1 - Instrument cluster</span><span class="fr">Terminal 1 -
-          Tableau de bord</span></div>
-      <pre><code>icsim-start</code></pre>
-      <div class="code-label"><span class="en">Terminal 2 - CAN traffic monitor</span><span class="fr">Terminal 2 -
-          Moniteur de trafic CAN</span></div>
-      <pre><code>candump vcan0</code></pre>
-      <p><span class="en">Two SDL windows should open: the instrument cluster and the controls panel. Press the up arrow
-          key in the controls window - the speedometer needle should rise and frames should appear in candump.</span>
-        <span class="fr">Deux fenêtres SDL doivent s'ouvrir : le tableau de bord et le panneau de contrôle. Appuyez sur
-          la touche flèche haut dans la fenêtre de contrôle - l'aiguille du compteur doit monter et des trames doivent
-          apparaître dans candump.</span>
-      </p>
-      <div class="info-block amber">
-        <div class="info-block-label"><span class="en">Important</span><span class="fr">Important</span></div>
-        <p><span class="en">Click the <strong>controls window</strong> to give it keyboard focus before pressing any
-            keys. If one window closes unexpectedly, restart both with <code>icsim-stop</code> followed by
-            <code>icsim-start</code>.</span>
-          <span class="fr">Cliquez sur la <strong>fenêtre de contrôle</strong> pour lui donner le focus clavier avant
-            d'appuyer sur des touches. Si une fenêtre se ferme de manière inattendue, redémarrez les deux avec
-            <code>icsim-stop</code> puis <code>icsim-start</code>.</span>
-        </p>
       </div>
     </div>
     <footer>
@@ -2019,15 +2060,18 @@
   <div class="page" id="page-can">
     <div class="hero">
       <div class="hero-inner">
-        <div class="hero-tag"><span class="en">Bus Scanning &amp; Protocol</span><span class="fr">Scan de Bus &amp;
-            Protocole</span></div>
+        <div class="hero-tag"><span class="en">Protocol &amp; Reconnaissance</span><span class="fr">Protocole &amp;
+            Reconnaissance</span></div>
         <h1><span class="en">THE <span class="accent">CAN</span> BUS</span><span class="fr">LE BUS <span
               class="accent">CAN</span></span></h1>
         <p class="hero-sub">
-          <span class="en">How the Controller Area Network protocol works in real vehicles, how ICSim simulates it, and
-            how to scan and capture live traffic with SocketCAN tools.</span>
-          <span class="fr">Comment le protocole Controller Area Network fonctionne dans les véhicules réels, comment
-            ICSim le simule, et comment scanner et capturer le trafic en direct avec les outils SocketCAN.</span>
+          <span class="en">What the Controller Area Network protocol is, why its design makes it so easy to attack, and
+            how a frame is structured. This page is the concept; the tools you use to read and inject frames live on the
+            <a href="#" onclick="return showPage('cancmds')" style="color:inherit;text-decoration:underline;">CAN Commands</a> page.</span>
+          <span class="fr">Ce qu'est le protocole Controller Area Network, pourquoi sa conception le rend si facile à
+            attaquer, et comment une trame est structurée. Cette page, c'est le concept ; les outils pour lire et injecter
+            des trames se trouvent sur la page
+            <a href="#" onclick="return showPage('cancmds')" style="color:inherit;text-decoration:underline;">Commandes CAN</a>.</span>
         </p>
       </div>
     </div>
@@ -2174,308 +2218,21 @@
       </p>
 
       <hr class="divider">
-      <div class="section-label"><span class="en">Bus Scanning</span><span class="fr">Scan de Bus</span></div>
-      <h2><span class="en">Capturing Traffic with candump &amp; cansniffer</span><span class="fr">Capturer le Trafic
-          avec candump &amp; cansniffer</span></h2>
-      <p><span class="en">The two main SocketCAN tools for passive observation are <code>candump</code> (raw log) and
-          <code>cansniffer</code> (live change detection). Start ICSim, then open a second terminal for capture.</span>
-        <span class="fr">Les deux principaux outils SocketCAN pour l'observation passive sont <code>candump</code>
-          (journal brut) et <code>cansniffer</code> (détection des changements en temps réel). Lancez ICSim, puis ouvrez
-          un second terminal pour la capture.</span>
+      <div class="section-label"><span class="en">Reconnaissance</span><span class="fr">Reconnaissance</span></div>
+      <h2><span class="en">Reading the Bus: the Idea Behind Every Attack</span><span class="fr">Lire le Bus : l'Idée Derrière Chaque Attaque</span></h2>
+      <p><span class="en">Because every ECU broadcasts its frames to the whole bus and nothing is encrypted, the first
+          move against any CAN network is simply to <strong>listen</strong>. You watch the live traffic while you operate
+          the car and look for the frames whose bytes change in step with what you do: press the accelerator and one ID's
+          bytes climb; flick a blinker and another ID toggles. That correlation is what reveals which arbitration ID
+          carries which signal. Mapping an ID to a real-world function this way - <strong>passive observation</strong> -
+          is the reverse-engineering exercise at the heart of this lab.</span>
+        <span class="fr">Comme chaque ECU diffuse ses trames sur tout le bus et que rien n'est chiffré, le premier geste
+          contre un réseau CAN est simplement d'<strong>écouter</strong>. On observe le trafic en direct tout en manipulant
+          la voiture et on cherche les trames dont les octets changent en même temps que nos actions : on accélère et les
+          octets d'un ID grimpent ; on met un clignotant et un autre ID bascule. Cette corrélation révèle quel ID
+          d'arbitrage porte quel signal. Associer ainsi un ID à une fonction réelle - l'<strong>observation
+            passive</strong> - est l'exercice de rétro-ingénierie au cœur de ce lab.</span>
       </p>
-
-      <style>
-        .terminal-window {
-          position: relative;
-          background: var(--code-bg);
-          border: 1px solid var(--border);
-          border-radius: var(--radius);
-          overflow: hidden;
-          margin: 1.5rem 0 2rem;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Reveal the copy button (shared .copy-btn styles live in styles.css)
-           on hover, mirroring the .code-wrap behaviour used elsewhere. */
-        .terminal-window:hover .copy-btn,
-        .terminal-window .copy-btn:focus-visible {
-          opacity: 1;
-        }
-
-        .terminal-header {
-          background: rgba(0, 0, 0, 0.2);
-          padding: 0.6rem 1rem;
-          display: flex;
-          gap: 0.4rem;
-          align-items: center;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .terminal-dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          opacity: 0.7;
-        }
-
-        .terminal-dot.r {
-          background: var(--red);
-        }
-
-        .terminal-dot.y {
-          background: var(--amber);
-        }
-
-        .terminal-dot.g {
-          background: var(--green);
-        }
-
-        .terminal-title {
-          font-family: var(--mono);
-          font-size: 0.65rem;
-          color: var(--text-faint);
-          margin-left: 0.5rem;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-        }
-
-        .terminal-body {
-          padding: 1.25rem 1.5rem;
-          font-family: var(--mono);
-          font-size: 0.85rem;
-          color: #a0c8d8;
-          line-height: 1.6;
-          overflow-x: auto;
-        }
-
-        [data-theme="light"] .terminal-body {
-          color: #1a4060;
-        }
-
-        .terminal-comment {
-          color: var(--text-dim);
-        }
-
-        .terminal-cmd {
-          color: var(--cyan);
-        }
-      </style>
-
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dot r"></div>
-          <div class="terminal-dot y"></div>
-          <div class="terminal-dot g"></div>
-          <div class="terminal-title"><span class="en">Basic capture - all frames</span><span class="fr">Capture basique
-              - toutes les trames</span></div>
-        </div>
-        <div class="terminal-body"><span class="terminal-cmd">candump</span> vcan0</div>
-      </div>
-
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dot r"></div>
-          <div class="terminal-dot y"></div>
-          <div class="terminal-dot g"></div>
-          <div class="terminal-title"><span class="en">Log to file for offline analysis</span><span
-              class="fr">Enregistrer dans un fichier pour analyse</span></div>
-        </div>
-        <div class="terminal-body">
-          <span class="terminal-cmd">candump</span> -l vcan0<br>
-          <span class="terminal-comment"># Creates candump-YYYY-MM-DD_HHMMSS.log</span>
-        </div>
-      </div>
-
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dot r"></div>
-          <div class="terminal-dot y"></div>
-          <div class="terminal-dot g"></div>
-          <div class="terminal-title"><span class="en">Filter to a single CAN ID</span><span class="fr">Filtrer sur un
-              seul ID CAN</span></div>
-        </div>
-        <div class="terminal-body">
-          <span class="terminal-cmd">candump</span> vcan0,244:7FF<br>
-          <span class="terminal-comment"># Format: interface,id:mask</span>
-        </div>
-      </div>
-
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dot r"></div>
-          <div class="terminal-dot y"></div>
-          <div class="terminal-dot g"></div>
-          <div class="terminal-title"><span class="en">Live change highlighter</span><span class="fr">Surligneur de
-              changements en direct</span></div>
-        </div>
-        <div class="terminal-body">
-          <span class="terminal-cmd">cansniffer</span> vcan0<br>
-          <span class="terminal-comment"># Press '-a' to toggle display, arrow keys to scroll</span>
-        </div>
-      </div>
-
-      <div class="info-block amber">
-        <div class="info-block-label"><span class="en">Scanning methodology</span><span class="fr">Méthodologie de
-            scan</span></div>
-        <p><span class="en">Launch <code>cansniffer</code>, then interact with the ICSim controls window one action at a
-            time (press accelerator, toggle a door, activate signals). The rows that change in cansniffer are your
-            active
-            IDs. Note them, then read their encoding in the <strong>Encoding</strong> section.</span>
-          <span class="fr">Lancez <code>cansniffer</code>, puis interagissez avec la fenêtre de contrôle ICSim une
-            action à la fois (accélération, porte, clignotants). Les lignes qui changent dans cansniffer sont vos IDs
-            actifs. Notez-les, puis lisez leur encodage dans la section <strong>Encodage</strong>.</span>
-        </p>
-      </div>
-
-      <hr class="divider">
-      <div class="section-label"><span class="en">CH-Workshop Signal Map</span><span class="fr">Carte des Signaux
-          CH-Workshop</span></div>
-      <h2><span class="en">Known CAN IDs in This Lab</span><span class="fr">IDs CAN Connus dans ce Lab</span></h2>
-      <style>
-        .signal-cards {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          gap: 1.25rem;
-          margin: 1.5rem 0 3rem;
-        }
-
-        .signal-card {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-left: 3px solid var(--amber);
-          border-radius: var(--radius);
-          padding: 1.25rem;
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
-          transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .signal-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-          background: var(--surface2);
-        }
-
-        .signal-card.uds {
-          border-left-color: var(--cyan);
-        }
-
-        .signal-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-        }
-
-        .signal-id {
-          font-family: var(--mono);
-          font-size: 1.2rem;
-          font-weight: 600;
-          color: var(--amber);
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .signal-card.uds .signal-id {
-          color: var(--cyan);
-        }
-
-        .signal-dlc {
-          font-family: var(--mono);
-          font-size: 0.65rem;
-          color: var(--text-faint);
-          background: rgba(255, 255, 255, 0.05);
-          padding: 0.2rem 0.5rem;
-          border-radius: 12px;
-          letter-spacing: 0.1em;
-          border: 1px solid var(--border2);
-        }
-
-        .signal-name {
-          font-size: 0.95rem;
-          font-weight: 600;
-          color: var(--text);
-        }
-
-        .signal-period {
-          font-size: 0.75rem;
-          color: var(--text-dim);
-          display: flex;
-          align-items: center;
-          gap: 0.4rem;
-          margin-top: auto;
-          border-top: 1px solid var(--border);
-          padding-top: 0.75rem;
-        }
-      </style>
-      <div class="signal-cards">
-        <div class="signal-card">
-          <div class="signal-header">
-            <div class="signal-id">0x188</div>
-            <div class="signal-dlc">DLC 1-4</div>
-          </div>
-          <div class="signal-name"><span class="en">Turn signals / Warning</span><span class="fr">Clignotants /
-              Warning</span></div>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <div class="signal-id">0x19B</div>
-            <div class="signal-dlc">DLC 3</div>
-          </div>
-          <div class="signal-name"><span class="en">Door locks</span><span class="fr">Verrous portes</span></div>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <div class="signal-id">0x244</div>
-            <div class="signal-dlc">DLC 5</div>
-          </div>
-          <div class="signal-name"><span class="en">Vehicle speed</span><span class="fr">Vitesse véhicule</span></div>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <div class="signal-id">0x340</div>
-            <div class="signal-dlc">DLC 8</div>
-          </div>
-          <div class="signal-name"><span class="en">Headlights (injectable)</span><span class="fr">Phares
-              (injectable)</span></div>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <div class="signal-id">0x39C</div>
-            <div class="signal-dlc">DLC 5</div>
-          </div>
-          <div class="signal-name"><span class="en">Luminosity sensor</span><span class="fr">Capteur luminosité</span>
-          </div>
-        </div>
-        <div class="signal-card">
-          <div class="signal-header">
-            <div class="signal-id">0x42A</div>
-            <div class="signal-dlc">DLC 3-5</div>
-          </div>
-          <div class="signal-name"><span class="en">Warning state</span><span class="fr">État warning</span></div>
-        </div>
-        <div class="signal-card uds">
-          <div class="signal-header">
-            <div class="signal-id">0x7E0</div>
-            <div class="signal-dlc">DLC var</div>
-          </div>
-          <div class="signal-name"><span class="en">UDS request (to ECU)</span><span class="fr">Requête UDS (vers
-              ECU)</span></div>
-        </div>
-        <div class="signal-card uds">
-          <div class="signal-header">
-            <div class="signal-id">0x7E8</div>
-            <div class="signal-dlc">DLC var</div>
-          </div>
-          <div class="signal-name"><span class="en">UDS response (from ECU)</span><span class="fr">Réponse UDS (depuis
-              ECU)</span></div>
-        </div>
-      </div>
-      <p><span class="en">Signal encoding details (how bytes map to values) are covered in the <a href="#"
-            onclick="return showPage('encoding')">Encoding</a> section.</span>
-          <span class="fr">Les détails d'encodage des signaux (comment les octets correspondent aux valeurs) sont
-            couverts dans la section <a href="#" onclick="return showPage('encoding')">Encodage</a>.</span></p>
     </div>
     <footer>
       <span class="en">IMT Atlantique Brest - IoV Security Lab - CAN Bus</span>
@@ -4397,9 +4154,31 @@
         <span class="en">01 - Wire format, a 20-byte CAN FD frame</span><span class="fr">01 - Format sur le fil, une trame CAN FD de 20 octets</span>
       </h3>
       <p>
-        <span class="en">The original 8-byte payload keeps its byte offsets, so existing decoders still work. The freshness counter and MAC are appended in a trailer. A length of 20 is a valid CAN FD frame size.</span>
-        <span class="fr">La charge utile d'origine de 8 octets conserve ses offsets, donc les décodeurs existants fonctionnent toujours. Le compteur de fraîcheur et le MAC sont ajoutés en suffixe. Une longueur de 20 est une taille de trame CAN FD valide.</span>
+        <span class="en">On the wire the 20 bytes sit in one fixed order: the original 8-byte payload first (it keeps its
+          offsets, so existing decoders still work), then the 4-byte freshness counter, then the 8-byte MAC. That order -
+          <strong>payload → FV → MAC</strong> - is exactly what the diagram below shows, and a length of 20 is a valid CAN FD
+          frame size.</span>
+        <span class="fr">Sur le fil, les 20 octets sont dans un ordre fixe : d'abord la charge utile de 8 octets (elle
+          conserve ses offsets, donc les décodeurs existants fonctionnent), puis le compteur de fraîcheur de 4 octets, puis
+          le MAC de 8 octets. Cet ordre - <strong>charge → FV → MAC</strong> - est exactement ce que montre le schéma
+          ci-dessous, et une longueur de 20 est une taille de trame CAN FD valide.</span>
       </p>
+      <div class="info-block amber">
+        <div class="info-block-label"><span class="en">Diagram vs. formula - two different questions</span><span class="fr">Schéma vs. formule - deux questions différentes</span></div>
+        <p style="margin-bottom:0;"><span class="en">Do not read the boxed formula further down as a second byte order. The
+            <strong>diagram</strong> answers <em>"where do the bytes sit in the frame?"</em> (payload, then FV, then MAC). The
+            <strong>formula</strong> answers a different question - <em>"which bytes are fed into the MAC calculation?"</em> -
+            and that input is the arbitration <code>id</code>, the payload and the counter. The <code>id</code> is included so
+            the MAC is bound to the ID even though the ID is not one of the data bytes. So they are not reversed versions of
+            each other; they describe two separate things.</span>
+          <span class="fr">Ne lisez pas la formule encadrée plus bas comme un second ordre d'octets. Le
+            <strong>schéma</strong> répond à <em>« où sont les octets dans la trame ? »</em> (charge, puis FV, puis MAC). La
+            <strong>formule</strong> répond à une autre question - <em>« quels octets alimentent le calcul du MAC ? »</em> -
+            et cette entrée est l'<code>id</code> d'arbitrage, la charge utile et le compteur. L'<code>id</code> est inclus
+            pour que le MAC soit lié à l'ID, même si l'ID n'est pas un octet de données. Ce ne sont donc pas des versions
+            inversées l'une de l'autre ; elles décrivent deux choses distinctes.</span>
+        </p>
+      </div>
 
       <div class="frame-anatomy" style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.75rem 1.5rem; margin:1.5rem 0;">
         <div class="frame-anatomy-label"><span class="en">SecOC frame layout</span><span class="fr">Disposition de la trame SecOC</span></div>
@@ -4426,8 +4205,9 @@
           <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--green)"></div><span class="en">Authenticity (anti-forge)</span><span class="fr">Authenticité (anti-forge)</span></div>
         </div>
         <div style="background:var(--code-bg); border:1px solid var(--border); border-radius:3px; padding:0.8rem 1rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); line-height:1.7; margin-top:1.25rem;">
-          <span class="hl-dim"># MAC input = 14 bytes, fed to AES-128-CMAC, truncated to 8</span><br>
-          MAC = AES-128-CMAC( key, <span class="hl-cyan">id</span><span class="hl-dim">(2B BE)</span> &Vert; <span class="hl-cyan">data[0..7]</span> &Vert; <span class="hl-amber">FV</span><span class="hl-dim">(4B BE)</span> )[<span class="hl-green">0..7</span>]
+          <span class="hl-dim"># How the MAC (green box above) is COMPUTED - its inputs, not the wire order.</span><br>
+          <span class="hl-dim"># 14 input bytes -> AES-128-CMAC -> keep the first 8 as the trailer.</span><br>
+          <span class="hl-green">MAC</span> = AES-128-CMAC( key, <span class="hl-cyan">id</span><span class="hl-dim">(2B BE)</span> &Vert; <span class="hl-cyan">data[0..7]</span> &Vert; <span class="hl-amber">FV</span><span class="hl-dim">(4B BE)</span> )[<span class="hl-green">0..7</span>]
         </div>
       </div>
 
@@ -4469,7 +4249,14 @@
             </div>
           </div>
         </div>
-        <div style="background:var(--code-bg); border:1px solid var(--border); border-radius:3px; padding:0.7rem 0.9rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); line-height:1.7; margin-top:1.25rem;">
+        <p style="margin:1.25rem 0 0.5rem; font-size:0.85rem; color:var(--text-dim);">
+          <span class="en">When verification fails (the "bad / stale" branch above), the cluster drops the frame and prints
+            a line like this to its console - so a rejected injection or replay is visible, not silent:</span>
+          <span class="fr">Quand la vérification échoue (la branche « mauvais / périmé » ci-dessus), le combiné rejette la
+            trame et affiche une ligne comme celle-ci sur sa console - un rejet d'injection ou de rejeu est donc visible, pas
+            silencieux :</span>
+        </p>
+        <div style="background:var(--code-bg); border:1px solid var(--border); border-radius:3px; padding:0.7rem 0.9rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); line-height:1.7;">
           <span class="hl-red">[SecOC]</span> dropped unauthenticated/replayed frame <span class="hl-amber">0x244</span>
         </div>
       </div>
@@ -4627,8 +4414,14 @@
       </div>
 
       <p style="font-size:0.82rem; color:var(--text-dim); margin-top:1rem;">
-        <span class="en">The VIN (mode <code>09 02</code>) stays freely readable. VIN is public information on a real vehicle, visible through the windshield, so locking it would be unrealistic and it is intentionally left open.</span>
-        <span class="fr">Le VIN (mode <code>09 02</code>) reste librement lisible. Le VIN est une information publique sur un vrai véhicule, visible à travers le pare-brise, donc le verrouiller serait irréaliste et il est laissé ouvert intentionnellement.</span>
+        <span class="en">The VIN request - OBD-II <strong>mode <code>09</code></strong> (request vehicle information) with
+          <strong>PID <code>02</code></strong> (the VIN itself), i.e. the <code>09 02</code> you sent back in Solution 04 -
+          stays freely readable. A VIN is public information on a real vehicle, visible through the windshield, so locking it
+          would be unrealistic; it is intentionally left open.</span>
+        <span class="fr">La requête VIN - <strong>mode <code>09</code></strong> OBD-II (demande d'informations véhicule) avec
+          <strong>PID <code>02</code></strong> (le VIN lui-même), soit le <code>09 02</code> envoyé dans la Solution 04 -
+          reste librement lisible. Un VIN est une information publique sur un vrai véhicule, visible à travers le pare-brise,
+          donc le verrouiller serait irréaliste ; il est laissé ouvert intentionnellement.</span>
       </p>
 
       <hr class="divider">
@@ -4661,31 +4454,55 @@
 <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-cyan">icsim-start</span></code></pre>
       </div>
 
-      <!-- STEP 2 - run the 1.0 automation suite -->
+      <!-- STEP 2 - run the Automation Suite -->
       <div style="display:flex; flex-wrap:wrap; align-items:center; gap:1rem; margin:1.75rem 0 0.75rem;">
         <span style="font-family:var(--display); font-size:1.6rem; color:var(--cyan); line-height:1;">2</span>
-        <div style="font-size:1.05rem; font-weight:600; color:var(--text);"><span class="en">Test your attacks with the 1.0 automation script</span><span class="fr">Testez vos attaques avec le script d'automatisation 1.0</span></div>
+        <div style="font-size:1.05rem; font-weight:600; color:var(--text);"><span class="en">Test your attacks with the Automation Suite</span><span class="fr">Testez vos attaques avec l'Automation Suite</span></div>
       </div>
       <p>
-        <span class="en">Rather than retyping every command, run the <strong>1.0 automation suite</strong>. It drives all of them dynamically against the weak sim - signal injection and replay, the VIN read, the RoutineControl scan and the full SecurityAccess seed-key handshake - so you can confirm they work before switching.</span>
-        <span class="fr">Plutôt que de retaper chaque commande, lancez la <strong>suite d'automatisation 1.0</strong>. Elle les pilote toutes dynamiquement contre le sim faible - injection et rejeu de signaux, lecture du VIN, scan RoutineControl et tout le handshake graine-clé SecurityAccess - pour confirmer qu'elles marchent avant de basculer.</span>
+        <span class="en">Rather than retyping every command, run the <strong>Automation Suite</strong>. It drives all of them dynamically against the weak sim - signal injection and replay, the VIN read, the RoutineControl scan and the full SecurityAccess seed-key handshake - so you can confirm they work before switching. Download it, <strong>unzip it on your host</strong>, then copy the whole folder into the lab.</span>
+        <span class="fr">Plutôt que de retaper chaque commande, lancez l'<strong>Automation Suite</strong>. Elle les pilote toutes dynamiquement contre le sim faible - injection et rejeu de signaux, lecture du VIN, scan RoutineControl et tout le handshake graine-clé SecurityAccess - pour confirmer qu'elles marchent avant de basculer. Téléchargez-la, <strong>décompressez-la sur votre hôte</strong>, puis copiez tout le dossier dans le lab.</span>
       </p>
       <div class="info-block" style="margin:0.75rem 0 0.5rem">
-        <div class="info-block-label">GitHub</div>
+        <div class="info-block-label"><span class="en">Download</span><span class="fr">Téléchargement</span></div>
         <p style="margin:0;font-family:var(--mono);font-size:0.85rem">
           <a href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Virtual%20Machines/AMD/1.0.zip" target="_blank" rel="noopener" style="color:var(--cyan)">
-            <span class="en">→ ICSim 1.0 Automation Suite (Full Source)</span>
-            <span class="fr">→ Suite d'automatisation ICSim 1.0 (Code Source Complet)</span>
+            <span class="en">→ ICSim Automation Suite (.zip)</span>
+            <span class="fr">→ ICSim Automation Suite (.zip)</span>
           </a>
         </p>
       </div>
-      <div class="code-bg" style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0.75rem 0;">
+      <p style="margin:0.75rem 0 0.4rem; font-size:0.9rem; color:var(--text); line-height:1.6;">
+        <span class="en"><strong>1)</strong> On your <strong>host</strong>, <strong>unzip</strong> the Automation Suite you
+          downloaded (double-click it) - you get an <code>Automation-Suite</code> folder. Copy that <strong>whole folder</strong>
+          into the lab with <code>scp -r</code>. This shows the Docker port (<code>2222</code>); on the VM drop the
+          <code>-P</code> and use the VM's IP (see
+          <a href="#" onclick="return showPage('usage')" style="color:var(--cyan)">Getting Started</a>).</span>
+        <span class="fr"><strong>1)</strong> Sur votre <strong>hôte</strong>, <strong>décompressez</strong> l'Automation Suite
+          téléchargée (double-clic) - vous obtenez un dossier <code>Automation-Suite</code>. Copiez <strong>tout le
+          dossier</strong> dans le lab avec <code>scp -r</code>. Ceci montre le port Docker (<code>2222</code>) ; sur la VM,
+          enlevez <code>-P</code> et utilisez l'IP de la VM (voir
+          <a href="#" onclick="return showPage('usage')" style="color:var(--cyan)">Prise en main</a>).</span>
+      </p>
+      <div class="code-bg" style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0.5rem 0;">
         <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-          <span><span class="en">Run the dynamic automation suite</span><span class="fr">Lancez la suite d'automatisation dynamique</span></span>
+          <span><span class="en">On your host - copy the unzipped folder in</span><span class="fr">Sur l'hôte - copier le dossier décompressé</span></span>
           <span style="color:var(--green);">Bash</span>
         </div>
-<pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># clone the repo above, then:</span>
-cd scripts/automation-scripts/1.0
+<pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> <span class="hl-green">-r</span> ./Automation-Suite/ workshop@localhost:/home/workshop/</code></pre>
+      </div>
+      <p style="margin:0.75rem 0 0.4rem; font-size:0.9rem; color:var(--text); line-height:1.6;">
+        <span class="en"><strong>2)</strong> Inside the lab (over SSH), step into the folder and run
+          <code>inject.py</code>. Nothing to unzip here - it is already a folder.</span>
+        <span class="fr"><strong>2)</strong> Dans le lab (via SSH), entrez dans le dossier et lancez
+          <code>inject.py</code>. Rien à décompresser ici - c'est déjà un dossier.</span>
+      </p>
+      <div class="code-bg" style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0.5rem 0;">
+        <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+          <span><span class="en">Inside the lab - run the suite</span><span class="fr">Dans le lab - lancer la suite</span></span>
+          <span style="color:var(--green);">Bash</span>
+        </div>
+<pre style="margin:0; padding:1.25rem; background:transparent;"><code>cd /home/workshop/Automation-Suite
 <span class="hl-cyan">python3</span> inject.py</code></pre>
       </div>
 
@@ -4908,6 +4725,7 @@ cd scripts/automation-scripts/1.0
         <a href="#sol-5" onclick="document.getElementById('sol-5').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="qn-id">05</span><span class="en">Unlock All Doors</span><span class="fr">Déverrouiller toutes les portes</span></a>
         <a href="#sol-6" onclick="document.getElementById('sol-6').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="qn-id">06</span><span class="en">Find the hidden routine</span><span class="fr">Trouver la routine cachée</span></a>
         <a href="#sol-7" onclick="document.getElementById('sol-7').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="qn-id">07</span><span class="en">Break Security Access</span><span class="fr">Briser le Security Access</span></a>
+        <a href="#sol-auto" onclick="document.getElementById('sol-auto').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="qn-id">★</span><span class="en">A dynamic automated script</span><span class="fr">Un script automatisé dynamique</span></a>
       </div>
 
       <!-- Solution 1 -->
@@ -5180,26 +4998,110 @@ done</code></pre>
             </div>
           </div>
 
-          <div
-            style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
-            <div
-              style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-              <span>Terminal Execution</span>
+          <!-- STEP 1 · watch -->
+          <div class="setup-step-label" style="margin-top:0;"><span class="en">Step 1 · Open a second SSH terminal and watch the exchange</span><span class="fr">Étape 1 · Ouvrir un second terminal SSH et observer l'échange</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">The VIN
+              reply arrives as several frames, and <code>cansend</code> does not show you replies - so you need a terminal
+              watching the bus while another one asks. Open a <strong>second SSH terminal</strong>
+              (<a href="#" onclick="return showPage('usage')" style="color:var(--cyan)">Getting Started</a> shows how) and
+              start <code>candump</code> filtered on the two diagnostic IDs: <code>0x7E0</code> (your request, tester →
+              ECU) and <code>0x7E8</code> (the ECU's reply). Leave it running.</span><span class="fr">La réponse VIN arrive
+              en plusieurs trames, et <code>cansend</code> n'affiche pas les réponses - il faut donc un terminal qui écoute
+              le bus pendant qu'un autre demande. Ouvrez un <strong>second terminal SSH</strong>
+              (voir <a href="#" onclick="return showPage('usage')" style="color:var(--cyan)">Prise en main</a>) et lancez
+              <code>candump</code> filtré sur les deux IDs de diagnostic : <code>0x7E0</code> (votre requête, testeur → ECU)
+              et <code>0x7E8</code> (la réponse de l'ECU). Laissez-le tourner.</span></p>
+          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+            <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+              <span><span class="en">SSH terminal 2 - watch the diagnostic channel</span><span class="fr">Terminal SSH 2 - observer le canal de diagnostic</span></span>
               <span style="color:var(--cyan);">Bash</span>
             </div>
-            <pre style="margin:0; padding:1.25rem; background:transparent;" data-raw="1"><code><span class="hl-dim"># To ensure the ECU doesn't timeout waiting for the Flow Control,</span>
-<span class="hl-dim"># chain the request and the Flow Control together with a small sleep:</span>
-cansend vcan0 7E0#020902 ; sleep 0.1 ; cansend vcan0 7E0#300000
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>candump vcan0,<span class="hl-amber">7E0</span>:7FF,<span class="hl-amber">7E8</span>:7FF</code></pre>
+          </div>
 
-<span class="hl-dim"># Candump captures the full ISO-TP exchange. Read each PCI byte:</span>
-<span class="hl-dim">  vcan0  7E0  [3]  02 09 02                 # Request    : Service 09 PID 02 (Get VIN)</span>
-<span class="hl-dim">  vcan0  7E8  [8]  10 12 57 42 41 52 42 48  # First Frame: 10=FF marker | 12=length 0x12=18 bytes | 57 42 41 52 42 48 = "WBARBH"</span>
-<span class="hl-dim">  vcan0  7E0  [3]  30 00 00                 # Flow Ctrl  : 30=Continue-To-Send | 00=block size (send all) | 00=separation time</span>
-<span class="hl-dim">  vcan0  7E8  [8]  20 41 43 4B 46 41 31 34  # Consec. #0 : 20=CF, seq 0 | 41 43 4B 46 41 31 34 = "ACKFA14"</span>
-<span class="hl-dim">  vcan0  7E8  [6]  21 39 38 35 30 00        # Consec. #1 : 21=CF, seq 1 | 39 38 35 30 = "9850" | 00=null terminator</span>
+          <!-- STEP 2 · request + flow control -->
+          <div class="setup-step-label"><span class="en">Step 2 · Ask for the VIN (request + Flow Control, chained)</span><span class="fr">Étape 2 · Demander le VIN (requête + Flow Control, chaînés)</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">In your
+              <strong>first</strong> SSH terminal, send the request. The ECU answers with a <em>First Frame</em> and then waits
+              only a moment for you to send a <em>Flow Control</em> frame before it will stream the rest; if you type them by
+              hand you will miss that window. So chain both with a short <code>sleep</code> - the request, a 100&nbsp;ms
+              pause, then the Flow Control - and run it as one line:</span><span class="fr">Dans votre
+              <strong>premier</strong> terminal SSH, envoyez la requête. L'ECU répond par une <em>First Frame</em> puis n'attend
+              qu'un instant que vous envoyiez une trame <em>Flow Control</em> avant de diffuser la suite ; à la main, vous
+              ratez cette fenêtre. Chaînez donc les deux avec un court <code>sleep</code> - la requête, une pause de
+              100&nbsp;ms, puis le Flow Control - en une seule ligne :</span></p>
+          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+            <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+              <span><span class="en">SSH terminal 1 - request the VIN</span><span class="fr">Terminal SSH 1 - demander le VIN</span></span>
+              <span style="color:var(--cyan);">Bash</span>
+            </div>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>cansend vcan0 <span class="hl-amber">7E0</span>#020902 ; sleep 0.1 ; cansend vcan0 <span class="hl-amber">7E0</span>#300000</code></pre>
+          </div>
+          <p style="margin:0.75rem 0 0.5rem; font-size:0.85rem; color:var(--text-dim);"><span class="en">What each piece means:</span><span class="fr">Ce que signifie chaque élément :</span></p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Value</span><span class="fr">Valeur</span></th>
+                  <th><span class="en">Meaning</span><span class="fr">Signification</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>7E0</code></td><td class="dim"><span class="en">The diagnostic <strong>request</strong> ID - where a tester sends UDS/OBD requests to the ECU.</span><span class="fr">L'ID de <strong>requête</strong> diagnostique - où un testeur envoie ses requêtes UDS/OBD à l'ECU.</span></td></tr>
+                <tr><td><code>02&nbsp;09&nbsp;02</code></td><td class="dim"><span class="en"><code>02</code> = ISO-TP single-frame with 2 payload bytes; <code>09</code> = OBD-II <strong>mode 09</strong> (vehicle information); <code>02</code> = <strong>PID 02</strong> (VIN).</span><span class="fr"><code>02</code> = trame unique ISO-TP de 2 octets ; <code>09</code> = <strong>mode 09</strong> OBD-II (infos véhicule) ; <code>02</code> = <strong>PID 02</strong> (VIN).</span></td></tr>
+                <tr><td><code>sleep&nbsp;0.1</code></td><td class="dim"><span class="en">A 100&nbsp;ms pause so the ECU's First Frame lands <em>before</em> we send the Flow Control.</span><span class="fr">Une pause de 100&nbsp;ms pour que la First Frame de l'ECU arrive <em>avant</em> l'envoi du Flow Control.</span></td></tr>
+                <tr><td><code>30&nbsp;00&nbsp;00</code></td><td class="dim"><span class="en">The <strong>Flow Control</strong> frame: <code>30</code> = Continue-To-Send; first <code>00</code> = block size (0 = send <em>all</em> remaining frames, no more Flow Controls); second <code>00</code> = separation time (0 = no gap).</span><span class="fr">La trame <strong>Flow Control</strong> : <code>30</code> = Continue-To-Send ; premier <code>00</code> = taille de bloc (0 = envoyer <em>toutes</em> les trames restantes, sans autre Flow Control) ; second <code>00</code> = temps de séparation (0 = sans délai).</span></td></tr>
+              </tbody>
+            </table>
+          </div>
 
-<span class="hl-dim"># Drop the PCI bytes + the trailing 00, then decode the 17 ASCII payload bytes:</span>
-<span class="hl-dim">#   57 42 41 52 42 48 41 43 4B 46 41 31 34 39 38 35 30  ->  WBARBHACKFA149850</span></code></pre>
+          <!-- STEP 3 · read the reply -->
+          <div class="setup-step-label"><span class="en">Step 3 · Read the ISO-TP reply in the candump window</span><span class="fr">Étape 3 · Lire la réponse ISO-TP dans la fenêtre candump</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">Your second
+              terminal now shows the four-frame conversation. Every frame starts with a <strong>PCI byte</strong> whose top
+              nibble says what kind of frame it is - <code>0</code> single, <code>1</code> First Frame, <code>2</code>
+              Consecutive Frame, <code>3</code> Flow Control:</span><span class="fr">Votre second terminal montre maintenant
+              la conversation en quatre trames. Chaque trame commence par un <strong>octet PCI</strong> dont le quartet haut
+              indique le type - <code>0</code> unique, <code>1</code> First Frame, <code>2</code> Consecutive Frame,
+              <code>3</code> Flow Control :</span></p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">candump line</span><span class="fr">ligne candump</span></th>
+                  <th><span class="en">What it is</span><span class="fr">Ce que c'est</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>7E0&nbsp;[3]&nbsp;02&nbsp;09&nbsp;02</code></td><td class="dim"><span class="en">Your request - single frame, mode 09 PID 02.</span><span class="fr">Votre requête - trame unique, mode 09 PID 02.</span></td></tr>
+                <tr><td><code>7E8&nbsp;[8]&nbsp;<strong>10&nbsp;12</strong>&nbsp;57&nbsp;42&nbsp;41&nbsp;52&nbsp;42&nbsp;48</code></td><td class="dim"><span class="en"><strong>First Frame.</strong> <code>1</code>=FF, <code>012</code>=total length <code>0x12</code>=18 bytes. Payload starts: <code>57 42 41 52 42 48</code> = <code>"WBARBH"</code>.</span><span class="fr"><strong>First Frame.</strong> <code>1</code>=FF, <code>012</code>=longueur totale <code>0x12</code>=18 octets. Charge : <code>57 42 41 52 42 48</code> = <code>"WBARBH"</code>.</span></td></tr>
+                <tr><td><code>7E0&nbsp;[3]&nbsp;30&nbsp;00&nbsp;00</code></td><td class="dim"><span class="en">Your Flow Control - "clear to send everything".</span><span class="fr">Votre Flow Control - « envoyez tout ».</span></td></tr>
+                <tr><td><code>7E8&nbsp;[8]&nbsp;<strong>20</strong>&nbsp;41&nbsp;43&nbsp;4B&nbsp;46&nbsp;41&nbsp;31&nbsp;34</code></td><td class="dim"><span class="en">Consecutive frame #0 (<code>2</code>=CF, seq <code>0</code>): <code>"ACKFA14"</code>.</span><span class="fr">Consecutive frame n°0 (<code>2</code>=CF, séq <code>0</code>) : <code>"ACKFA14"</code>.</span></td></tr>
+                <tr><td><code>7E8&nbsp;[6]&nbsp;<strong>21</strong>&nbsp;39&nbsp;38&nbsp;35&nbsp;30&nbsp;00</code></td><td class="dim"><span class="en">Consecutive frame #1 (<code>2</code>=CF, seq <code>1</code>): <code>"9850"</code>, then <code>00</code> padding.</span><span class="fr">Consecutive frame n°1 (<code>2</code>=CF, séq <code>1</code>) : <code>"9850"</code>, puis remplissage <code>00</code>.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- STEP 4 · decode -->
+          <div class="setup-step-label"><span class="en">Step 4 · Decode the bytes to the VIN</span><span class="fr">Étape 4 · Décoder les octets en VIN</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">Drop each
+              frame's leading PCI byte(s) and the trailing <code>00</code> padding, join the remaining ASCII bytes in order,
+              and you have the 17-character VIN:</span><span class="fr">Retirez les octets PCI de tête de chaque trame et le
+              remplissage <code>00</code> final, concaténez les octets ASCII restants dans l'ordre, et vous obtenez le VIN de
+              17 caractères :</span></p>
+          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+            <pre style="margin:0; padding:1.25rem; background:transparent;" data-raw="1"><code>57 42 41 52 42 48 41 43 4B 46 41 31 34 39 38 35 30
+<span class="hl-green">W  B  A  R  B  H  A  C  K  F  A  1  4  9  8  5  0</span>   →   WBARBHACKFA149850</code></pre>
+          </div>
+          <div class="info-block" style="margin:1rem 0 0; border-left-color:var(--cyan);">
+            <div class="info-block-label"><span class="en">Keep this VIN - you need it later</span><span class="fr">Gardez ce VIN - il resservira</span></div>
+            <p style="margin:0; font-size:0.9rem;"><span class="en">The <strong>last two characters</strong> of the VIN
+                (<code>5</code> and <code>0</code>) are the key material for the Security Access challenge
+                (<a href="#sol-7" onclick="document.getElementById('sol-7').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan)">Solution 07</a>). Reading the VIN first is what makes that attack possible.</span>
+              <span class="fr">Les <strong>deux derniers caractères</strong> du VIN (<code>5</code> et <code>0</code>) sont
+                le matériel de clé du défi Security Access
+                (<a href="#sol-7" onclick="document.getElementById('sol-7').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan)">Solution 07</a>). Lire le VIN d'abord est ce qui rend cette attaque possible.</span>
+            </p>
           </div>
           <div style="margin-top:1rem">
             <button class="sol-btn" style="padding:0.6rem 1.5rem;font-size:0.75rem" onclick="return showPageAndScroll('todo','ch-04')">← <span class="en">Back to Challenge 04</span><span class="fr">Retour au Défi 04</span></button>
@@ -5729,6 +5631,18 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
               <span class="en">Pre-configured Scan Ranges</span>
               <span class="fr">Plages de Scan Préconfigurées</span>
             </div>
+            <div style="padding:1.1rem 1.25rem; font-size:0.85rem; color:var(--text-dim); line-height:1.6; border-bottom:1px solid var(--border);">
+              <span class="en">These three presets are just a <strong>convenience</strong> - nothing about the attack
+                depends on them. They trade coverage for speed: a small, fast sweep when you only want a quick look, or the
+                exhaustive one when you want certainty. Pick whichever fits, or set your own <code>XX</code>/<code>YY</code>
+                bounds; the scan behaves identically either way. On this lab the routine lives in the <strong>Standard</strong>
+                range, so that preset finds it in a few seconds.</span>
+              <span class="fr">Ces trois préréglages sont une simple <strong>commodité</strong> - l'attaque n'en dépend en
+                rien. Ils échangent couverture contre vitesse : un balayage petit et rapide pour un simple aperçu, ou
+                l'exhaustif pour la certitude. Choisissez ce qui convient, ou définissez vos propres bornes
+                <code>XX</code>/<code>YY</code> ; le scan se comporte pareil. Sur ce lab, la routine se trouve dans la plage
+                <strong>Standard</strong>, donc ce préréglage la trouve en quelques secondes.</span>
+            </div>
             <div
               style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1px; background:var(--border);">
               <div style="background:var(--surface); padding:1.25rem; text-align:center;">
@@ -5841,17 +5755,40 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
             <pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> routine_scanner_brute.py workshop@localhost:/home/workshop/</code></pre>
           </div>
 
-          <!-- -- Terminal block -- -->
-          <div
-            style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
-            <div
-              style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-              <span>Terminal Execution</span>
+          <!-- STEP 1 · watch for hits -->
+          <div class="setup-step-label"><span class="en">Step 1 · Watch for hits in a second SSH terminal</span><span class="fr">Étape 1 · Surveiller les résultats dans un second terminal SSH</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">A confirmed
+              routine answers with a positive RoutineControl response - the byte <code>0x71</code> - on the ECU's reply ID
+              <code>0x7E8</code>. Before you launch the scanner, open a <strong>second SSH terminal</strong> and watch that
+              channel filtered for successes, so every hit scrolls past live. The filter <code>7E8:7FF</code> keeps only the
+              ECU's replies; the <code>grep 71</code> keeps only the positive-response lines.</span><span class="fr">Une
+              routine confirmée répond par une réponse RoutineControl positive - l'octet <code>0x71</code> - sur l'ID de
+              réponse de l'ECU <code>0x7E8</code>. Avant de lancer le scanner, ouvrez un <strong>second terminal SSH</strong> et
+              surveillez ce canal filtré sur les succès, pour voir chaque résultat défiler en direct. Le filtre
+              <code>7E8:7FF</code> ne garde que les réponses de l'ECU ; le <code>grep 71</code> ne garde que les lignes de
+              réponse positive.</span></p>
+          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+            <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+              <span><span class="en">SSH terminal 2 - only positive routine responses</span><span class="fr">Terminal SSH 2 - seulement les réponses positives</span></span>
               <span style="color:var(--cyan);">Bash</span>
             </div>
-            <pre
-              style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># 1. Run the scanner (raw CAN — works on Windows & Linux, no kernel module needed)</span>
-python3 routine_scanner_brute.py</code></pre>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>candump vcan0,<span class="hl-amber">7E8</span>:7FF | grep <span class="hl-green">71</span></code></pre>
+          </div>
+
+          <!-- STEP 2 · run the scanner -->
+          <div class="setup-step-label"><span class="en">Step 2 · Run the scanner</span><span class="fr">Étape 2 · Lancer le scanner</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">In your first
+              SSH terminal, run the script. It uses raw CAN, so it works on Windows and Linux with no kernel module. As it sweeps,
+              confirmed routines appear both in its own summary and in your <code>grep 71</code> window.</span><span
+              class="fr">Dans votre premier terminal SSH, lancez le script. Il utilise le CAN brut, donc il marche sous Windows et
+              Linux sans module noyau. Pendant le balayage, les routines confirmées apparaissent dans son résumé et dans votre
+              fenêtre <code>grep 71</code>.</span></p>
+          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+            <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+              <span><span class="en">SSH terminal 1 - run the brute-forcer</span><span class="fr">Terminal SSH 1 - lancer le brute-forcer</span></span>
+              <span style="color:var(--cyan);">Bash</span>
+            </div>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>python3 routine_scanner_brute.py</code></pre>
             <pre style="margin:0; padding:1.25rem; background:transparent;" data-raw="1"><code><span class="hl-dim"># Expected output:</span>
 <span class="hl-dim"># ┌-------------------------------------┐</span>
 <span class="hl-dim"># │  Pass 1: 32768/32768 in ~8s         │</span>
@@ -5866,10 +5803,32 @@ python3 routine_scanner_brute.py</code></pre>
 <span class="hl-dim"># │    activation=0x01 → ON             │</span>
 <span class="hl-dim"># │    activation=0x00 → OFF            │</span>
 <span class="hl-dim"># └-------------------------------------┘</span></code></pre>
-            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># 2. Trigger manually once you know the exact values:</span>
-cansend vcan0 <span class="hl-amber">7E0</span>#021002              <span class="hl-dim"># open extended session</span>
-cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>1001          <span class="hl-dim"># activate routine 0x10</span>
-cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>2201          <span class="hl-dim"># activate routine 0x22</span></code></pre>
+          </div>
+
+          <!-- STEP 3 · trigger manually -->
+          <div class="setup-step-label"><span class="en">Step 3 · Trigger a routine once you know its values</span><span class="fr">Étape 3 · Déclencher une routine une fois ses valeurs connues</span></div>
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">The routine
+              only runs from the extended session, and that session lapses if you type slowly - so <strong>chain</strong> the
+              session request and the activation into a single line with a short <code>sleep</code>. That is why you cannot
+              realistically do it as separate commands by hand. The frame <code>0431411001</code> reads as
+              <code>04</code>=length, <code>31</code>=RoutineControl, <code>41</code>=sub-function, <code>10</code>=routine ID,
+              <code>01</code>=activate. Here are the two confirmed routines, one runnable line each:</span><span
+              class="fr">La routine ne s'exécute que depuis la session étendue, et cette session expire si vous tapez
+              lentement - alors <strong>chaînez</strong> la requête de session et l'activation en une seule ligne avec un
+              court <code>sleep</code>. C'est pourquoi vous ne pouvez pas raisonnablement le faire en commandes séparées à la
+              main. La trame <code>0431411001</code> se lit <code>04</code>=longueur, <code>31</code>=RoutineControl,
+              <code>41</code>=sous-fonction, <code>10</code>=ID de routine, <code>01</code>=activer. Voici les deux routines
+              confirmées, une ligne exécutable chacune :</span></p>
+          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+            <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+              <span><span class="en">Extended session, then the routine - chained</span><span class="fr">Session étendue, puis la routine - chaînées</span></span>
+              <span style="color:var(--cyan);">Bash</span>
+            </div>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># routine 0x10 - extended session then activate</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>1001
+
+<span class="hl-dim"># routine 0x22 - extended session then activate</span>
+cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>2201</code></pre>
           </div>
           <div style="margin-top:1rem">
             <button class="sol-btn" style="padding:0.6rem 1.5rem;font-size:0.75rem" onclick="return showPageAndScroll('todo','ch-06')">← <span class="en">Back to Challenge 06</span><span class="fr">Retour au Défi 06</span></button>
@@ -6067,6 +6026,64 @@ cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><
                 <span class="fr">La fenêtre de 3,5&nbsp;s rendant l'exécution manuelle peu réaliste, utilisez le solveur dédié. Il lit le VIN, ouvre la session <code>0x03</code> avec un keep-alive TesterPresent, demande la graine, dérive la clé avec l'algorithme barbhack et déverrouille - en une seule passe.</span>
               </p>
             </div>
+
+            <!-- STEP 1 · watch the handshake -->
+            <div class="setup-step-label" style="margin-top:1.25rem;"><span class="en">Step 1 · Watch the handshake in a second SSH terminal</span><span class="fr">Étape 1 · Observer le handshake dans un second terminal SSH</span></div>
+            <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">The solver
+                finishes in well under a second, so to actually <em>see</em> the seed-key exchange, watch the diagnostic
+                channel in a <strong>second SSH terminal</strong> first. Filter on the two diagnostic IDs and add
+                <code>-t d</code> so each line is timestamped with the delta since the previous one - handy for spotting the
+                keep-alive cadence and the 3.5&nbsp;s window.</span><span class="fr">Le solveur se termine en bien moins d'une
+                seconde ; pour vraiment <em>voir</em> l'échange graine-clé, observez d'abord le canal de diagnostic dans un
+                <strong>second terminal SSH</strong>. Filtrez sur les deux IDs de diagnostic et ajoutez <code>-t d</code> pour
+                horodater chaque ligne avec le delta depuis la précédente - pratique pour repérer la cadence du keep-alive et
+                la fenêtre de 3,5&nbsp;s.</span></p>
+            <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
+              <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+                <span><span class="en">SSH terminal 2 - watch the diagnostic channel</span><span class="fr">Terminal SSH 2 - observer le canal de diagnostic</span></span>
+                <span style="color:var(--cyan);">Bash</span>
+              </div>
+              <pre style="margin:0; padding:1.25rem; background:transparent;"><code>candump -t d vcan0,<span class="hl-amber">7E0</span>:7FF,<span class="hl-amber">7E8</span>:7FF</code></pre>
+            </div>
+            <p style="margin:0.75rem 0 0.5rem; font-size:0.85rem; color:var(--text-dim);"><span class="en">Run the solver in your first SSH terminal, then read these lines in the candump window:</span><span class="fr">Lancez le solveur dans votre premier terminal SSH, puis lisez ces lignes dans la fenêtre candump :</span></p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th><span class="en">Line you'll see</span><span class="fr">Ligne visible</span></th>
+                    <th><span class="en">What it means</span><span class="fr">Ce que ça signifie</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>7E8&nbsp;...&nbsp;50&nbsp;03</code></td><td class="dim"><span class="en">Positive response to <code>10 03</code> - the Secret/Programming session is open.</span><span class="fr">Réponse positive à <code>10 03</code> - la session Secret/Programmation est ouverte.</span></td></tr>
+                  <tr><td><code>7E0&nbsp;...&nbsp;3E&nbsp;80</code></td><td class="dim"><span class="en">The TesterPresent keep-alive, sent every ~0.9&nbsp;s so the session never times out.</span><span class="fr">Le keep-alive TesterPresent, envoyé toutes les ~0,9&nbsp;s pour que la session n'expire jamais.</span></td></tr>
+                  <tr><td><code>7E8&nbsp;...&nbsp;67&nbsp;01&nbsp;<strong>S0&nbsp;S1</strong></code></td><td class="dim"><span class="en">The seed: <code>67 01</code> then two random bytes (<strong>different every run</strong>).</span><span class="fr">La graine : <code>67 01</code> puis deux octets aléatoires (<strong>différents à chaque exécution</strong>).</span></td></tr>
+                  <tr><td><code>7E0&nbsp;...&nbsp;27&nbsp;02&nbsp;<strong>K0&nbsp;K1</strong></code></td><td class="dim"><span class="en">Your derived key: <code>27 02</code> then <code>seed&nbsp;XOR&nbsp;{0x35,0x30}</code>.</span><span class="fr">Votre clé dérivée : <code>27 02</code> puis <code>seed&nbsp;XOR&nbsp;{0x35,0x30}</code>.</span></td></tr>
+                  <tr><td><code>7E8&nbsp;...&nbsp;<span style="color:var(--green)">67&nbsp;02</span></code></td><td class="dim"><span class="en"><strong>Unlocked.</strong> <code>67 02</code> is the positive response - SecurityAccess granted.</span><span class="fr"><strong>Déverrouillé.</strong> <code>67 02</code> est la réponse positive - SecurityAccess accordé.</span></td></tr>
+                  <tr><td><code>7E8&nbsp;...&nbsp;<span style="color:var(--red)">7F&nbsp;27&nbsp;35</span></code></td><td class="dim"><span class="en">On the <em>secured</em> sim instead: NRC <code>0x35</code> invalidKey - the key can no longer be computed.</span><span class="fr">Sur le sim <em>sécurisé</em> : NRC <code>0x35</code> invalidKey - la clé n'est plus calculable.</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- STEP 2 · run the solver -->
+            <div class="setup-step-label"><span class="en">Step 2 · Run the solver</span><span class="fr">Étape 2 · Lancer le solveur</span></div>
+            <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">Download
+                <code>security_access.py</code> from the link below and copy it into the lab (same
+                <code>scp&nbsp;-P&nbsp;2222 ... workshop@localhost:/home/workshop/</code> as the scanner), then run it in your
+                first SSH terminal. It performs the whole VIN → session → seed → key → unlock sequence inside the 3.5&nbsp;s
+                window, and prints each step as your candump window shows the matching frames.</span><span class="fr">Téléchargez
+                <code>security_access.py</code> depuis le lien ci-dessous et copiez-le dans le lab (même
+                <code>scp&nbsp;-P&nbsp;2222 ... workshop@localhost:/home/workshop/</code> que le scanner), puis lancez-le dans
+                votre premier terminal SSH. Il effectue toute la séquence VIN → session → graine → clé → déverrouillage dans la
+                fenêtre de 3,5&nbsp;s, et affiche chaque étape pendant que votre fenêtre candump montre les trames
+                correspondantes.</span></p>
+            <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0 0 1rem;">
+              <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+                <span><span class="en">SSH terminal 1 - run the solver</span><span class="fr">Terminal SSH 1 - lancer le solveur</span></span>
+                <span style="color:var(--cyan);">Bash</span>
+              </div>
+              <pre style="margin:0; padding:1.25rem; background:transparent;"><code>python3 security_access.py</code></pre>
+            </div>
             <div class="info-block" style="margin:1rem 0 0">
               <div class="info-block-label">GitHub</div>
               <p style="margin:0;font-family:var(--mono);font-size:0.85rem">
@@ -6085,7 +6102,7 @@ cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><
       </div>
 
       <!-- Automated-script note - dynamic attack suite (moved from Challenge 9) -->
-      <div class="info-block" style="border-left-color:var(--cyan); margin:0 0 2.5rem;">
+      <div class="info-block" id="sol-auto" style="border-left-color:var(--cyan); margin:0 0 2.5rem; scroll-margin-top:1rem;">
         <div class="info-block-label"><span class="en">A dynamic automated script exists for these attacks</span><span class="fr">Un script automatisé dynamique existe pour ces attaques</span></div>
         <div>
           <div class="info-block" style="margin:0 0 1rem">
@@ -6111,43 +6128,128 @@ cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><
   <div class="page" id="page-cancmds">
     <div class="hero">
       <div class="hero-inner">
-        <div class="hero-tag"><span class="en">Toolkit</span><span class="fr">Boîte à outils</span></div>
+        <div class="hero-tag"><span class="en">Command Reference</span><span class="fr">Référence des Commandes</span></div>
         <h1><span class="en">CAN <span class="accent">COMMANDS</span></span><span class="fr">COMMANDES <span
               class="accent">CAN</span></span></h1>
         <p class="hero-sub">
-          <span class="en">A cheat-sheet for the <code>can-utils</code> tools you use inside the lab terminal: sniff,
-            decode, craft, replay, and run ISO-TP transfers on <code>vcan0</code>. Every box has a copy button.</span>
-          <span class="fr">Aide-mémoire des outils <code>can-utils</code> que vous utilisez dans le terminal du lab :
-            sniffer, décoder, forger, rejouer et lancer des transferts ISO-TP sur <code>vcan0</code>. Chaque bloc a un
-            bouton de copie.</span>
+          <span class="en">A reference for the <code>can-utils</code> tools you use to sniff, craft, and replay frames on
+            <code>vcan0</code>. Jump to any command from the table below, read what every option and every value in an
+            example means, then copy it with one click. Keep this page open in a tab while you work through the challenges.</span>
+          <span class="fr">Une référence des outils <code>can-utils</code> pour sniffer, forger et rejouer des trames sur
+            <code>vcan0</code>. Sautez à n'importe quelle commande depuis le tableau ci-dessous, lisez le sens de chaque
+            option et de chaque valeur d'un exemple, puis copiez-la d'un clic. Gardez cette page ouverte dans un onglet
+            pendant les défis.</span>
         </p>
       </div>
     </div>
     <div class="content">
 
+      <div class="section-label"><span class="en">Before you start</span><span class="fr">Avant de commencer</span></div>
+      <h2><span class="en">These Tools Are Already on the Machine</span><span class="fr">Ces Outils Sont Déjà sur la Machine</span></h2>
+      <p><span class="en">Everything on this page is <a href="https://github.com/linux-can/can-utils" target="_blank" rel="noopener" style="color:var(--cyan)"><code>can-utils</code></a>,
+          the standard open-source SocketCAN toolkit that ships with Linux. The lab image comes with it
+          <strong>pre-installed</strong> - there is nothing to <code>apt-get</code> or build. You just open a terminal and
+          run the commands.</span>
+        <span class="fr">Tout sur cette page provient de <a href="https://github.com/linux-can/can-utils" target="_blank" rel="noopener" style="color:var(--cyan)"><code>can-utils</code></a>,
+          la boîte à outils SocketCAN open-source standard livrée avec Linux. L'image du lab l'inclut
+          <strong>pré-installée</strong> - rien à <code>apt-get</code> ni à compiler. Vous ouvrez un terminal et lancez les
+          commandes.</span>
+      </p>
       <div class="info-block amber">
         <div class="info-block-label"><span class="en">Where to run these</span><span class="fr">Où les
             exécuter</span></div>
-        <p style="margin-bottom:0;"><span class="en">Run everything inside the lab's terminal window (or over
-            <code>ssh -p 2222 workshop@localhost</code>). The virtual bus is <code>vcan0</code> - swap it for
-            <code>can0</code> on real hardware.</span>
-          <span class="fr">Lancez tout dans la fenêtre terminal du lab (ou via
-            <code>ssh -p 2222 workshop@localhost</code>). Le bus virtuel est <code>vcan0</code> - remplacez-le par
-            <code>can0</code> sur du matériel réel.</span>
+        <p style="margin-bottom:0;"><span class="en">Run everything inside the lab's terminal window (or over SSH -
+            <code>ssh -p 2222 workshop@localhost</code> on Docker, <code>ssh workshop@&lt;vm-ip&gt;</code> on the VM). The
+            virtual bus is always <code>vcan0</code> here; on real hardware you would swap it for <code>can0</code>.</span>
+          <span class="fr">Lancez tout dans la fenêtre terminal du lab (ou via SSH -
+            <code>ssh -p 2222 workshop@localhost</code> sur Docker, <code>ssh workshop@&lt;vm-ip&gt;</code> sur la VM). Le
+            bus virtuel est toujours <code>vcan0</code> ici ; sur du matériel réel, remplacez-le par <code>can0</code>.</span>
         </p>
       </div>
 
-      <div class="section-label"><span class="en">candump</span><span class="fr">candump</span></div>
-      <h2><span class="en">candump - Capture &amp; Filter Traffic</span><span class="fr">candump - Capturer &amp; Filtrer le
-          Trafic</span></h2>
-      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en">The workhorse: dump every frame on the bus.
-          Add a <code>,id:mask</code> filter to focus on one ID.</span>
-        <span class="fr">L'outil de base : afficher chaque trame du bus. Ajoutez un filtre <code>,id:mask</code> pour
-          cibler un seul ID.</span>
+      <hr class="divider">
+      <div class="section-label"><span class="en">Quick reference</span><span class="fr">Référence rapide</span></div>
+      <h2><span class="en">Every Command at a Glance</span><span class="fr">Toutes les Commandes en un Coup d'Œil</span></h2>
+      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en"><strong>Click any row</strong> to jump straight to
+          that command's full entry - what it does, a worked example with every value explained, and a complete option
+          table.</span>
+        <span class="fr"><strong>Cliquez sur une ligne</strong> pour sauter directement à la fiche complète de la commande -
+          ce qu'elle fait, un exemple commenté avec chaque valeur expliquée, et un tableau complet des options.</span>
       </p>
-      <div class="code-label"><span class="en">Watch all traffic / only ID 0x244 / a range with a mask</span><span
-          class="fr">Tout le trafic / seulement l'ID 0x244 / une plage avec masque</span></div>
-      <pre><code><span class="hl-comment"># every frame on the bus</span>
+      <div class="table-wrap">
+        <table class="cmd-index">
+          <thead>
+            <tr>
+              <th><span class="en">Command</span><span class="fr">Commande</span></th>
+              <th><span class="en">What you use it for</span><span class="fr">À quoi ça sert</span></th>
+              <th><span class="en">Typical example</span><span class="fr">Exemple typique</span></th>
+              <th style="text-align:right;"><span class="en">Go</span><span class="fr">Aller</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td><a href="#cmd-candump" onclick="event.stopPropagation();document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>candump</code></a></td>
+              <td class="dim"><span class="en">Watch or log live traffic (the reconnaissance workhorse)</span><span class="fr">Observer ou journaliser le trafic en direct (l'outil de reconnaissance)</span></td>
+              <td><code>candump vcan0</code></td>
+              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+            </tr>
+            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td><a href="#cmd-cansniffer" onclick="event.stopPropagation();document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cansniffer</code></a></td>
+              <td class="dim"><span class="en">Grouped live view that highlights the bytes that change</span><span class="fr">Vue groupée en direct qui surligne les octets qui changent</span></td>
+              <td><code>cansniffer -c vcan0</code></td>
+              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+            </tr>
+            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td><a href="#cmd-cansend" onclick="event.stopPropagation();document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cansend</code></a></td>
+              <td class="dim"><span class="en">Inject a single frame you built by hand (incl. RTR)</span><span class="fr">Injecter une seule trame construite à la main (RTR inclus)</span></td>
+              <td><code>cansend vcan0 244#0000003EDD</code></td>
+              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+            </tr>
+            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td><a href="#cmd-cangen" onclick="event.stopPropagation();document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cangen</code></a></td>
+              <td class="dim"><span class="en">Generate / flood frames for noise, fuzzing, load</span><span class="fr">Générer / inonder des trames pour bruit, fuzzing, charge</span></td>
+              <td><code>cangen vcan0 -g 100 -I r -D r -v</code></td>
+              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+            </tr>
+            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td><a href="#cmd-canplayer" onclick="event.stopPropagation();document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>canplayer</code></a></td>
+              <td class="dim"><span class="en">Replay a frame log recorded earlier with <code>candump -l</code></span><span class="fr">Rejouer un journal de trames enregistré avec <code>candump -l</code></span></td>
+              <td><code>canplayer -I dump.log vcan0=vcan0</code></td>
+              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr class="divider">
+      <div class="section-label"><span class="en">Reference</span><span class="fr">Référence</span></div>
+      <h2><span class="en">Each Command in Detail</span><span class="fr">Chaque Commande en Détail</span></h2>
+      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en">Every tool follows the same layout: a one-line
+          <strong>syntax</strong>, copy-ready <strong>examples</strong>, and a full <strong>option table</strong>. The colored
+          tag on each card shows what the tool is for.</span>
+        <span class="fr">Chaque outil suit la même disposition : une <strong>syntaxe</strong> en une ligne, des
+          <strong>exemples</strong> prêts à copier, et un <strong>tableau d'options</strong> complet. L'étiquette colorée de
+          chaque fiche indique à quoi sert l'outil.</span>
+      </p>
+
+      <!-- ─────── candump ─────── -->
+      <div class="tool-card" id="cmd-candump" style="--cmd-accent: var(--cyan);">
+        <div class="tool-card-head">
+          <div class="tool-card-titles">
+            <span class="cmd-tool">candump</span>
+            <span class="cmd-chip"><span class="en">Observe</span><span class="fr">Observer</span></span>
+          </div>
+          <p class="cmd-tool-tag"><span class="en">Dump, filter, and log live bus traffic - the reconnaissance workhorse you
+              leave running while you interact with the car.</span><span class="fr">Afficher, filtrer et journaliser le trafic
+              en direct - l'outil de reconnaissance que vous laissez tourner pendant que vous manipulez la voiture.</span></p>
+        </div>
+        <div class="tool-card-body">
+          <div class="cmd-syntax"><b>candump</b> [<span class="opt">options</span>] &lt;iface&gt;[,&lt;id&gt;:&lt;mask&gt; …]</div>
+
+          <div class="cmd-subhead"><span class="en">Examples</span><span class="fr">Exemples</span></div>
+          <div class="code-label"><span class="en">Watch all traffic / only ID 0x244 / colorized with timestamps</span><span
+              class="fr">Tout le trafic / seulement l'ID 0x244 / colorisé avec horodatage</span></div>
+          <pre><code><span class="hl-comment"># every frame on the bus</span>
 candump vcan0
 
 <span class="hl-comment"># only CAN ID 0x244 (id:mask - 7FF matches all 11 bits)</span>
@@ -6155,179 +6257,319 @@ candump vcan0,244:7FF
 
 <span class="hl-comment"># colorized, zero-based timestamps, also show ASCII</span>
 candump -c -tz -a vcan0</code></pre>
-      <div class="code-label"><span class="en">Log to a file, then list it</span><span class="fr">Journaliser dans un
-          fichier, puis l'afficher</span></div>
-      <pre><code><span class="hl-comment"># writes candump-&lt;timestamp&gt;.log in the current folder</span>
+          <div class="code-label"><span class="en">Record to a log file (for canplayer)</span><span class="fr">Enregistrer dans un fichier log (pour canplayer)</span></div>
+          <pre><code><span class="hl-comment"># writes candump-&lt;timestamp&gt;.log in the current folder</span>
 candump -l vcan0</code></pre>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="en">Option</span><span class="fr">Option</span></th>
-              <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><code>vcan0,ID:MASK</code></td><td class="dim"><span class="en">Filter: keep frames where
-                  <code>id &amp; mask == ID &amp; mask</code> (e.g. <code>244:7FF</code>)</span><span class="fr">Filtre : garde
-                  les trames où <code>id &amp; mask == ID &amp; mask</code> (ex. <code>244:7FF</code>)</span></td></tr>
-            <tr><td><code>-t a|d|z|A</code></td><td class="dim"><span class="en">Timestamp: absolute / delta / zero /
-                  absolute-with-date</span><span class="fr">Horodatage : absolu / delta / zéro / absolu-avec-date</span>
-              </td></tr>
-            <tr><td><code>-c</code></td><td class="dim"><span class="en">Colorize output</span><span class="fr">Colorise
-                  la sortie</span></td></tr>
-            <tr><td><code>-a</code></td><td class="dim"><span class="en">Also print the data bytes as ASCII</span><span
-                  class="fr">Affiche aussi les octets en ASCII</span></td></tr>
-            <tr><td><code>-x</code></td><td class="dim"><span class="en">Extra info (RX/TX direction, bus)</span><span
-                  class="fr">Infos supplémentaires (sens RX/TX, bus)</span></td></tr>
-            <tr><td><code>-e</code></td><td class="dim"><span class="en">Show error frames</span><span class="fr">Affiche
-                  les trames d'erreur</span></td></tr>
-            <tr><td><code>-n COUNT</code></td><td class="dim"><span class="en">Stop after COUNT frames</span><span
-                  class="fr">S'arrête après COUNT trames</span></td></tr>
-            <tr><td><code>-l</code></td><td class="dim"><span class="en">Log frames to <code>candump-*.log</code></span><span
-                  class="fr">Journalise dans <code>candump-*.log</code></span></td></tr>
-          </tbody>
-        </table>
-      </div>
 
-      <hr class="divider">
-      <div class="section-label"><span class="en">cansniffer</span><span class="fr">cansniffer</span></div>
-      <h2><span class="en">cansniffer - Live Grouped View</span><span class="fr">cansniffer - Vue Groupée en Direct</span>
-      </h2>
-      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en">Instead of a scrolling log, <code>cansniffer</code>
-          shows one line per ID and <strong>highlights the bytes that change</strong> - perfect for finding which ID
-          reacts to a button.</span>
-        <span class="fr">Au lieu d'un journal défilant, <code>cansniffer</code> affiche une ligne par ID et
-          <strong>met en évidence les octets qui changent</strong> - idéal pour trouver quel ID réagit à un
-          bouton.</span>
-      </p>
-      <div class="code-label"><span class="en">Live view with changing bytes highlighted</span><span class="fr">Vue en
-          direct avec octets changeants surlignés</span></div>
-      <pre><code>cansniffer -c vcan0</code></pre>
-      <div class="info-block">
-        <div class="info-block-label"><span class="en">Interactive keys (while it runs)</span><span class="fr">Touches
-            interactives (pendant l'exécution)</span></div>
-        <p style="margin-bottom:0;"><span class="en">Type <code>-000</code> then Enter to hide all IDs, then
-            <code>+244</code> to show only 0x244. <code>+</code> adds, <code>-</code> removes, and <code>q</code>
-            quits.</span>
-          <span class="fr">Tapez <code>-000</code> puis Entrée pour masquer tous les ID, puis <code>+244</code> pour
-            n'afficher que 0x244. <code>+</code> ajoute, <code>-</code> retire, et <code>q</code> quitte.</span>
-        </p>
+          <div class="cmd-subhead"><span class="en">Options</span><span class="fr">Options</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Option</span><span class="fr">Option</span></th>
+                  <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>vcan0,ID:MASK</code></td><td class="dim"><span class="en">Filter: keep frames where
+                      <code>id &amp; mask == ID &amp; mask</code> (e.g. <code>244:7FF</code>)</span><span class="fr">Filtre : garde
+                      les trames où <code>id &amp; mask == ID &amp; mask</code> (ex. <code>244:7FF</code>)</span></td></tr>
+                <tr><td><code>-t a|d|z|A</code></td><td class="dim"><span class="en">Timestamp: absolute / delta / zero /
+                      absolute-with-date</span><span class="fr">Horodatage : absolu / delta / zéro / absolu-avec-date</span>
+                  </td></tr>
+                <tr><td><code>-c</code></td><td class="dim"><span class="en">Colorize output</span><span class="fr">Colorise
+                      la sortie</span></td></tr>
+                <tr><td><code>-a</code></td><td class="dim"><span class="en">Also print the data bytes as ASCII</span><span
+                      class="fr">Affiche aussi les octets en ASCII</span></td></tr>
+                <tr><td><code>-x</code></td><td class="dim"><span class="en">Extra info (RX/TX direction, bus)</span><span
+                      class="fr">Infos supplémentaires (sens RX/TX, bus)</span></td></tr>
+                <tr><td><code>-e</code></td><td class="dim"><span class="en">Show error frames</span><span class="fr">Affiche
+                      les trames d'erreur</span></td></tr>
+                <tr><td><code>-n COUNT</code></td><td class="dim"><span class="en">Stop after COUNT frames</span><span
+                      class="fr">S'arrête après COUNT trames</span></td></tr>
+                <tr><td><code>-l</code></td><td class="dim"><span class="en">Log frames to <code>candump-*.log</code></span><span
+                      class="fr">Journalise dans <code>candump-*.log</code></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="en">Option</span><span class="fr">Option</span></th>
-              <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><code>-c</code></td><td class="dim"><span class="en">Color the bytes that changed</span><span
-                  class="fr">Colore les octets qui ont changé</span></td></tr>
-            <tr><td><code>-t TIME</code></td><td class="dim"><span class="en">Hold time before a static ID fades (10ms
-                  steps)</span><span class="fr">Délai avant qu'un ID statique s'estompe (pas de 10 ms)</span></td></tr>
-            <tr><td><code>-q</code></td><td class="dim"><span class="en">Quiet - less on-screen chrome</span><span
-                  class="fr">Silencieux - moins d'habillage à l'écran</span></td></tr>
-          </tbody>
-        </table>
+      <!-- ─────── cansniffer ─────── -->
+      <div class="tool-card" id="cmd-cansniffer" style="--cmd-accent: var(--cyan);">
+        <div class="tool-card-head">
+          <div class="tool-card-titles">
+            <span class="cmd-tool">cansniffer</span>
+            <span class="cmd-chip"><span class="en">Observe</span><span class="fr">Observer</span></span>
+          </div>
+          <p class="cmd-tool-tag"><span class="en">A grouped live view - one line per ID, with the bytes that just changed
+              highlighted. The fastest way to spot which ID a control affects.</span><span class="fr">Une vue groupée en
+              direct - une ligne par ID, avec les octets qui viennent de changer surlignés. Le moyen le plus rapide de repérer
+              quel ID réagit à une commande.</span></p>
+        </div>
+        <div class="tool-card-body">
+          <div class="cmd-syntax"><b>cansniffer</b> [<span class="opt">options</span>] &lt;iface&gt;</div>
+
+          <div class="cmd-subhead"><span class="en">Example</span><span class="fr">Exemple</span></div>
+          <div class="code-label"><span class="en">Live view with changing bytes highlighted</span><span class="fr">Vue en
+              direct avec octets changeants surlignés</span></div>
+          <pre><code>cansniffer -c vcan0</code></pre>
+          <div class="info-block" style="margin-bottom:0;">
+            <div class="info-block-label"><span class="en">Interactive keys (while it runs)</span><span class="fr">Touches
+                interactives (pendant l'exécution)</span></div>
+            <p style="margin-bottom:0;"><span class="en">Type <code>-000</code> then Enter to hide all IDs, then
+                <code>+244</code> to show only 0x244. <code>+</code> adds, <code>-</code> removes, and <code>q</code>
+                quits.</span>
+              <span class="fr">Tapez <code>-000</code> puis Entrée pour masquer tous les ID, puis <code>+244</code> pour
+                n'afficher que 0x244. <code>+</code> ajoute, <code>-</code> retire, et <code>q</code> quitte.</span>
+            </p>
+          </div>
+
+          <div class="cmd-subhead"><span class="en">Options</span><span class="fr">Options</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Option</span><span class="fr">Option</span></th>
+                  <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>-c</code></td><td class="dim"><span class="en">Color the bytes that changed</span><span
+                      class="fr">Colore les octets qui ont changé</span></td></tr>
+                <tr><td><code>-t TIME</code></td><td class="dim"><span class="en">Hold time before a static ID fades (10ms
+                      steps)</span><span class="fr">Délai avant qu'un ID statique s'estompe (pas de 10 ms)</span></td></tr>
+                <tr><td><code>-q</code></td><td class="dim"><span class="en">Quiet - less on-screen chrome</span><span
+                      class="fr">Silencieux - moins d'habillage à l'écran</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+      <!-- ─────── cansend ─────── -->
+      <div class="tool-card" id="cmd-cansend" style="--cmd-accent: var(--amber);">
+        <div class="tool-card-head">
+          <div class="tool-card-titles">
+            <span class="cmd-tool">cansend</span>
+            <span class="cmd-chip"><span class="en">Inject</span><span class="fr">Injecter</span></span>
+          </div>
+          <p class="cmd-tool-tag"><span class="en">Send exactly one frame that you built by hand, then exit - the core
+              injection tool. Written as <code>ID#DATA</code>.</span><span class="fr">Envoyer exactement une trame construite
+              à la main, puis quitter - l'outil d'injection principal. S'écrit <code>ID#DATA</code>.</span></p>
+        </div>
+        <div class="tool-card-body">
+          <div class="cmd-syntax"><b>cansend</b> &lt;iface&gt; &lt;ID&gt;<span class="opt">#</span>&lt;DATA&gt;</div>
 
-      <hr class="divider">
-      <div class="section-label"><span class="en">cansend</span><span class="fr">cansend</span></div>
-      <h2><span class="en">cansend - Inject a Single Frame</span><span class="fr">cansend - Injecter une Seule
-          Trame</span></h2>
-      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en">Format is <code>ID#DATA</code>. A 3-digit ID
-          is standard (11-bit); an 8-digit ID is extended (29-bit). Data is hex, up to 8 bytes.</span>
-        <span class="fr">Le format est <code>ID#DATA</code>. Un ID à 3 chiffres est standard (11 bits) ; à 8 chiffres,
-          étendu (29 bits). Les données sont en hexadécimal, jusqu'à 8 octets.</span>
-      </p>
-      <div class="code-label"><span class="en">Standard / extended / Remote-Transmission-Request</span><span
-          class="fr">Standard / étendu / Remote-Transmission-Request</span></div>
-      <pre><code><span class="hl-comment"># standard 11-bit ID 0x244, 3 data bytes</span>
-cansend vcan0 244#0000C0
+          <div class="cmd-subhead"><span class="en">Frame format</span><span class="fr">Format de la trame</span></div>
+          <p style="margin:0; font-size:0.9rem; color:var(--text-dim); line-height:1.6;"><span class="en">A <strong>3-hex-digit
+              ID</strong> is standard (11-bit); an <strong>8-hex-digit ID</strong> is extended (29-bit). <code>DATA</code> is
+              up to 8 bytes of hex - 2 hex characters per byte.</span><span class="fr">Un <strong>ID à 3 chiffres hex</strong>
+              est standard (11 bits) ; un <strong>ID à 8 chiffres hex</strong> est étendu (29 bits). <code>DATA</code> fait
+              jusqu'à 8 octets en hex - 2 caractères hex par octet.</span></p>
 
-<span class="hl-comment"># extended 29-bit ID, 8 data bytes</span>
+          <div class="cmd-subhead"><span class="en">Reading a frame value by value</span><span class="fr">Décoder une trame valeur par valeur</span></div>
+          <div class="code-label"><span class="en">Set the speedometer to 100 mph</span><span class="fr">Régler le compteur sur 100 mph</span></div>
+          <pre><code>cansend vcan0 244#0000003EDD</code></pre>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Piece</span><span class="fr">Élément</span></th>
+                  <th><span class="en">Value</span><span class="fr">Valeur</span></th>
+                  <th><span class="en">What it means</span><span class="fr">Ce que ça signifie</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="en">interface</span><span class="fr">interface</span></td><td><code>vcan0</code></td><td class="dim"><span class="en">The bus to send on - the lab's virtual CAN interface.</span><span class="fr">Le bus d'émission - l'interface CAN virtuelle du lab.</span></td></tr>
+                <tr><td><span class="en">ID (before <code>#</code>)</span><span class="fr">ID (avant <code>#</code>)</span></td><td><code>244</code></td><td class="dim"><span class="en">The arbitration ID in hex - here <code>0x244</code>, the <strong>speed</strong> signal. This is <em>what</em> the frame is, not who sent it.</span><span class="fr">L'ID d'arbitrage en hex - ici <code>0x244</code>, le signal <strong>vitesse</strong>. C'est <em>quoi</em> est la trame, pas qui l'a envoyée.</span></td></tr>
+                <tr><td><code>#</code></td><td><code>#</code></td><td class="dim"><span class="en">Separator between the ID and the data bytes.</span><span class="fr">Séparateur entre l'ID et les octets de données.</span></td></tr>
+                <tr><td><span class="en">data (after <code>#</code>)</span><span class="fr">données (après <code>#</code>)</span></td><td><code>00&nbsp;00&nbsp;00&nbsp;3E&nbsp;DD</code></td><td class="dim"><span class="en">5 payload bytes, indexed [0]-[4]. Bytes [3][4] = <code>0x3EDD</code> = 16093 = 100 mph in the bus unit (km/h × 100), big-endian. See <a href="#" onclick="return showPage('encoding')" style="color:var(--cyan)">Signal Encoding</a>.</span><span class="fr">5 octets de charge utile, indexés [0]-[4]. Octets [3][4] = <code>0x3EDD</code> = 16093 = 100 mph dans l'unité du bus (km/h × 100), big-endian. Voir <a href="#" onclick="return showPage('encoding')" style="color:var(--cyan)">Encodage</a>.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="info-block" style="margin-bottom:0;">
+            <div class="info-block-label"><span class="en">Rule of thumb</span><span class="fr">Règle simple</span></div>
+            <p style="margin-bottom:0;"><span class="en">The <strong>ID</strong> picks the signal (which dashboard function you
+                are talking to); the <strong>data bytes</strong> carry its value, and <em>which</em> byte holds the value depends
+                on the signal - the <a href="#" onclick="return showPage('encoding')" style="color:var(--cyan)">Signal Encoding</a>
+                page maps each one. Example: <code>188#01</code> is turn-signal ID <code>0x188</code> with byte [0] = <code>0x01</code> (left blinker on).</span>
+              <span class="fr">L'<strong>ID</strong> choisit le signal (quelle fonction du tableau de bord vous visez) ; les
+                <strong>octets de données</strong> portent sa valeur, et <em>quel</em> octet contient la valeur dépend du signal
+                - la page <a href="#" onclick="return showPage('encoding')" style="color:var(--cyan)">Encodage</a> les détaille.
+                Exemple : <code>188#01</code> est l'ID clignotant <code>0x188</code> avec l'octet [0] = <code>0x01</code>
+                (clignotant gauche allumé).</span>
+            </p>
+          </div>
+
+          <div class="cmd-subhead"><span class="en">Frame forms (standard / extended / RTR)</span><span class="fr">Formes de trame (standard / étendue / RTR)</span></div>
+          <pre><code><span class="hl-comment"># standard 11-bit ID 0x244, 5 data bytes -> 100 mph</span>
+cansend vcan0 244#0000003EDD
+
+<span class="hl-comment"># extended 29-bit ID (8 hex digits), 8 data bytes - used by real UDS/OBD ECUs</span>
 cansend vcan0 18DAF110#0211223344556677
 
-<span class="hl-comment"># RTR (remote request), no data</span>
+<span class="hl-comment"># RTR: a remote request - asks another node to send ID 0x244, carries no data</span>
 cansend vcan0 244#R</code></pre>
+          <div class="info-block" style="margin-bottom:0;">
+            <div class="info-block-label"><span class="en">What is the <code>#R</code> (RTR) form?</span><span class="fr">C'est quoi la forme <code>#R</code> (RTR) ?</span></div>
+            <p style="margin-bottom:0;"><span class="en"><strong>RTR = Remote Transmission Request.</strong> Instead of carrying
+                data, the frame sets the RTR bit to <em>ask</em> whoever owns that ID to transmit it. You send
+                <code>244#R</code> and, on a real bus, the ECU responsible for <code>0x244</code> answers with the current data
+                frame - a way to poll a value without knowing it. It is a legacy CAN feature: modern designs rarely use it, the
+                ICSim ECUs do not answer it, and CAN FD drops it entirely. It is here so you recognise it when a capture or a
+                tool shows an <code>R</code>. Write it as <code>ID#R</code> (no data bytes follow).</span>
+              <span class="fr"><strong>RTR = Remote Transmission Request (requête de transmission distante).</strong> Au lieu de
+                porter des données, la trame met le bit RTR pour <em>demander</em> au propriétaire de cet ID de la transmettre.
+                Vous envoyez <code>244#R</code> et, sur un vrai bus, l'ECU responsable de <code>0x244</code> répond avec la trame
+                de données courante - une façon d'interroger une valeur sans la connaître. C'est une fonctionnalité héritée : les
+                conceptions modernes l'utilisent rarement, les ECU d'ICSim n'y répondent pas, et le CAN FD la supprime
+                totalement. Elle est ici pour que vous la reconnaissiez quand une capture ou un outil affiche un <code>R</code>.
+                Écrivez-la <code>ID#R</code> (aucun octet de données ne suit).</span>
+            </p>
+          </div>
 
-      <hr class="divider">
-      <div class="section-label"><span class="en">cangen</span><span class="fr">cangen</span></div>
-      <h2><span class="en">cangen - Generate Traffic</span><span class="fr">cangen - Générer du Trafic</span></h2>
-      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en">Flood the bus with frames - useful for noise,
-          fuzzing, or load testing. Each field can be fixed, <code>r</code>andom, or <code>i</code>ncrementing.</span>
-        <span class="fr">Inonder le bus de trames - utile pour le bruit, le fuzzing ou les tests de charge. Chaque champ
-          peut être fixe, aléatoire (<code>r</code>) ou incrémenté (<code>i</code>).</span>
-      </p>
-      <div class="code-label"><span class="en">Random frames every 100ms / a fixed ID with incrementing data</span><span
-          class="fr">Trames aléatoires toutes les 100 ms / ID fixe avec données incrémentées</span></div>
-      <pre><code><span class="hl-comment"># fully random frames, 100ms apart, verbose</span>
+          <div class="cmd-subhead"><span class="en">Forms at a glance</span><span class="fr">Formes en un coup d'œil</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Form</span><span class="fr">Forme</span></th>
+                  <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>ID#DATA</code></td><td class="dim"><span class="en">Standard 11-bit ID (3 hex digits) + up to 8 data bytes</span><span class="fr">ID standard 11 bits (3 chiffres hex) + jusqu'à 8 octets</span></td></tr>
+                <tr><td><code>EXTID#DATA</code></td><td class="dim"><span class="en">Extended 29-bit ID (8 hex digits) - used by ISO-TP / UDS</span><span class="fr">ID étendu 29 bits (8 chiffres hex) - utilisé par ISO-TP / UDS</span></td></tr>
+                <tr><td><code>ID#R</code></td><td class="dim"><span class="en">Remote-transmission-request frame (RTR), no data bytes</span><span class="fr">Trame de requête distante (RTR), sans octets de données</span></td></tr>
+                <tr><td><code>ID#R8</code></td><td class="dim"><span class="en">RTR requesting a specific data length (here 8 bytes)</span><span class="fr">RTR demandant une longueur précise (ici 8 octets)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- ─────── cangen ─────── -->
+      <div class="tool-card" id="cmd-cangen" style="--cmd-accent: var(--green);">
+        <div class="tool-card-head">
+          <div class="tool-card-titles">
+            <span class="cmd-tool">cangen</span>
+            <span class="cmd-chip"><span class="en">Generate</span><span class="fr">Générer</span></span>
+          </div>
+          <p class="cmd-tool-tag"><span class="en">Generate a stream of frames - for background noise, fuzzing, or load
+              testing. Each field can be fixed, <code>r</code>andom, or <code>i</code>ncrementing.</span><span class="fr">Générer
+              un flux de trames - pour du bruit de fond, du fuzzing ou des tests de charge. Chaque champ peut être fixe,
+              aléatoire (<code>r</code>) ou incrémenté (<code>i</code>).</span></p>
+        </div>
+        <div class="tool-card-body">
+          <div class="cmd-syntax"><b>cangen</b> &lt;iface&gt; [<span class="opt">options</span>]</div>
+
+          <div class="cmd-subhead"><span class="en">Examples</span><span class="fr">Exemples</span></div>
+          <div class="code-label"><span class="en">Random frames every 100 ms / a fixed ID with incrementing data</span><span
+              class="fr">Trames aléatoires toutes les 100 ms / ID fixe avec données incrémentées</span></div>
+          <pre><code><span class="hl-comment"># fully random frames, 100ms apart, verbose</span>
 cangen vcan0 -g 100 -I r -L r -D r -v
 
 <span class="hl-comment"># fixed ID 0x42A, 8 bytes, data counts up</span>
 cangen vcan0 -g 100 -I 42A -L 8 -D i -v</code></pre>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="en">Option</span><span class="fr">Option</span></th>
-              <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><code>-g MS</code></td><td class="dim"><span class="en">Gap between frames in ms (default
-                  200)</span><span class="fr">Intervalle entre trames en ms (défaut 200)</span></td></tr>
-            <tr><td><code>-I ID|r|i</code></td><td class="dim"><span class="en">CAN ID: fixed hex, random, or
-                  incrementing</span><span class="fr">ID CAN : hex fixe, aléatoire ou incrémenté</span></td></tr>
-            <tr><td><code>-L LEN|r|i</code></td><td class="dim"><span class="en">Data length 0-8: fixed, random, or
-                  incrementing</span><span class="fr">Longueur 0-8 : fixe, aléatoire ou incrémentée</span></td></tr>
-            <tr><td><code>-D DATA|r|i</code></td><td class="dim"><span class="en">Payload: fixed hex, random, or
-                  incrementing</span><span class="fr">Charge utile : hex fixe, aléatoire ou incrémentée</span></td></tr>
-            <tr><td><code>-n COUNT</code></td><td class="dim"><span class="en">Stop after COUNT frames</span><span
-                  class="fr">S'arrête après COUNT trames</span></td></tr>
-            <tr><td><code>-e</code></td><td class="dim"><span class="en">Use extended (29-bit) IDs</span><span
-                  class="fr">Utilise des ID étendus (29 bits)</span></td></tr>
-          </tbody>
-        </table>
+
+          <div class="cmd-subhead"><span class="en">Options</span><span class="fr">Options</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Option</span><span class="fr">Option</span></th>
+                  <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>-g MS</code></td><td class="dim"><span class="en">Gap between frames in ms (default
+                      200)</span><span class="fr">Intervalle entre trames en ms (défaut 200)</span></td></tr>
+                <tr><td><code>-I ID|r|i</code></td><td class="dim"><span class="en">CAN ID: fixed hex, random, or
+                      incrementing</span><span class="fr">ID CAN : hex fixe, aléatoire ou incrémenté</span></td></tr>
+                <tr><td><code>-L LEN|r|i</code></td><td class="dim"><span class="en">Data length 0-8: fixed, random, or
+                      incrementing</span><span class="fr">Longueur 0-8 : fixe, aléatoire ou incrémentée</span></td></tr>
+                <tr><td><code>-D DATA|r|i</code></td><td class="dim"><span class="en">Payload: fixed hex, random, or
+                      incrementing</span><span class="fr">Charge utile : hex fixe, aléatoire ou incrémentée</span></td></tr>
+                <tr><td><code>-n COUNT</code></td><td class="dim"><span class="en">Stop after COUNT frames</span><span
+                      class="fr">S'arrête après COUNT trames</span></td></tr>
+                <tr><td><code>-e</code></td><td class="dim"><span class="en">Use extended (29-bit) IDs</span><span
+                      class="fr">Utilise des ID étendus (29 bits)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
+      <!-- ─────── canplayer ─────── -->
+      <div class="tool-card" id="cmd-canplayer" style="--cmd-accent: #b48ead;">
+        <div class="tool-card-head">
+          <div class="tool-card-titles">
+            <span class="cmd-tool">canplayer</span>
+            <span class="cmd-chip"><span class="en">Replay</span><span class="fr">Rejouer</span></span>
+          </div>
+          <p class="cmd-tool-tag"><span class="en">Replay a <code>candump -l</code> log back onto the bus with its original
+              timing. This is what powers the "capture the unlock frame, then replay it" attack.</span><span class="fr">Rejouer
+              un journal <code>candump -l</code> sur le bus avec son timing d'origine. C'est ce qui alimente l'attaque
+              « capturer la trame de déverrouillage, puis la rejouer ».</span></p>
+        </div>
+        <div class="tool-card-body">
+          <div class="cmd-syntax"><b>canplayer</b> <span class="opt">-I</span> &lt;logfile&gt; &lt;DST=SRC&gt;</div>
 
-      <hr class="divider">
-      <div class="section-label"><span class="en">canplayer</span><span class="fr">canplayer</span></div>
-      <h2><span class="en">canplayer - Replay a Capture</span><span class="fr">canplayer - Rejouer une Capture</span></h2>
-      <p style="font-size:0.9rem;color:var(--text-dim);"><span class="en">Record an exchange with <code>candump -l</code>,
-          then replay the exact frames (with original timing) using <code>canplayer</code>.</span>
-        <span class="fr">Enregistrez un échange avec <code>candump -l</code>, puis rejouez les trames exactes (avec leur
-          timing d'origine) grâce à <code>canplayer</code>.</span>
-      </p>
-      <div class="code-label"><span class="en">Replay a log / loop it / ignore timing</span><span class="fr">Rejouer un
-          log / en boucle / ignorer le timing</span></div>
-      <pre><code><span class="hl-comment"># replay frames from a candump log file</span>
-canplayer -I candump-2026.log
+          <div class="info-block amber" style="margin-top:0;">
+            <div class="info-block-label"><span class="en">The channel-mapping argument is required</span><span class="fr">L'argument de mappage de canal est requis</span></div>
+            <p style="margin-bottom:0;"><span class="en">Unlike the others, <code>canplayer</code> takes <strong>no</strong>
+                bare interface. Instead you give it a <code>DST=SRC</code> pair that maps the interface name recorded <em>in the
+                log</em> onto the interface to send on. Since we both captured and replay on <code>vcan0</code>, that pair is
+                <code>vcan0=vcan0</code>. Forgetting it is the usual reason a replay does nothing.</span>
+              <span class="fr">Contrairement aux autres, <code>canplayer</code> ne prend <strong>pas</strong> d'interface seule.
+                Vous lui donnez une paire <code>DST=SRC</code> qui associe le nom d'interface enregistré <em>dans le log</em> à
+                l'interface d'émission. Comme on a capturé et rejoue sur <code>vcan0</code>, cette paire est
+                <code>vcan0=vcan0</code>. L'oublier est la raison habituelle pour laquelle un rejeu ne fait rien.</span>
+            </p>
+          </div>
 
-<span class="hl-comment"># loop forever, as fast as possible (no timestamps)</span>
-canplayer -l i -t -I candump-2026.log</code></pre>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th><span class="en">Option</span><span class="fr">Option</span></th>
-              <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><code>-I FILE</code></td><td class="dim"><span class="en">Input log file (from
-                  <code>candump -l</code>)</span><span class="fr">Fichier log d'entrée (issu de
-                  <code>candump -l</code>)</span></td></tr>
-            <tr><td><code>-l NUM|i</code></td><td class="dim"><span class="en">Loop NUM times, or <code>i</code> =
-                  infinite</span><span class="fr">Répète NUM fois, ou <code>i</code> = infini</span></td></tr>
-            <tr><td><code>-t</code></td><td class="dim"><span class="en">Ignore timestamps - send back-to-back</span><span
-                  class="fr">Ignore les horodatages - envoi en rafale</span></td></tr>
-            <tr><td><code>-g MS</code></td><td class="dim"><span class="en">Fixed gap between frames in ms</span><span
-                  class="fr">Intervalle fixe entre trames en ms</span></td></tr>
-          </tbody>
-        </table>
+          <div class="cmd-subhead"><span class="en">Record, then replay</span><span class="fr">Enregistrer, puis rejouer</span></div>
+          <div class="code-label"><span class="en">Replay once / loop it / ignore timing</span><span class="fr">Rejouer une fois / en boucle / sans timing</span></div>
+          <pre><code><span class="hl-comment"># 1. record the bus to a log file (Ctrl-C to stop)</span>
+candump -l vcan0
+
+<span class="hl-comment"># 2. replay it once - DST=SRC maps the log's vcan0 onto vcan0</span>
+canplayer -I candump-2026-07-26_120000.log vcan0=vcan0
+
+<span class="hl-comment"># loop forever, back-to-back with no timing gaps</span>
+canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
+          <div class="info-block" style="margin-bottom:0;">
+            <div class="info-block-label"><span class="en">Shortcut in this lab</span><span class="fr">Raccourci dans ce lab</span></div>
+            <p style="margin-bottom:0;"><span class="en">The lab ships a helper that wraps exactly this:
+                <code>icsim-replay &lt;logfile.log&gt;</code> runs <code>canplayer -I &lt;logfile&gt; vcan0=vcan0</code> for
+                you.</span>
+              <span class="fr">Le lab fournit un utilitaire qui enveloppe exactement ceci :
+                <code>icsim-replay &lt;fichier.log&gt;</code> lance <code>canplayer -I &lt;fichier&gt; vcan0=vcan0</code> à votre
+                place.</span>
+            </p>
+          </div>
+
+          <div class="cmd-subhead"><span class="en">Options</span><span class="fr">Options</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><span class="en">Option / argument</span><span class="fr">Option / argument</span></th>
+                  <th><span class="en">What it does</span><span class="fr">Ce qu'elle fait</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>-I FILE</code></td><td class="dim"><span class="en">Input log file (from
+                      <code>candump -l</code>)</span><span class="fr">Fichier log d'entrée (issu de
+                      <code>candump -l</code>)</span></td></tr>
+                <tr><td><code>DST=SRC</code></td><td class="dim"><span class="en">Required channel map: send on <code>DST</code> the frames the log recorded on <code>SRC</code> (here <code>vcan0=vcan0</code>)</span><span class="fr">Mappage de canal requis : émettre sur <code>DST</code> les trames enregistrées sur <code>SRC</code> dans le log (ici <code>vcan0=vcan0</code>)</span></td></tr>
+                <tr><td><code>-l NUM|i</code></td><td class="dim"><span class="en">Loop NUM times, or <code>i</code> =
+                      infinite</span><span class="fr">Répète NUM fois, ou <code>i</code> = infini</span></td></tr>
+                <tr><td><code>-t</code></td><td class="dim"><span class="en">Ignore timestamps - send back-to-back</span><span
+                      class="fr">Ignore les horodatages - envoi en rafale</span></td></tr>
+                <tr><td><code>-g MS</code></td><td class="dim"><span class="en">Fixed gap between frames in ms</span><span
+                      class="fr">Intervalle fixe entre trames en ms</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -6352,7 +6594,19 @@ canplayer -l i -t -I candump-2026.log</code></pre>
     }
 
     // -- Page navigation ------------------------------------------------
+    // Per-section scroll memory: each section (page) remembers the exact
+    // vertical position the reader left it at, so returning to a section
+    // restores that spot instead of inheriting the previous section's
+    // scroll. First visit to a section lands at the top.
+    const sectionScroll = {};
+    let activePageId = null;
+
     function showPage(id) {
+      // 1. Remember where we were in the section we are about to leave.
+      if (activePageId !== null) {
+        sectionScroll[activePageId] = window.scrollY || window.pageYOffset || 0;
+      }
+
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
 
@@ -6367,7 +6621,13 @@ canplayer -l i -t -I candump-2026.log</code></pre>
       const navEl = document.getElementById('nav-' + id);
       if (navEl) navEl.classList.add('active');
       closeSidebar();
-      window.scrollTo(0, 0);
+
+      // 2. Restore this section's remembered position (0 = top the first time).
+      //    Jump instantly - the global `scroll-behavior: smooth` in the CSS
+      //    would otherwise animate the whole way, so we force 'instant'.
+      const savedY = sectionScroll[id] || 0;
+      window.scrollTo({ top: savedY, left: 0, behavior: 'instant' });
+      activePageId = id;
 
       // Persist state
       localStorage.setItem('currentPage', id);
@@ -6496,9 +6756,14 @@ canplayer -l i -t -I candump-2026.log</code></pre>
       document.querySelectorAll('#env-cards .method-card').forEach(c => c.classList.remove('active'));
       const card = document.getElementById('env-' + env);
       if (card) card.classList.add('active');
+      // Toggle BOTH the setup-steps panel and the detached reference panel for
+      // this environment (Docker / VM). The querySelectorAll clears every usage
+      // option-panel first, so we just re-activate the two that match.
       document.querySelectorAll('#page-usage .option-panel').forEach(p => p.classList.remove('active'));
-      const panel = document.getElementById('panel-env-' + env);
-      if (panel) panel.classList.add('active');
+      ['panel-env-', 'panel-envref-'].forEach(prefix => {
+        const panel = document.getElementById(prefix + env);
+        if (panel) panel.classList.add('active');
+      });
     }
 
     // Seed the wizard on load (Windows + Docker) so a panel is always shown.

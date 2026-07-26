@@ -943,6 +943,90 @@ footer a { color: var(--text-faint); }
   color: var(--amber);
 }
 
+/* -- CAN Commands index (clickable jump table) ---------------------- */
+.cmd-index tbody tr { transition: background 0.15s; }
+.cmd-index tbody tr:hover { background: rgba(40, 184, 200, 0.07); }
+.cmd-index tbody tr:hover a code { text-decoration: underline; }
+.cmd-index td .cmd-chip { margin-left: 0.5rem; vertical-align: middle; }
+
+/* -- CAN Commands detail cards -------------------------------------- */
+.tool-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  margin: 1.5rem 0;
+  scroll-margin-top: 1rem;
+}
+.tool-card-head {
+  padding: 1.15rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  border-left: 4px solid var(--cmd-accent, var(--cyan));
+  background: rgba(127, 127, 127, 0.04);
+}
+.tool-card-titles {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.cmd-tool {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+.cmd-chip {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  border: 1px solid currentColor;
+  color: var(--cmd-accent, var(--cyan));
+  white-space: nowrap;
+}
+.cmd-tool-tag {
+  margin: 0.55rem 0 0;
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+  max-width: 68ch;
+}
+.tool-card-body { padding: 1.4rem; }
+.tool-card-body > *:first-child { margin-top: 0; }
+.tool-card-body .table-wrap { margin-bottom: 0; }
+.cmd-syntax {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  color: var(--text-dim);
+  background: var(--code-bg);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--cmd-accent, var(--cyan));
+  padding: 0.7rem 1rem;
+  overflow-x: auto;
+  margin: 0 0 1.35rem;
+}
+.cmd-syntax b { color: var(--text); font-weight: 700; }
+.cmd-syntax .opt { color: var(--cmd-accent, var(--cyan)); }
+.cmd-subhead {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 1.75rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.tool-card-body .code-label { margin-top: 1rem; }
+.tool-card-body .code-label:first-of-type { margin-top: 0; }
+
 /* -- I18N ------------------------------------------------------------ */
 [data-lang="fr"] .en { display: none; }
 [data-lang="en"] .fr { display: none; }
