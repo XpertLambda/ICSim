@@ -176,9 +176,9 @@ _DEFAULTS: dict = {
         # Presets define the [start, end] range to sweep for each of the three
         # routine bytes XX, YY, ZZ. "quick" is a small slice; "full" is 0x00-0xFF.
         "presets": {
-            "quick":    {"xx": [0x40, 0x4F], "yy": [0x00, 0xFF], "zz": [0x01, 0x01]},
-            "standard": {"xx": [0x00, 0x7F], "yy": [0x00, 0xFF], "zz": [0x01, 0x01]},
-            "full":     {"xx": [0x00, 0xFF], "yy": [0x00, 0xFF], "zz": [0x01, 0x01]},
+            "quick":    {"xx": [0x01, 0x03], "yy": [0x00, 0x30], "zz": [0x01, 0x01]},
+            "standard": {"xx": [0x01, 0x7F], "yy": [0x00, 0xFF], "zz": [0x01, 0x01]},
+            "full":     {"xx": [0x01, 0x7F], "yy": [0x00, 0xFF], "zz": [0x00, 0xFF]},
         },
     },
 }
