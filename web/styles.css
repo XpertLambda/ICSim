@@ -22,6 +22,7 @@
   --radius:    4px;
   --nav-h:     60px;
   --sidebar-w: 248px;
+  --sidebar-rail: 64px;
   --code-bg:   #04080f;
 }
 
@@ -72,8 +73,8 @@ code, pre {
   font-size: 0.85em;
 }
 /* Inline code inside prose (NOT code blocks, NOT table cells): sized to sit
-   level with the surrounding body text — IBM Plex Mono's small x-height makes
-   0.85em read noticeably smaller — and given a subtle chip so it stands out. */
+   level with the surrounding body text - IBM Plex Mono's small x-height makes
+   0.85em read noticeably smaller - and given a subtle chip so it stands out. */
 :not(pre) > code {
   font-size: 0.92em;
   padding: 0.08em 0.38em;
@@ -183,6 +184,29 @@ nav {
   color: var(--amber);
   border-color: var(--amber);
 }
+/* -- Global Docker / VM environment toggle -------------------------- */
+.env-toggle {
+  display: flex;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.env-btn {
+  padding: 0.3rem 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  background: transparent;
+  color: var(--text-dim);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+.env-btn.active { background: var(--cyan); color: var(--bg); font-weight: 600; }
+/* Show only the command variant for the chosen environment, guide-wide. */
+[data-env="docker"] .vm-only { display: none !important; }
+[data-env="vm"] .docker-only { display: none !important; }
 
 /* -- SIDEBAR MENU ---------------------------------------------------- */
 .sidebar {
@@ -190,11 +214,21 @@ nav {
   top: var(--nav-h);
   left: 0;
   bottom: 0;
-  width: var(--sidebar-w);
+  width: var(--sidebar-rail);       /* collapsed rail by default */
   background: var(--surface);
   border-right: 1px solid var(--border);
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 90;
+  will-change: width;
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease;
+}
+/* Expand to the full labelled sidebar while hovered (desktop pointer only). */
+@media (hover: hover) and (min-width: 901px) {
+  .sidebar:hover {
+    width: var(--sidebar-w);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.35);
+  }
 }
 .sidebar-nav {
   display: flex;
@@ -214,16 +248,44 @@ nav {
   text-transform: uppercase;
   color: var(--text);
   padding: 0 1.5rem 0.5rem;
+  white-space: nowrap;   /* stay one line in the narrow rail; wrapping reflowed items below it */
 }
 .sidebar-group a {
-  display: block;
-  padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.5rem 1.5rem 0.5rem 22px;   /* 22px centres the 20px icon in the 64px rail */
   font-family: var(--mono);
   font-size: 0.74rem;
   letter-spacing: 0.04em;
   color: var(--text-dim);
   border-left: 2px solid transparent;
+  white-space: nowrap;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* Labels + group headings: on expand they slide in slightly after the width
+   has begun opening (delay); on collapse they fade out quickly, no delay - so
+   text never looks cramped in a half-open rail. */
+.nav-label,
+.sidebar-group-label {
+  transform: translateX(0);
+  transition: opacity 0.24s ease 0.06s, transform 0.24s cubic-bezier(0.22, 1, 0.36, 1) 0.06s;
+}
+.sidebar:not(:hover) .nav-label,
+.sidebar:not(:hover) .sidebar-group-label {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.13s ease, transform 0.13s ease;
 }
 .sidebar-group a:hover {
   color: var(--text);
@@ -247,7 +309,7 @@ nav {
 .page {
   display: none;
   padding-top: var(--nav-h);
-  margin-left: var(--sidebar-w);
+  margin-left: var(--sidebar-rail);   /* content sits beside the collapsed rail; the sidebar overlays on hover */
   min-height: 100vh;
 }
 .page.active { display: block; }
@@ -481,6 +543,47 @@ pre code {
 .hl-dim   { color: var(--text-dim); }
 .hl-red   { color: var(--red); }
 .hl-comment { color: var(--text-faint); font-style: italic; }
+
+/* -- I/O blocks: non-command reference (formula, expected output, decode)
+   Deliberately NOT a terminal: no copy button, no "Bash" header, a labelled
+   callout so prose / formulas / expected output never read as a command you
+   are meant to run. Uses <div class="io-code">, not <pre>, so the copy-button
+   script (which targets <pre>) never touches it. */
+.io-block {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--io-accent, var(--text-dim));
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin: 1.25rem 0;
+  overflow: hidden;
+}
+.io-block-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--io-accent, var(--text-faint));
+  padding: 0.6rem 1rem;
+  background: rgba(127, 127, 127, 0.03);
+  border-bottom: 1px solid var(--border);
+}
+.io-block-note {
+  padding: 0.8rem 1rem 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.io-code {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  white-space: pre;
+  overflow-x: auto;
+}
 
 /* -- TABLES ---------------------------------------------------------- */
 .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
@@ -838,12 +941,15 @@ footer a { color: var(--text-faint); }
 @media (max-width: 900px) {
   .nav-hamburger { display: flex; }
   .sidebar {
+    width: var(--sidebar-w);          /* full-width drawer on mobile, not the rail */
     transform: translateX(-100%);
     transition: transform 0.25s ease;
     z-index: 95;
     box-shadow: 2px 0 16px rgba(0, 0, 0, 0.4);
   }
   .sidebar.open { transform: translateX(0); }
+  /* Drawer is always fully expanded when open - never fade or offset labels. */
+  .sidebar .nav-label, .sidebar .sidebar-group-label { opacity: 1; transform: none; }
   .sidebar-backdrop.open { display: block; }
   .page { margin-left: 0; }
   .hero h1 { font-size: 2.8rem; }
@@ -909,7 +1015,7 @@ footer a { color: var(--text-faint); }
 }
 
 /* -- QUICK-NAV (challenge / solution jump bar) ----------------------- */
-/* Rendered as a <div role="navigation"> — NOT a <nav> element — so it does
+/* Rendered as a <div role="navigation"> - NOT a <nav> element - so it does
    not inherit the fixed top-bar styling from the global `nav { … }` rule. */
 .quick-nav {
   position: static;
@@ -943,11 +1049,96 @@ footer a { color: var(--text-faint); }
   color: var(--amber);
 }
 
-/* -- CAN Commands index (clickable jump table) ---------------------- */
-.cmd-index tbody tr { transition: background 0.15s; }
-.cmd-index tbody tr:hover { background: rgba(40, 184, 200, 0.07); }
+/* -- CAN Commands index (quick-reference: a real, gridded table) ---- */
+.cmd-index {
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.cmd-index thead th {
+  background: var(--surface2);
+  border-bottom: 2px solid var(--border2);
+}
+.cmd-index th + th,
+.cmd-index td + td { border-left: 1px solid var(--border); }
+.cmd-index tbody td { border-bottom: 1px solid var(--border); vertical-align: middle; }
+.cmd-index tbody tr:last-child td { border-bottom: none; }
+.cmd-index tbody tr:nth-child(even) { background: rgba(127, 127, 127, 0.035); }
+.cmd-index tbody tr { transition: background 0.15s; cursor: pointer; }
+.cmd-index tbody tr:hover { background: rgba(40, 184, 200, 0.09); }
 .cmd-index tbody tr:hover a code { text-decoration: underline; }
-.cmd-index td .cmd-chip { margin-left: 0.5rem; vertical-align: middle; }
+.cmd-index td.ci-cmd { border-left: 3px solid var(--row-accent, var(--cyan)); white-space: nowrap; }
+.cmd-index .ci-role {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--row-accent, var(--cyan));
+  margin-top: 0.2rem;
+  opacity: 0.85;
+}
+.cmd-index .ci-example code { color: var(--text-dim); white-space: nowrap; }
+.cmd-index td.ci-go { text-align: right; width: 1%; white-space: nowrap; }
+.cmd-index .ci-go-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--row-accent, var(--cyan));
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 0.28rem 0.6rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cmd-index tbody tr:hover .ci-go-btn { border-color: var(--row-accent, var(--cyan)); background: var(--surface); }
+
+/* -- CAN Commands: sticky command switcher (in-page navigation) ----- */
+.cmd-switcher {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.55rem 0.7rem;
+  margin: 1.5rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+}
+.cmd-switcher-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.cmd-switcher-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.cmd-pill {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.cmd-pill:hover { color: var(--pill-accent, var(--cyan)); border-color: var(--pill-accent, var(--cyan)); }
+.cmd-pill.active {
+  color: var(--pill-accent, var(--cyan));
+  border-color: var(--pill-accent, var(--cyan));
+  background: var(--surface2);
+}
 
 /* -- CAN Commands detail cards -------------------------------------- */
 .tool-card {
@@ -956,7 +1147,7 @@ footer a { color: var(--text-faint); }
   background: var(--surface);
   overflow: hidden;
   margin: 1.5rem 0;
-  scroll-margin-top: 1rem;
+  scroll-margin-top: 7rem;
 }
 .tool-card-head {
   padding: 1.15rem 1.4rem;

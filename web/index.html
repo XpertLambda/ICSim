@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- SPDX-License-Identifier: GPL-3.0-or-later
      Copyright (c) 2026 Xpert <ahmad.pc.saad@gmail.com> - IMT Atlantique, IoV Security Lab -->
-<html lang="en" data-lang="en">
+<html lang="en" data-lang="en" data-env="docker">
 
 <head>
   <meta charset="UTF-8">
@@ -403,6 +403,10 @@
     <div class="nav-brand">IMT Atlantique <span>/ CAN Security Lab</span></div>
     <div class="nav-controls">
       <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()">&#9728; Light</button>
+      <div class="env-toggle" role="group" aria-label="Environment / Environnement" title="Which environment's commands to show / Quel environnement afficher">
+        <button class="env-btn active" data-env="docker" onclick="selectEnv('docker')">Docker</button>
+        <button class="env-btn" data-env="vm" onclick="selectEnv('vm')">VM</button>
+      </div>
       <div class="lang-toggle">
         <button class="lang-btn active" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('fr')">FR</button>
@@ -416,27 +420,27 @@
     <div class="sidebar-nav">
       <div class="sidebar-group">
         <div class="sidebar-group-label"><span class="en">Foundations</span><span class="fr">Fondations</span></div>
-        <a href="#" onclick="return showPage('intro')" class="active" id="nav-intro"><span class="en">Introduction</span><span class="fr">Introduction</span></a>
-        <a href="#" onclick="return showPage('setup')" id="nav-setup"><span class="en">Installation</span><span class="fr">Installation</span></a>
-        <a href="#" onclick="return showPage('usage')" id="nav-usage"><span class="en">Getting Started</span><span class="fr">Prise en main</span></a>
+        <a href="#" onclick="return showPage('intro')" class="active" id="nav-intro"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span class="nav-label"><span class="en">Introduction</span><span class="fr">Introduction</span></span></a>
+        <a href="#" onclick="return showPage('setup')" id="nav-setup"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span class="nav-label"><span class="en">Installation</span><span class="fr">Installation</span></span></a>
+        <a href="#" onclick="return showPage('usage')" id="nav-usage"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg><span class="nav-label"><span class="en">Getting Started</span><span class="fr">Prise en main</span></span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label"><span class="en">The Protocol</span><span class="fr">Le Protocole</span></div>
-        <a href="#" onclick="return showPage('can')" id="nav-can"><span class="en">CAN Bus</span><span class="fr">Bus CAN</span></a>
-        <a href="#" onclick="return showPage('encoding')" id="nav-encoding"><span class="en">Signal Encoding</span><span class="fr">Encodage</span></a>
-        <a href="#" onclick="return showPage('uds')" id="nav-uds"><span class="en">UDS Diagnostics</span><span class="fr">Diagnostic UDS</span></a>
-        <a href="#" onclick="return showPage('cancmds')" id="nav-cancmds"><span class="en">CAN Commands</span><span class="fr">Commandes CAN</span></a>
-        <a href="#" onclick="return showPage('reference')" id="nav-reference"><span class="en">Reference</span><span class="fr">Référence</span></a>
+        <a href="#" onclick="return showPage('can')" id="nav-can"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span class="nav-label"><span class="en">CAN Bus</span><span class="fr">Bus CAN</span></span></a>
+        <a href="#" onclick="return showPage('cancmds')" id="nav-cancmds"><svg class="nav-icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg><span class="nav-label"><span class="en">CAN Commands</span><span class="fr">Commandes CAN</span></span></a>
+        <a href="#" onclick="return showPage('encoding')" id="nav-encoding"><svg class="nav-icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></svg><span class="nav-label"><span class="en">Signal Encoding</span><span class="fr">Encodage</span></span></a>
+        <a href="#" onclick="return showPage('uds')" id="nav-uds"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span class="nav-label"><span class="en">UDS Diagnostics</span><span class="fr">Diagnostic UDS</span></span></a>
+        <a href="#" onclick="return showPage('reference')" id="nav-reference"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="nav-label"><span class="en">Reference</span><span class="fr">Référence</span></span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label"><span class="en">Attack</span><span class="fr">Attaque</span></div>
-        <a href="#" onclick="return showPage('todo')" id="nav-todo"><span class="en">Challenges</span><span class="fr">Défis</span></a>
-        <a href="#" onclick="return showPage('solutions')" id="nav-solutions"><span class="en">Solutions</span><span class="fr">Solutions</span></a>
+        <a href="#" onclick="return showPage('todo')" id="nav-todo"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg><span class="nav-label"><span class="en">Challenges</span><span class="fr">Défis</span></span></a>
+        <a href="#" onclick="return showPage('solutions')" id="nav-solutions"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span class="nav-label"><span class="en">Solutions</span><span class="fr">Solutions</span></span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-group-label"><span class="en">Defend</span><span class="fr">Défense</span></div>
-        <a href="#" onclick="return showPage('ids')" id="nav-ids"><span class="en">Detection &amp; Prevention</span><span class="fr">Détection &amp; Prévention</span></a>
-        <a href="#" onclick="return showPage('impl-source')" id="nav-impl-source"><span class="en">Implementation Source</span><span class="fr">Code Source</span></a>
+        <a href="#" onclick="return showPage('ids')" id="nav-ids"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span class="nav-label"><span class="en">Detection &amp; Prevention</span><span class="fr">Détection &amp; Prévention</span></span></a>
+        <a href="#" onclick="return showPage('impl-source')" id="nav-impl-source"><svg class="nav-icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span class="nav-label"><span class="en">Implementation Source</span><span class="fr">Code Source</span></span></a>
       </div>
     </div>
   </aside>
@@ -484,12 +488,12 @@
       </h2>
       <p class="lead">
         <span class="en">In 2015, security researchers Charlie Miller and Chris Valasek demonstrated a remote compromise
-          of a Jeep Cherokee via its cellular interface, gaining control over the CAN bus and ultimately the vehicle's
-          brakes and steering at highway speed. The attack was possible because the CAN protocol - designed in the 1980s
+          of a Jeep Cherokee via its cellular interface, gaining control over the CAN bus and ultimately safety-critical
+          functions - cutting the transmission at highway speed, and disabling the brakes and steering at low speed. The attack was possible because the CAN protocol - designed in the 1980s
           for isolated networks - has no authentication, no encryption, and no concept of a trusted sender.</span>
         <span class="fr">En 2015, les chercheurs en sécurité Charlie Miller et Chris Valasek ont démontré une
           compromission à distance d'une Jeep Cherokee via son interface cellulaire, prenant le contrôle du bus CAN et
-          finalement des freins et de la direction du véhicule à grande vitesse. L'attaque était possible parce que le
+          finalement de fonctions critiques - coupant la transmission à grande vitesse, et désactivant les freins et la direction à basse vitesse. L'attaque était possible parce que le
           protocole CAN - conçu dans les années 1980 pour des réseaux isolés - n'a ni authentification, ni chiffrement,
           ni notion d'émetteur de confiance.</span>
       </p>
@@ -909,7 +913,7 @@
             <div>
               <span class="imap-card-name en">ICSim Controls</span><span class="imap-card-name fr">Contrôles
                 ICSim</span>
-              <span class="imap-card-tech">Keyboard / Gamepad</span>
+              <span class="imap-card-tech en">Keyboard / Gamepad</span><span class="imap-card-tech fr">Clavier / Manette</span>
               <span class="imap-card-detail en">Arrow keys and function keys , or a USB gamepad, that feed speed,
                 turn-signal, and door events directly into the simulator process.</span>
               <span class="imap-card-detail fr">Touches directionnelles et de fonction , ou manette USB, qui injectent
@@ -932,7 +936,7 @@
             <div>
               <span class="imap-card-name en">Driver Input Hardware</span><span class="imap-card-name fr">Équipements de
                 Conduite</span>
-              <span class="imap-card-tech">Steering wheel - Pedals - Column stalks</span>
+              <span class="imap-card-tech en">Steering wheel - Pedals - Column stalks</span><span class="imap-card-tech fr">Volant - Pédales - Commodos</span>
               <span class="imap-card-detail en">Physical sensors and switches wired to body and powertrain ECUs. Every
                 physical action generates a digital signal on the internal CAN bus.</span>
               <span class="imap-card-detail fr">Capteurs et interrupteurs physiques reliés aux ECUs carrosserie et
@@ -987,7 +991,7 @@
             <div>
               <span class="imap-card-name en">Vehicle ECUs &amp; Gateways</span><span class="imap-card-name fr">ECUs
                 &amp; Passerelles Véhicule</span>
-              <span class="imap-card-tech">BCM - Engine ECU - Central Gateway</span>
+              <span class="imap-card-tech en">BCM - Engine ECU - Central Gateway</span><span class="imap-card-tech fr">BCM - ECU moteur - Passerelle centrale</span>
               <span class="imap-card-detail en">Embedded microcontrollers that implement vehicle functions and route CAN
                 messages between bus segments. They are the real-world equivalent of ICSim's internal state
                 machine.</span>
@@ -1023,7 +1027,7 @@
               </svg></div>
             <div>
               <span class="imap-card-name en">vcan0</span><span class="imap-card-name fr">vcan0</span>
-              <span class="imap-card-tech">Linux Virtual CAN Interface - SocketCAN kernel module</span>
+              <span class="imap-card-tech en">Linux Virtual CAN Interface - SocketCAN kernel module</span><span class="imap-card-tech fr">Interface CAN virtuelle Linux - module noyau SocketCAN</span>
               <span class="imap-card-detail en">A software-only CAN bus implemented inside the Linux kernel. All
                 processes bind to it exactly like a real network interface , no hardware or wiring needed. Every frame
                 is broadcast to all listeners simultaneously.</span>
@@ -1053,7 +1057,7 @@
             <div>
               <span class="imap-card-name en">Physical CAN Bus</span><span class="imap-card-name fr">Bus CAN
                 Physique</span>
-              <span class="imap-card-tech">CAN-H / CAN-L twisted pair - ISO 11898 - 500 kbps</span>
+              <span class="imap-card-tech en">CAN-H / CAN-L twisted pair - ISO 11898 - 500 kbps</span><span class="imap-card-tech fr">Paire torsadée CAN-H / CAN-L - ISO 11898 - 500 kbps</span>
               <span class="imap-card-detail en">A differential two-wire bus connecting every ECU in the vehicle,
                 terminated at both ends with 120 Ω resistors. Every node hears every frame simultaneously , the exact
                 broadcast behavior mirrored by vcan0.</span>
@@ -1090,7 +1094,7 @@
             <div>
               <span class="imap-card-name en">ICSim Display GUI</span><span class="imap-card-name fr">Interface
                 Graphique ICSim</span>
-              <span class="imap-card-tech">SDL2 simulation window - icsim process</span>
+              <span class="imap-card-tech en">SDL2 simulation window - icsim process</span><span class="imap-card-tech fr">Fenêtre de simulation SDL2 - processus icsim</span>
               <span class="imap-card-detail en">An SDL2 window that subscribes to specific CAN IDs on vcan0 and renders
                 gauge needle positions, turn-signal states, and door-lock indicators in real time.</span>
               <span class="imap-card-detail fr">Une fenêtre SDL2 qui s'abonne à des CAN IDs spécifiques sur vcan0 et
@@ -1115,7 +1119,7 @@
             <div>
               <span class="imap-card-name en">Instrument Cluster / Dashboard</span><span
                 class="imap-card-name fr">Tableau de Bord / Combiné d'Instruments</span>
-              <span class="imap-card-tech">Speedometer - RPM - Turn signals - Door indicators</span>
+              <span class="imap-card-tech en">Speedometer - RPM - Turn signals - Door indicators</span><span class="imap-card-tech fr">Compteur - Régime - Clignotants - Voyants de porte</span>
               <span class="imap-card-detail en">A dedicated ECU behind the gauge panel that reads CAN messages and
                 drives physical needles, LED indicators, and LCD segments , using the same frame IDs as ICSim.</span>
               <span class="imap-card-detail fr">Un ECU dédié derrière la platine de jauges qui lit les messages CAN et
@@ -2102,7 +2106,7 @@
           <tbody>
             <tr>
               <td>CAN</td>
-              <td>1 Mbit/s</td>
+              <td>500 kbit/s - 1 Mbit/s</td>
               <td><span class="en">Powertrain, brakes (safety-critical)</span><span class="fr">Groupe motopropulseur,
                   freins (sécurité critique)</span></td>
             </tr>
@@ -2260,14 +2264,14 @@
       <div class="section-label"><span class="en">Speed Signal - 0x244</span><span class="fr">Signal Vitesse -
           0x244</span></div>
       <h2><span class="en">Big-Endian 16-bit Integer</span><span class="fr">Entier 16 bits Big-Endian</span></h2>
-      <p><span class="en">Watch out for the units: the instrument-cluster needle reads in <strong>mph</strong> (the gauge
-          tops out at ~100 mph), but the value carried on the bus is the speed in <strong>km/h × 100</strong>. So a
+      <p><span class="en">Watch out for the units: the instrument-cluster needle reads in <strong>mph</strong> (the
+          controls limiter caps legitimate driving at ~100 mph, though the dial itself reaches higher), but the value carried on the bus is the speed in <strong>km/h × 100</strong>. So a
           reading off the dial must first be converted <strong>mph → km/h</strong>, then multiplied by 100. For example,
           a needle at <strong>100 mph</strong> is ≈ 160.93 km/h, which becomes 16093 - a value that requires a 16-bit
           integer (range 0 to 65535). It is split <strong>big-endian</strong> across bytes [3] and [4]: the most
           significant byte goes first.</span>
         <span class="fr">Attention aux unités : l'aiguille du tableau de bord affiche en <strong>mph</strong> (le
-          compteur culmine à ~100 mph), mais la valeur transportée sur le bus est la vitesse en <strong>km/h ×
+          limiteur des controls plafonne la conduite légitime à ~100 mph, mais le cadran lui-même va plus haut), mais la valeur transportée sur le bus est la vitesse en <strong>km/h ×
             100</strong>. Une valeur lue sur le cadran doit donc d'abord être convertie <strong>mph → km/h</strong>, puis
           multipliée par 100. Par exemple, une aiguille à <strong>100 mph</strong> vaut ≈ 160,93 km/h, ce qui devient
           16093 - une valeur qui nécessite un entier 16 bits (plage 0 à 65535). Elle est répartie en
@@ -2499,7 +2503,7 @@
           Portes</span></h2>
       <div class="info-block" style="border-left-color:var(--amber); margin-bottom:0;">
         <div class="info-block-label"><span class="en">Moved to Exercise</span><span class="fr">Déplacé vers l'exercice</span></div>
-        <p style="margin:0; font-size:0.9rem;"><span class="en">The encoding details for this signal (byte position, bit layout, and example frames) have been moved to challenge <strong>#08 "Unlock All Doors"</strong> in the TO-DO section. Discover the CAN ID, byte position, and bitmask logic by interacting with ICSim and sniffing the bus.</span><span class="fr">Les détails d'encodage de ce signal (position de l'octet, disposition des bits et exemples de trames) ont été déplacés vers le défi <strong>#08 "Déverrouiller toutes les portes"</strong> dans la section TO-DO. Découvrez l'ID CAN, la position de l'octet et la logique de masque binaire en interagissant avec ICSim et en sniffant le bus.</span></p>
+        <p style="margin:0; font-size:0.9rem;"><span class="en">The encoding details for this signal (byte position, bit layout, and example frames) have been moved to challenge <strong>#05 "Unlock All Doors"</strong> in the TO-DO section. Discover the CAN ID, byte position, and bitmask logic by interacting with ICSim and sniffing the bus.</span><span class="fr">Les détails d'encodage de ce signal (position de l'octet, disposition des bits et exemples de trames) ont été déplacés vers le défi <strong>#05 "Déverrouiller toutes les portes"</strong> dans la section TO-DO. Découvrez l'ID CAN, la position de l'octet et la logique de masque binaire en interagissant avec ICSim et en sniffant le bus.</span></p>
       </div>
 
       <hr class="divider">
@@ -3609,11 +3613,11 @@
           <div class="challenge-body">
             <p>
               <span class="en">Push the speedometer needle past the controls window's software speed limiter. Legitimate
-                driving is capped at the gauge's <strong>~100 mph</strong> limit (≈ 160.93 km/h on the bus); bypass it by
+                driving is capped at <strong>~100 mph</strong> by the controls limiter (≈ 160.93 km/h on the bus); bypass it by
                 injecting forged speed frames faster than the legitimate sender, so the cluster shows a speed the car
                 could never reach on its own.</span>
               <span class="fr">Faire dépasser à l'aiguille du compteur le limiteur logiciel de la fenêtre controls. La
-                conduite légitime est plafonnée à la limite du cadran d'environ <strong>100 mph</strong> (≈ 160,93 km/h
+                conduite légitime est plafonnée à environ <strong>100 mph</strong> par le limiteur des controls (≈ 160,93 km/h
                 sur le bus) ; contournez-le en injectant des trames de vitesse forgées plus vite que l'émetteur légitime,
                 pour que le combiné affiche une vitesse que la voiture ne pourrait jamais atteindre seule.</span>
             </p>
@@ -3849,11 +3853,11 @@
             <p>
               <span class="en"><strong>Important:</strong> this routine is only accessible in the <strong>extended
                   diagnostic session</strong>. You must open it before enumerating, and keep it alive with TesterPresent
-                while you scan - the session times out if it receives no traffic for more than one second.</span>
+                while you scan - the session times out if it receives no traffic for more than 3.5 seconds.</span>
               <span class="fr"><strong>Important :</strong> cette routine n'est accessible qu'en <strong>session de
                   diagnostic étendue</strong>. Vous devez l'ouvrir avant d'énumérer, et la maintenir en vie avec
-                TesterPresent pendant le scan - la session expire si elle ne reçoit aucun trafic pendant plus d'une
-                seconde.</span>
+                TesterPresent pendant le scan - la session expire si elle ne reçoit aucun trafic pendant plus de 3,5
+                secondes.</span>
             </p>
 
             <div class="challenge-hint">
@@ -4204,10 +4208,10 @@
           <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--amber)"></div><span class="en">Freshness (anti-replay)</span><span class="fr">Fraîcheur (anti-rejeu)</span></div>
           <div class="istp-legend-item"><div class="istp-legend-dot" style="background:var(--green)"></div><span class="en">Authenticity (anti-forge)</span><span class="fr">Authenticité (anti-forge)</span></div>
         </div>
-        <div style="background:var(--code-bg); border:1px solid var(--border); border-radius:3px; padding:0.8rem 1rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); line-height:1.7; margin-top:1.25rem;">
-          <span class="hl-dim"># How the MAC (green box above) is COMPUTED - its inputs, not the wire order.</span><br>
-          <span class="hl-dim"># 14 input bytes -> AES-128-CMAC -> keep the first 8 as the trailer.</span><br>
-          <span class="hl-green">MAC</span> = AES-128-CMAC( key, <span class="hl-cyan">id</span><span class="hl-dim">(2B BE)</span> &Vert; <span class="hl-cyan">data[0..7]</span> &Vert; <span class="hl-amber">FV</span><span class="hl-dim">(4B BE)</span> )[<span class="hl-green">0..7</span>]
+        <div class="io-block" style="--io-accent:var(--green); margin-top:1.25rem;">
+          <div class="io-block-label"><span class="en">How the MAC is computed - its inputs, not the wire order</span><span class="fr">Comment le MAC est calculé - ses entrées, pas l'ordre sur le fil</span></div>
+          <div class="io-block-note"><span class="en">14 input bytes - the arbitration ID, the 8-byte payload and the freshness counter - are fed through AES-128-CMAC; the first 8 bytes of the result become the trailer.</span><span class="fr">14 octets d'entrée - l'ID d'arbitrage, la charge utile de 8 octets et le compteur de fraîcheur - passent par AES-128-CMAC ; les 8 premiers octets du résultat deviennent le trailer.</span></div>
+          <div class="io-code"><span class="hl-green">MAC</span> = AES-128-CMAC( key, <span class="hl-cyan">id</span><span class="hl-dim">(2B BE)</span> &Vert; <span class="hl-cyan">data[0..7]</span> &Vert; <span class="hl-amber">FV</span><span class="hl-dim">(4B BE)</span> )[<span class="hl-green">0..7</span>]</div>
         </div>
       </div>
 
@@ -4256,8 +4260,9 @@
             trame et affiche une ligne comme celle-ci sur sa console - un rejet d'injection ou de rejeu est donc visible, pas
             silencieux :</span>
         </p>
-        <div style="background:var(--code-bg); border:1px solid var(--border); border-radius:3px; padding:0.7rem 0.9rem; font-family:var(--mono); font-size:0.72rem; color:var(--text-dim); line-height:1.7;">
-          <span class="hl-red">[SecOC]</span> dropped unauthenticated/replayed frame <span class="hl-amber">0x244</span>
+        <div class="io-block" style="--io-accent:var(--red);">
+          <div class="io-block-label"><span class="en">Cluster console</span><span class="fr">Console du combiné</span></div>
+          <div class="io-code"><span class="hl-red">[SecOC]</span> dropped unauthenticated/replayed frame <span class="hl-amber">0x244</span></div>
         </div>
       </div>
 
@@ -4386,7 +4391,7 @@
             </div>
           </div>
           <div style="padding:1.25rem; font-size:0.85rem; line-height:1.65; color:var(--text);">
-            <p style="margin:0;"><span class="en">RoutineControl requests arriving closer together than 250 ms are rejected with <code>busyRepeatRequest</code> (NRC <code>0x21</code>), and a flood keeps resetting the timer so it stays blocked. At that minimum spacing, a full 3-byte exhaustive scan (16.7 million combinations) would take roughly <strong>48 days</strong> instead of minutes. A legitimate tester sending occasional routines is unaffected.</span><span class="fr">Les requêtes RoutineControl plus rapprochées que 250 ms sont rejetées avec <code>busyRepeatRequest</code> (NRC <code>0x21</code>), et un flood réarme sans cesse le minuteur, donc cela reste bloqué. À cet espacement minimal, un scan exhaustif complet de 3 octets (16,7 millions de combinaisons) prendrait environ <strong>48 jours</strong> au lieu de minutes. Un testeur légitime envoyant des routines occasionnelles n'est pas affecté.</span></p>
+            <p style="margin:0;"><span class="en">RoutineControl requests arriving closer together than 250 ms are rejected with <code>busyRepeatRequest</code> (NRC <code>0x21</code>), and a flood keeps resetting the timer so it stays blocked. At that minimum spacing, a full 3-byte exhaustive scan (8.3 million combinations) would take roughly <strong>24 days</strong> instead of minutes. A legitimate tester sending occasional routines is unaffected.</span><span class="fr">Les requêtes RoutineControl plus rapprochées que 250 ms sont rejetées avec <code>busyRepeatRequest</code> (NRC <code>0x21</code>), et un flood réarme sans cesse le minuteur, donc cela reste bloqué. À cet espacement minimal, un scan exhaustif complet de 3 octets (8,3 millions de combinaisons) prendrait environ <strong>24 jours</strong> au lieu de minutes. Un testeur légitime envoyant des routines occasionnelles n'est pas affecté.</span></p>
           </div>
         </div>
       </div>
@@ -4466,7 +4471,7 @@
       <div class="info-block" style="margin:0.75rem 0 0.5rem">
         <div class="info-block-label"><span class="en">Download</span><span class="fr">Téléchargement</span></div>
         <p style="margin:0;font-family:var(--mono);font-size:0.85rem">
-          <a href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Files/Automtion%20Suite.zip" target="_blank" rel="noopener" style="color:var(--cyan)">
+          <a href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Files/Automtion-Suite.zip" target="_blank" rel="noopener" style="color:var(--cyan)">
             <span class="en">→ ICSim Automation Suite (.zip)</span>
             <span class="fr">→ ICSim Automation Suite (.zip)</span>
           </a>
@@ -4475,21 +4480,20 @@
       <p style="margin:0.75rem 0 0.4rem; font-size:0.9rem; color:var(--text); line-height:1.6;">
         <span class="en"><strong>1)</strong> On your <strong>host</strong>, <strong>unzip</strong> the Automation Suite you
           downloaded (double-click it) - you get an <code>Automation-Suite</code> folder. Copy that <strong>whole folder</strong>
-          into the lab with <code>scp -r</code>. This shows the Docker port (<code>2222</code>); on the VM drop the
-          <code>-P</code> and use the VM's IP (see
-          <a href="#" onclick="return showPage('usage')" style="color:var(--cyan)">Getting Started</a>).</span>
+          into the lab with <code>scp -r</code> - the command below follows the <strong>Docker / VM</strong> switch at the top
+          of the page.</span>
         <span class="fr"><strong>1)</strong> Sur votre <strong>hôte</strong>, <strong>décompressez</strong> l'Automation Suite
           téléchargée (double-clic) - vous obtenez un dossier <code>Automation-Suite</code>. Copiez <strong>tout le
-          dossier</strong> dans le lab avec <code>scp -r</code>. Ceci montre le port Docker (<code>2222</code>) ; sur la VM,
-          enlevez <code>-P</code> et utilisez l'IP de la VM (voir
-          <a href="#" onclick="return showPage('usage')" style="color:var(--cyan)">Prise en main</a>).</span>
+          dossier</strong> dans le lab avec <code>scp -r</code> - la commande ci-dessous suit le sélecteur <strong>Docker /
+          VM</strong> en haut de la page.</span>
       </p>
       <div class="code-bg" style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0.5rem 0;">
         <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
           <span><span class="en">On your host - copy the unzipped folder in</span><span class="fr">Sur l'hôte - copier le dossier décompressé</span></span>
           <span style="color:var(--green);">Bash</span>
         </div>
-<pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> <span class="hl-green">-r</span> ./Automation-Suite/ workshop@localhost:/home/workshop/</code></pre>
+<div class="docker-only"><pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> <span class="hl-green">-r</span> ./Automation-Suite/ workshop@localhost:/home/workshop/</code></pre></div>
+<div class="vm-only"><pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-amber">scp</span> <span class="hl-green">-r</span> ./Automation-Suite/ workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:/home/workshop/</code></pre></div>
       </div>
       <p style="margin:0.75rem 0 0.4rem; font-size:0.9rem; color:var(--text); line-height:1.6;">
         <span class="en"><strong>2)</strong> Inside the lab (over SSH), step into the folder and run
@@ -4681,8 +4685,8 @@
         <span class="fr">Fichiers d'implémentation annotés</span>
       </h2>
       <p class="lead">
-        <span class="en">The full source code of the secured simulator, with inline comments explaining each security mechanism — SecOC authentication, freshness counters, MAC truncation, and UDS hardening.</span>
-        <span class="fr">Le code source complet du simulateur sécurisé, avec des commentaires en ligne expliquant chaque mécanisme de sécurité — authentification SecOC, compteurs de fraîcheur, troncature MAC, et durcissement UDS.</span>
+        <span class="en">The full source code of the secured simulator, with inline comments explaining each security mechanism - SecOC authentication, freshness counters, MAC truncation, and UDS hardening.</span>
+        <span class="fr">Le code source complet du simulateur sécurisé, avec des commentaires en ligne expliquant chaque mécanisme de sécurité - authentification SecOC, compteurs de fraîcheur, troncature MAC, et durcissement UDS.</span>
       </p>
       <div class="info-block">
         <div class="info-block-label">GitHub</div>
@@ -4777,18 +4781,47 @@
             </div>
           </div>
 
+          <!-- byte[0] bitfield breakdown -->
+          <div class="frame-diagram">
+            <div class="frame-cell active-byte">
+              <div class="byte-idx">[0]</div>
+              <div class="byte-val">01</div>
+              <div class="byte-label"><span class="en">signal bits</span><span class="fr">bits signal</span></div>
+            </div>
+            <div class="frame-cell"><div class="byte-idx">[1]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[2]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[3]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[4]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[5]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[6]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[7]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+          </div>
+
+          <div class="io-block" style="--io-accent:var(--amber);">
+            <div class="io-block-label"><span class="en">Why 01 / 02 / 03 - byte[0] is a bitfield</span><span class="fr">Pourquoi 01 / 02 / 03 - l'octet[0] est un champ de bits</span></div>
+            <div class="io-code"><span class="en">bit 0  (0x<span class="hl-amber">01</span>)   <span class="hl-green">LEFT</span>  turn signal
+bit 1  (0x<span class="hl-amber">02</span>)   <span class="hl-green">RIGHT</span> turn signal
+0x01 | 0x02 = 0x<span class="hl-amber">03</span>    <span class="hl-green">BOTH</span> bits set  =  hazards</span><span class="fr">bit 0  (0x<span class="hl-amber">01</span>)   clignotant <span class="hl-green">GAUCHE</span>
+bit 1  (0x<span class="hl-amber">02</span>)   clignotant <span class="hl-green">DROIT</span>
+0x01 | 0x02 = 0x<span class="hl-amber">03</span>    <span class="hl-green">LES DEUX</span> bits  =  warnings</span></div>
+          </div>
+
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">The loop
+              alternates byte&nbsp;[0] between <code>0x01</code> (left signal on) and <code>0x00</code> (off) every 250&nbsp;ms -
+              about 2&nbsp;Hz, the same cadence as a real blinker.</span><span class="fr">La boucle alterne l'octet&nbsp;[0] entre
+              <code>0x01</code> (clignotant gauche allumé) et <code>0x00</code> (éteint) toutes les 250&nbsp;ms - environ 2&nbsp;Hz,
+              la cadence d'un vrai clignotant.</span></p>
           <div
             style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
             <div
               style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-              <span>Terminal Execution</span>
+              <span><span class="en">Terminal Execution</span><span class="fr">Exécution Terminal</span></span>
               <span style="color:var(--cyan);">Bash</span>
             </div>
-            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># Left indicator blink at ~2 Hz</span>
-while true; do
-  cansend vcan0 <span class="hl-amber">188</span>#01   <span class="hl-dim"># left ON</span>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>while true; do
+  cansend vcan0 <span class="hl-amber">188</span>#01
   sleep 0.25
-  cansend vcan0 <span class="hl-amber">188</span>#00   <span class="hl-dim"># off</span>
+  cansend vcan0 <span class="hl-amber">188</span>#00
   sleep 0.25
 done</code></pre>
           </div>
@@ -4796,9 +4829,21 @@ done</code></pre>
           <div class="info-block" style="margin:0; border-left-color:var(--cyan);">
             <div class="info-block-label"><span class="en">Variations</span><span class="fr">Variantes</span></div>
             <p style="margin:0; font-size:0.9rem;"><span class="en">For the right indicator, replace <code>01</code>
-                with <code>02</code>. For hazard warnings, use <code>03</code>.</span><span class="fr">Pour le
+                with <code>02</code>. For hazard warnings, use <code>03</code> (both bits at once).</span><span class="fr">Pour le
                 clignotant droit, remplacez <code>01</code> par <code>02</code>. Pour les warnings, utilisez
-                <code>03</code>.</span></p>
+                <code>03</code> (les deux bits en même temps).</span></p>
+          </div>
+
+          <div class="info-block green" style="margin:0;">
+            <div class="info-block-label"><span class="en">You'll know it worked when…</span><span class="fr">Vous saurez que ça marche quand…</span></div>
+            <p style="margin:0; font-size:0.9rem;"><span class="en">The <strong>left arrow</strong> on the instrument
+                cluster blinks in time with the loop - roughly twice a second - even though you never touched the controls
+                window. Press <kbd>Ctrl-C</kbd> to stop the loop and the arrow goes dark. Challenge&nbsp;01 flips to
+                <strong>done</strong> the moment the cluster shows a signal you didn't press.</span><span class="fr">La
+                <strong>flèche gauche</strong> du tableau de bord clignote au rythme de la boucle - environ deux fois par
+                seconde - sans que vous ayez touché la fenêtre controls. Faites <kbd>Ctrl-C</kbd> pour arrêter la boucle et la
+                flèche s'éteint. Le défi&nbsp;01 passe à <strong>réussi</strong> dès que le tableau affiche un clignotant que
+                vous n'avez pas actionné.</span></p>
           </div>
           <div style="margin-top:1rem">
             <button class="sol-btn" style="padding:0.6rem 1.5rem;font-size:0.75rem" onclick="return showPageAndScroll('todo','ch-01')">← <span class="en">Back to Challenge 01</span><span class="fr">Retour au Défi 01</span></button>
@@ -4860,18 +4905,61 @@ done</code></pre>
             </div>
           </div>
 
+          <!-- byte[3]/[4] big-endian speed word -->
+          <div class="frame-diagram">
+            <div class="frame-cell"><div class="byte-idx">[0]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell"><div class="byte-idx">[1]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell"><div class="byte-idx">[2]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell active-byte">
+              <div class="byte-idx">[3]</div>
+              <div class="byte-val">4B</div>
+              <div class="byte-label"><span class="en">speed hi</span><span class="fr">vitesse haut</span></div>
+            </div>
+            <div class="frame-cell active-byte">
+              <div class="byte-idx">[4]</div>
+              <div class="byte-val">70</div>
+              <div class="byte-label"><span class="en">speed lo</span><span class="fr">vitesse bas</span></div>
+            </div>
+            <div class="frame-cell"><div class="byte-idx">[5]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[6]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[7]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+          </div>
+
+          <div class="io-block" style="--io-accent:var(--amber);">
+            <div class="io-block-label"><span class="en">How the two bytes become a speed</span><span class="fr">Comment les deux octets deviennent une vitesse</span></div>
+            <div class="io-code"><span class="en">byte[3] &lt;&lt; 8  |  byte[4]   =   0x<span class="hl-amber">4B</span><span class="hl-amber">70</span>  =  19312
+19312 / 100                =   193.12 km/h   =  <span class="hl-green">120 mph</span>
+<span class="hl-dim"># big-endian word from [3][4], divided by 100 → km/h</span>
+<span class="hl-dim"># the limiter caps legit driving at 100 mph = 0x3EDD</span></span><span class="fr">octet[3] &lt;&lt; 8  |  octet[4]  =   0x<span class="hl-amber">4B</span><span class="hl-amber">70</span>  =  19312
+19312 / 100                 =   193,12 km/h   =  <span class="hl-green">120 mph</span>
+<span class="hl-dim"># mot big-endian [3][4], divisé par 100 → km/h</span>
+<span class="hl-dim"># le limiteur bloque la conduite à 100 mph = 0x3EDD</span></span></div>
+          </div>
+
           <div
             style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
             <div
               style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-              <span>Terminal Execution</span>
+              <span><span class="en">Terminal Execution</span><span class="fr">Exécution Terminal</span></span>
               <span style="color:var(--cyan);">Bash</span>
             </div>
-            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># 120 mph -> 193.12 km/h -> x100 = 19312 = 0x4B70</span>
-while true; do
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>while true; do
 cansend vcan0 <span class="hl-amber">244</span>#0000004B70
-sleep 0.005   <span class="hl-dim"># 5 ms - faster than controls (~10 ms)</span>
+sleep 0.005
 done</code></pre>
+          </div>
+
+          <div class="info-block green" style="margin:0;">
+            <div class="info-block-label"><span class="en">You'll know it worked when…</span><span class="fr">Vous saurez que ça marche quand…</span></div>
+            <p style="margin:0; font-size:0.9rem;"><span class="en">The needle <strong>jumps to and holds ~120 mph</strong> -
+                well past where flooring the throttle in the controls window can take it (the limiter stops legit driving at
+                100 mph). Because you're re-injecting every 5&nbsp;ms, the reading stays pinned; press <kbd>Ctrl-C</kbd> and it
+                snaps back down as the simulator's own frames win the bus again. Challenge&nbsp;02 completes as soon as the
+                cluster reads ≥&nbsp;100.</span><span class="fr">L'aiguille <strong>saute et se fige à ~120 mph</strong> - bien
+                au-delà de ce que la pédale d'accélérateur permet dans la fenêtre controls (le limiteur bloque la conduite
+                normale à 100 mph). Comme vous réinjectez toutes les 5&nbsp;ms, la valeur reste figée ; faites
+                <kbd>Ctrl-C</kbd> et elle retombe dès que les trames du simulateur reprennent le bus. Le défi&nbsp;02 est validé
+                dès que le tableau affiche ≥&nbsp;100.</span></p>
           </div>
           <div style="margin-top:1rem">
             <button class="sol-btn" style="padding:0.6rem 1.5rem;font-size:0.75rem" onclick="return showPageAndScroll('todo','ch-02')">← <span class="en">Back to Challenge 02</span><span class="fr">Retour au Défi 02</span></button>
@@ -4920,28 +5008,77 @@ done</code></pre>
                 <span class="en">How it Works</span><span class="fr">Comment ça marche</span>
               </h4>
               <p style="margin:0; font-size:0.9rem; color:var(--text); line-height:1.5;"><span class="en">The
-                  luminosity sensor broadcasts on <code>0x39C</code>. The ECU threshold for turning on headlights is
-                  a value below ~0x60. We can spoof this sensor by continuously injecting a daylight value (e.g.
-                  <code>0xC2</code>) faster than the sensor's own 300 ms broadcast rate.</span><span class="fr">Le
-                  capteur diffuse sur <code>0x39C</code>. Le seuil pour allumer les phares est ~0x60. Nous pouvons
-                  usurper ce capteur en injectant une valeur "jour" (ex. <code>0xC2</code>) plus rapidement que le
-                  capteur lui-même (300 ms).</span></p>
+                  luminosity sensor broadcasts on <code>0x39C</code>, and the light level sits in <strong>byte [3]</strong>.
+                  In Night Mode the real sensor sends a low value (~<code>0x1E</code>); the ECU switches the headlights on
+                  whenever byte [3] falls below the <code>~0x60</code> threshold. You can find the ID yourself with
+                  <code>cansniffer</code> while toggling day/night and watching which row's byte [3] swings. We spoof it by
+                  continuously injecting a daylight value (e.g. <code>0xC2</code> = 194) faster than the sensor's own 300 ms
+                  broadcast rate - so the ECU only ever sees "daytime" and keeps the lights off.</span><span class="fr">Le
+                  capteur de luminosité diffuse sur <code>0x39C</code>, et le niveau de lumière se trouve dans
+                  l'<strong>octet [3]</strong>. En mode nuit, le vrai capteur envoie une valeur basse (~<code>0x1E</code>) ;
+                  l'ECU allume les phares dès que l'octet [3] passe sous le seuil <code>~0x60</code>. Vous pouvez trouver l'ID
+                  vous-même avec <code>cansniffer</code> en basculant jour/nuit et en observant quelle ligne voit son octet [3]
+                  varier. Nous l'usurpons en injectant une valeur "jour" (ex. <code>0xC2</code> = 194) plus vite que le capteur
+                  lui-même (300 ms) - l'ECU ne voit alors que du "jour" et laisse les phares éteints.</span></p>
             </div>
           </div>
 
+          <!-- byte[3] luminosity value -->
+          <div class="frame-diagram">
+            <div class="frame-cell"><div class="byte-idx">[0]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell"><div class="byte-idx">[1]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell"><div class="byte-idx">[2]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell active-byte">
+              <div class="byte-idx">[3]</div>
+              <div class="byte-val">C2</div>
+              <div class="byte-label"><span class="en">lux level</span><span class="fr">niveau lux</span></div>
+            </div>
+            <div class="frame-cell"><div class="byte-idx">[4]</div><div class="byte-val">00</div><div class="byte-label">pad</div></div>
+            <div class="frame-cell"><div class="byte-idx">[5]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[6]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+            <div class="frame-cell"><div class="byte-idx">[7]</div><div class="byte-val">--</div><div class="byte-label"></div></div>
+          </div>
+
+          <div class="io-block" style="--io-accent:var(--amber);">
+            <div class="io-block-label"><span class="en">The threshold in byte [3]</span><span class="fr">Le seuil dans l'octet [3]</span></div>
+            <div class="io-code"><span class="en">byte[3] &lt; 0x<span class="hl-amber">60</span>   →  ECU reads "dark"      →  <span class="hl-green">headlights ON</span>
+byte[3] ≥ 0x<span class="hl-amber">60</span>   →  ECU reads "daylight"  →  headlights OFF
+<span class="hl-dim"># night sensor sends ~0x1E (dark); we override with 0xC2 (194, bright)</span></span><span class="fr">octet[3] &lt; 0x<span class="hl-amber">60</span>   →  l'ECU lit « sombre »  →  <span class="hl-green">phares ALLUMÉS</span>
+octet[3] ≥ 0x<span class="hl-amber">60</span>   →  l'ECU lit « jour »    →  phares ÉTEINTS
+<span class="hl-dim"># le capteur de nuit envoie ~0x1E (sombre) ; on force 0xC2 (194, clair)</span></span></div>
+          </div>
+
+          <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">First, press
+              <kbd>S</kbd> in the controls window to switch the simulator into <strong>Night Mode</strong>. Then run this loop in
+              an SSH terminal - it writes a daytime value (<code>0xC2</code>) into byte&nbsp;[3] every 200&nbsp;ms, faster than the
+              sensor's own 300&nbsp;ms period, so the ECU never sees the dark reading.</span><span class="fr">Appuyez d'abord sur
+              <kbd>S</kbd> dans la fenêtre controls pour passer le simulateur en <strong>mode nuit</strong>. Lancez ensuite cette
+              boucle dans un terminal SSH - elle écrit une valeur « jour » (<code>0xC2</code>) dans l'octet&nbsp;[3] toutes les
+              200&nbsp;ms, plus vite que la période de 300&nbsp;ms du capteur, donc l'ECU ne voit jamais la valeur sombre.</span></p>
           <div
             style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
             <div
               style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-              <span>Terminal Execution</span>
+              <span><span class="en">Terminal Execution</span><span class="fr">Exécution Terminal</span></span>
               <span style="color:var(--cyan);">Bash</span>
             </div>
-            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># Step 1: press 's' or 'n' in controls window to activate night mode</span>
-<span class="hl-dim"># Step 2: inject a bright-light reading faster than 300 ms</span>
-while true; do
-  cansend vcan0 <span class="hl-amber">39C</span>#000000C200   <span class="hl-dim"># data[3] = 0xC2 (daytime range)</span>
-  sleep 0.2                       <span class="hl-dim"># 200 ms < 300 ms sensor period</span>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code>while true; do
+  cansend vcan0 <span class="hl-amber">39C</span>#000000C200
+  sleep 0.2
 done</code></pre>
+          </div>
+
+          <div class="info-block green" style="margin:0;">
+            <div class="info-block-label"><span class="en">You'll know it worked when…</span><span class="fr">Vous saurez que ça marche quand…</span></div>
+            <p style="margin:0; font-size:0.9rem;"><span class="en">The simulator is still in <strong>Night Mode</strong>
+                (dark background), yet the <strong>headlight indicator turns off</strong> and the beams go dark - your bright
+                reading is overriding the real sensor. It holds only while the loop runs; press <kbd>Ctrl-C</kbd> and the next
+                genuine sensor frame (~300&nbsp;ms later) flips the lights back on. Challenge&nbsp;03 validates while it's night
+                <em>and</em> byte [3] is above the threshold.</span><span class="fr">Le simulateur est toujours en
+                <strong>mode nuit</strong> (fond sombre), pourtant le <strong>témoin des phares s'éteint</strong> et les
+                faisceaux disparaissent - votre valeur "jour" écrase le vrai capteur. Cela ne tient que tant que la boucle
+                tourne ; faites <kbd>Ctrl-C</kbd> et la prochaine trame réelle du capteur (~300&nbsp;ms après) rallume les
+                phares. Le défi&nbsp;03 est validé quand il fait nuit <em>et</em> que l'octet [3] dépasse le seuil.</span></p>
           </div>
           <div style="margin-top:1rem">
             <button class="sol-btn" style="padding:0.6rem 1.5rem;font-size:0.75rem" onclick="return showPageAndScroll('todo','ch-03')">← <span class="en">Back to Challenge 03</span><span class="fr">Retour au Défi 03</span></button>
@@ -5089,9 +5226,10 @@ done</code></pre>
               and you have the 17-character VIN:</span><span class="fr">Retirez les octets PCI de tête de chaque trame et le
               remplissage <code>00</code> final, concaténez les octets ASCII restants dans l'ordre, et vous obtenez le VIN de
               17 caractères :</span></p>
-          <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
-            <pre style="margin:0; padding:1.25rem; background:transparent;" data-raw="1"><code>57 42 41 52 42 48 41 43 4B 46 41 31 34 39 38 35 30
-<span class="hl-green">W  B  A  R  B  H  A  C  K  F  A  1  4  9  8  5  0</span>   →   WBARBHACKFA149850</code></pre>
+          <div class="io-block" style="--io-accent:var(--green);">
+            <div class="io-block-label"><span class="en">Byte → ASCII</span><span class="fr">Octet → ASCII</span></div>
+            <div class="io-code">57 42 41 52 42 48 41 43 4B 46 41 31 34 39 38 35 30
+<span class="hl-green">W  B  A  R  B  H  A  C  K  F  A  1  4  9  8  5  0</span>   →   WBARBHACKFA149850</div>
           </div>
           <div class="info-block" style="margin:1rem 0 0; border-left-color:var(--cyan);">
             <div class="info-block-label"><span class="en">Keep this VIN - you need it later</span><span class="fr">Gardez ce VIN - il resservira</span></div>
@@ -5148,15 +5286,18 @@ done</code></pre>
             </div>
             <div style="padding:1.25rem; display:flex; flex-direction:column; gap:0.75rem;">
               <p style="margin:0; font-size:0.9rem; color:var(--text); line-height:1.5;"><span class="en">Capture the exact unlock frame by sniffing while pressing the unlock key, then replay it. This approach requires no knowledge of the encoding: you just replay what the ECU already accepted.</span><span class="fr">Capturez la trame exacte de déverrouillage en sniffant pendant l'appui sur la touche déverrouillage, puis rejouez-la. Cette approche ne nécessite aucune connaissance de l'encodage: vous rejouez simplement ce que l'ECU a déjà accepté.</span></p>
-              <pre style="margin:0; padding:1.25rem; background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius);"><code><span class="hl-dim"># Step 1: open candump in one terminal, filter on the door lock ID</span>
-candump vcan0 | grep <span class="hl-amber">19B</span>
-
-<span class="hl-dim"># Step 2: in the controls window, press the unlock key once</span>
-<span class="hl-dim"># candump will show a line such as:</span>
-<span class="hl-dim">#   vcan0  19B   [3]  00 00 00</span>
-
-<span class="hl-dim"># Step 3: replay the captured unlock frame</span>
-cansend vcan0 <span class="hl-amber">19B</span>#000000</code></pre>
+              <p style="margin:0; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en"><strong>1.</strong>
+                  Watch the door-lock ID in one terminal. <strong>2.</strong> Press the unlock key once in the controls window,
+                  and candump prints the exact frame. <strong>3.</strong> Replay that captured frame with
+                  <code>cansend</code>.</span><span class="fr"><strong>1.</strong> Observez l'ID des verrous dans un terminal.
+                  <strong>2.</strong> Appuyez une fois sur la touche de déverrouillage dans la fenêtre controls, et candump
+                  affiche la trame exacte. <strong>3.</strong> Rejouez cette trame capturée avec <code>cansend</code>.</span></p>
+              <pre style="margin:0; padding:1.25rem; background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius);"><code>candump vcan0 | grep <span class="hl-amber">19B</span></code></pre>
+              <div class="io-block" style="--io-accent:var(--text-dim); margin:0;">
+                <div class="io-block-label"><span class="en">candump prints a line like</span><span class="fr">candump affiche une ligne comme</span></div>
+                <div class="io-code">vcan0  <span class="hl-amber">19B</span>   [3]  00 00 00</div>
+              </div>
+              <pre style="margin:0; padding:1.25rem; background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius);"><code>cansend vcan0 <span class="hl-amber">19B</span>#000000</code></pre>
             </div>
           </div>
 
@@ -5192,11 +5333,16 @@ cansend vcan0 <span class="hl-amber">19B</span>#000000</code></pre>
                 </div>
               </div>
 
-              <div class="code-label"><span class="en">Frame examples</span><span class="fr">Exemples de trames</span></div>
-              <pre data-raw="1"><code>0x0F = 0000 <span class="hl-amber">1111</span> → all LOCKED   → cansend vcan0 19B#00000F
+              <div class="io-block" style="--io-accent:var(--amber);">
+                <div class="io-block-label"><span class="en">Frame examples</span><span class="fr">Exemples de trames</span></div>
+                <div class="io-code"><span class="en">0x0F = 0000 <span class="hl-amber">1111</span> → all LOCKED   → cansend vcan0 19B#00000F
 0x00 = 0000 0000 → all OPEN    → cansend vcan0 19B#000000
 0x0E = 0000 <span class="hl-amber">111</span>0 → D1 unlocked, D2/D3/D4 locked
-0x0D = 0000 <span class="hl-amber">11</span>0<span class="hl-amber">1</span> → D2 unlocked, others locked</code></pre>
+0x0D = 0000 <span class="hl-amber">11</span>0<span class="hl-amber">1</span> → D2 unlocked, others locked</span><span class="fr">0x0F = 0000 <span class="hl-amber">1111</span> → tout VERROUILLÉ → cansend vcan0 19B#00000F
+0x00 = 0000 0000 → tout OUVERT     → cansend vcan0 19B#000000
+0x0E = 0000 <span class="hl-amber">111</span>0 → D1 déverr., D2/D3/D4 verr.
+0x0D = 0000 <span class="hl-amber">11</span>0<span class="hl-amber">1</span> → D2 déverr., autres verr.</span></div>
+              </div>
 
               <div class="frame-diagram">
                 <div class="frame-cell">
@@ -5212,7 +5358,7 @@ cansend vcan0 <span class="hl-amber">19B</span>#000000</code></pre>
                 <div class="frame-cell active-byte">
                   <div class="byte-idx">[2]</div>
                   <div class="byte-val">00</div>
-                  <div class="byte-label">lock mask</div>
+                  <div class="byte-label"><span class="en">lock mask</span><span class="fr">masque verrous</span></div>
                 </div>
                 <div class="frame-cell">
                   <div class="byte-idx">[3]</div>
@@ -5241,20 +5387,25 @@ cansend vcan0 <span class="hl-amber">19B</span>#000000</code></pre>
                 </div>
               </div>
 
+              <p style="margin:0; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">Three ready-made
+                  frames: <code>0x00</code> unlocks every door, <code>0x0F</code> locks them all again, and <code>0x0E</code>
+                  clears only bit&nbsp;0 to unlock D1 (driver front).</span><span class="fr">Trois trames prêtes à l'emploi :
+                  <code>0x00</code> déverrouille toutes les portes, <code>0x0F</code> les reverrouille toutes, et
+                  <code>0x0E</code> n'efface que le bit&nbsp;0 pour déverrouiller D1 (conducteur avant).</span></p>
               <div
                 style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden;">
                 <div
                   style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
-                  <span>Terminal Execution</span>
+                  <span><span class="en">Terminal Execution</span><span class="fr">Exécution Terminal</span></span>
                   <span style="color:var(--cyan);">Bash</span>
                 </div>
-                <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># Unlock all four doors: byte[2] = 0x00 (all lock bits cleared)</span>
+                <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># [2] = 00</span>
 cansend vcan0 <span class="hl-amber">19B</span>#000000
 
-<span class="hl-dim"># Lock all doors again: byte[2] = 0x0F (all four bits set)</span>
+<span class="hl-dim"># [2] = 0F</span>
 cansend vcan0 <span class="hl-amber">19B</span>#00000F
 
-<span class="hl-dim"># Unlock only D1 (driver front): clear bit 0 → 0x0F &amp; ~0x01 = 0x0E</span>
+<span class="hl-dim"># [2] = 0E</span>
 cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
               </div>
             </div>
@@ -5425,7 +5576,7 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
                   <div
                     style="margin-top:0.6rem; font-family:var(--mono); font-size:0.82rem; background:var(--code-bg); padding:0.5rem 0.75rem; border-radius:4px; color:var(--text-dim); display:inline-block;">
                     → <span style="color:var(--amber);">7E0#021002</span> <span
-                      style="color:var(--text-faint);">or</span> <span style="color:var(--amber);">7E0#021003</span>
+                      style="color:var(--text-faint);"><span class="en">or</span><span class="fr">ou</span></span> <span style="color:var(--amber);">7E0#021003</span>
                   </div>
                 </div>
               </div>
@@ -5451,8 +5602,7 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
                       et ne pollue pas les <code>recv()</code> ultérieurs.</span></p>
                   <div
                     style="margin-top:0.6rem; font-family:var(--mono); font-size:0.82rem; background:var(--code-bg); padding:0.5rem 0.75rem; border-radius:4px; color:var(--text-dim); display:inline-block;">
-                    ↻ <span style="color:#a3be8c;">3E 80</span> <span style="color:var(--text-faint);">every
-                      900ms (silent keepalive)</span></div>
+                    ↻ <span style="color:#a3be8c;">3E 80</span> <span style="color:var(--text-faint);"><span class="en">every 900ms (silent keepalive)</span><span class="fr">toutes les 900ms (keepalive silencieux)</span></span></div>
                 </div>
               </div>
 
@@ -5552,7 +5702,7 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
                         Hit</span><span class="fr">Résultat Confirmé</span></span>
                   </div>
                   <div style="font-family:var(--mono); font-size:0.85rem; color:var(--text); margin-bottom:0.4rem;">
-                    Response: <span style="color:#a3be8c; font-weight:600;">0x71</span> XX YY ZZ</div>
+                    <span class="en">Response:</span><span class="fr">Réponse :</span> <span style="color:#a3be8c; font-weight:600;">0x71</span> XX YY ZZ</div>
                   <div style="font-size:0.82rem; color:var(--text-dim); line-height:1.5;"><span class="en">Positive
                       response - the routine exists and was executed. All four echo bytes
                       must match.</span><span class="fr">Réponse positive - la routine existe et a été exécutée.
@@ -5574,7 +5724,7 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
                         NRC</span><span class="fr">NRC Intéressant</span></span>
                   </div>
                   <div style="font-family:var(--mono); font-size:0.85rem; color:var(--text); margin-bottom:0.4rem;">
-                    <span style="color:var(--amber); font-weight:600;">any</span> NRC except 11 / 12 / 31</div>
+                    <span style="color:var(--amber); font-weight:600;"><span class="en">any</span><span class="fr">tout</span></span> <span class="en">NRC except 11 / 12 / 31</span><span class="fr">NRC sauf 11 / 12 / 31</span></div>
                   <div style="font-size:0.82rem; color:var(--text-dim); line-height:1.5;"><span
                       class="en">Any negative reply that is <strong>not</strong> one of the three noise codes is kept -
                       the ECU recognised the routine but refused for a state or security reason, so it exists but is
@@ -5747,12 +5897,13 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
                 class="fr">Copier le script dans le conteneur du lab</span></div>
             <p style="margin-bottom:0.5rem;"><span class="en">Download <code>routine_scanner_brute.py</code> from the link
                 above, then open a terminal (cmd / PowerShell / shell) on your host, <code>cd</code> into the folder
-                where it landed, and push it to the container over SSH (port <code>2222</code>):</span>
+                where it landed, and push it to the lab over SSH:</span>
               <span class="fr">Téléchargez <code>routine_scanner_brute.py</code> depuis le lien ci-dessus, ouvrez un
                 terminal (cmd / PowerShell / shell) sur votre hôte, placez-vous (<code>cd</code>) dans le dossier de
-                téléchargement, puis envoyez-le dans le conteneur via SSH (port <code>2222</code>) :</span>
+                téléchargement, puis envoyez-le dans le lab via SSH :</span>
             </p>
-            <pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> routine_scanner_brute.py workshop@localhost:/home/workshop/</code></pre>
+            <div class="docker-only"><pre><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> routine_scanner_brute.py workshop@localhost:/home/workshop/</code></pre></div>
+            <div class="vm-only"><pre><code><span class="hl-amber">scp</span> routine_scanner_brute.py workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:/home/workshop/</code></pre></div>
           </div>
 
           <!-- STEP 1 · watch for hits -->
@@ -5789,20 +5940,20 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
               <span style="color:var(--cyan);">Bash</span>
             </div>
             <pre style="margin:0; padding:1.25rem; background:transparent;"><code>python3 routine_scanner_brute.py</code></pre>
-            <pre style="margin:0; padding:1.25rem; background:transparent;" data-raw="1"><code><span class="hl-dim"># Expected output:</span>
-<span class="hl-dim"># ┌-------------------------------------┐</span>
-<span class="hl-dim"># │  Pass 1: 32768/32768 in ~8s         │</span>
-<span class="hl-dim"># │  Candidates found: 2                │</span>
-<span class="hl-dim"># │  Pass 2: 512 combinations tested    │</span>
-<span class="hl-dim"># │                                     │</span>
-<span class="hl-dim"># │  === Confirmed routines ===         │</span>
-<span class="hl-dim"># │  sub_fn=0x41 routine_id=0x10        │</span>
-<span class="hl-dim"># │    activation=0x01 → ON             │</span>
-<span class="hl-dim"># │    activation=0x00 → OFF            │</span>
-<span class="hl-dim"># │  sub_fn=0x41 routine_id=0x22        │</span>
-<span class="hl-dim"># │    activation=0x01 → ON             │</span>
-<span class="hl-dim"># │    activation=0x00 → OFF            │</span>
-<span class="hl-dim"># └-------------------------------------┘</span></code></pre>
+          </div>
+          <div class="io-block" style="--io-accent:var(--cyan);">
+            <div class="io-block-label"><span class="en">Expected output</span><span class="fr">Sortie attendue</span></div>
+            <div class="io-code">Pass 1: 32768/32768 in ~8s
+Candidates found: 2
+Pass 2: 512 combinations tested
+
+<span class="hl-cyan">=== Confirmed routines ===</span>
+sub_fn=<span class="hl-amber">0x41</span>  routine_id=<span class="hl-amber">0x10</span>
+  activation=0x01 → <span class="hl-green">ON</span>
+  activation=0x00 → OFF
+sub_fn=<span class="hl-amber">0x41</span>  routine_id=<span class="hl-amber">0x22</span>
+  activation=0x01 → <span class="hl-green">ON</span>
+  activation=0x00 → OFF</div>
           </div>
 
           <!-- STEP 3 · trigger manually -->
@@ -5824,10 +5975,10 @@ cansend vcan0 <span class="hl-amber">19B</span>#00000E</code></pre>
               <span><span class="en">Extended session, then the routine - chained</span><span class="fr">Session étendue, puis la routine - chaînées</span></span>
               <span style="color:var(--cyan);">Bash</span>
             </div>
-            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># routine 0x10 - extended session then activate</span>
+            <pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-dim"># routine 0x10</span>
 cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>1001
 
-<span class="hl-dim"># routine 0x22 - extended session then activate</span>
+<span class="hl-dim"># routine 0x22</span>
 cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vcan0 <span class="hl-amber">7E0</span>#<span class="hl-cyan">04</span><span class="hl-amber">31</span><span class="hl-red">41</span>2201</code></pre>
           </div>
           <div style="margin-top:1rem">
@@ -5900,12 +6051,12 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
             style="background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
             <div
               style="background:rgba(0,0,0,0.2); padding:1rem 1.25rem; font-size:0.85rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--border);">
-              Algorithm Example: Seed <span style="color:var(--amber);">0xA7 0x1C</span></div>
+              <span class="en">Algorithm Example: Seed</span><span class="fr">Exemple d'algorithme : graine</span> <span style="color:var(--amber);">0xA7 0x1C</span></div>
             <div style="padding:1.25rem;">
               <div style="display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:1rem;">
                 <div style="text-align:center;">
                   <div style="font-family:var(--mono); font-size:1.5rem; color:var(--amber);">A7</div>
-                  <div style="font-size:0.8rem; color:var(--text-dim);">Seed 1</div>
+                  <div style="font-size:0.8rem; color:var(--text-dim);"><span class="en">Seed 1</span><span class="fr">Graine 1</span></div>
                 </div>
                 <div style="font-family:var(--mono); font-size:1.25rem; color:var(--text-dim);">XOR</div>
                 <div style="text-align:center;">
@@ -5916,14 +6067,14 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
                 <div style="text-align:center;">
                   <div style="font-family:var(--mono); font-size:1.5rem; color:var(--green); font-weight:600;">92
                   </div>
-                  <div style="font-size:0.8rem; color:var(--text-dim);">Key 1</div>
+                  <div style="font-size:0.8rem; color:var(--text-dim);"><span class="en">Key 1</span><span class="fr">Clé 1</span></div>
                 </div>
               </div>
               <hr class="divider" style="margin:1rem 0; border-color:var(--border2);">
               <div style="display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:1rem;">
                 <div style="text-align:center;">
                   <div style="font-family:var(--mono); font-size:1.5rem; color:var(--amber);">1C</div>
-                  <div style="font-size:0.8rem; color:var(--text-dim);">Seed 2</div>
+                  <div style="font-size:0.8rem; color:var(--text-dim);"><span class="en">Seed 2</span><span class="fr">Graine 2</span></div>
                 </div>
                 <div style="font-family:var(--mono); font-size:1.25rem; color:var(--text-dim);">XOR</div>
                 <div style="text-align:center;">
@@ -5934,7 +6085,7 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
                 <div style="text-align:center;">
                   <div style="font-family:var(--mono); font-size:1.5rem; color:var(--green); font-weight:600;">2C
                   </div>
-                  <div style="font-size:0.8rem; color:var(--text-dim);">Key 2</div>
+                  <div style="font-size:0.8rem; color:var(--text-dim);"><span class="en">Key 2</span><span class="fr">Clé 2</span></div>
                 </div>
               </div>
             </div>
@@ -6068,15 +6219,21 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
             <!-- STEP 2 · run the solver -->
             <div class="setup-step-label"><span class="en">Step 2 · Run the solver</span><span class="fr">Étape 2 · Lancer le solveur</span></div>
             <p style="margin:0 0 0.75rem; font-size:0.9rem; color:var(--text); line-height:1.6;"><span class="en">Download
-                <code>security_access.py</code> from the link below and copy it into the lab (same
-                <code>scp&nbsp;-P&nbsp;2222 ... workshop@localhost:/home/workshop/</code> as the scanner), then run it in your
-                first SSH terminal. It performs the whole VIN → session → seed → key → unlock sequence inside the 3.5&nbsp;s
+                <code>security_access.py</code> from the link below, copy it into the lab, then run it in your first SSH
+                terminal. It performs the whole VIN → session → seed → key → unlock sequence inside the 3.5&nbsp;s
                 window, and prints each step as your candump window shows the matching frames.</span><span class="fr">Téléchargez
-                <code>security_access.py</code> depuis le lien ci-dessous et copiez-le dans le lab (même
-                <code>scp&nbsp;-P&nbsp;2222 ... workshop@localhost:/home/workshop/</code> que le scanner), puis lancez-le dans
+                <code>security_access.py</code> depuis le lien ci-dessous, copiez-le dans le lab, puis lancez-le dans
                 votre premier terminal SSH. Il effectue toute la séquence VIN → session → graine → clé → déverrouillage dans la
                 fenêtre de 3,5&nbsp;s, et affiche chaque étape pendant que votre fenêtre candump montre les trames
                 correspondantes.</span></p>
+            <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0 0 1rem;">
+              <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
+                <span><span class="en">On your host - copy the script in</span><span class="fr">Sur l'hôte - copier le script</span></span>
+                <span style="color:var(--green);">Bash</span>
+              </div>
+              <div class="docker-only"><pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-amber">scp</span> -P <span class="hl-cyan">2222</span> security_access.py workshop@localhost:/home/workshop/</code></pre></div>
+              <div class="vm-only"><pre style="margin:0; padding:1.25rem; background:transparent;"><code><span class="hl-amber">scp</span> security_access.py workshop@<span class="hl-cyan">&lt;vm-ip&gt;</span>:/home/workshop/</code></pre></div>
+            </div>
             <div style="background:var(--code-bg); border:1px solid var(--border2); border-radius:var(--radius); overflow:hidden; margin:0 0 1rem;">
               <div style="background:rgba(0,0,0,0.3); padding:0.75rem 1.25rem; font-family:var(--mono); font-size:0.8rem; color:var(--text-dim); border-bottom:1px solid var(--border2); display:flex; justify-content:space-between; align-items:center;">
                 <span><span class="en">SSH terminal 1 - run the solver</span><span class="fr">Terminal SSH 1 - lancer le solveur</span></span>
@@ -6106,9 +6263,9 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
         <div class="info-block-label"><span class="en">A dynamic automated script exists for these attacks</span><span class="fr">Un script automatisé dynamique existe pour ces attaques</span></div>
         <div>
           <div class="info-block" style="margin:0 0 1rem">
-            <div class="info-block-label">GitHub</div>
+            <div class="info-block-label">Zipped File</div>
             <p style="margin:0;font-family:var(--mono);font-size:0.85rem">
-              <a href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Files/Automtion%20Suite.zip" target="_blank" rel="noopener" style="color:var(--cyan)">
+              <a href="https://pub-4a6a1ac2b4194356b0c94d3c90ac1a97.r2.dev/Files/Automtion-Suite.zip" target="_blank" rel="noopener" style="color:var(--cyan)">
                 <span class="en">→ ICSim 1.0 Automation Suite (Full Source)</span>
                 <span class="fr">→ Suite d'automatisation ICSim 1.0 (Code Source Complet)</span>
               </a>
@@ -6159,10 +6316,10 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
         <div class="info-block-label"><span class="en">Where to run these</span><span class="fr">Où les
             exécuter</span></div>
         <p style="margin-bottom:0;"><span class="en">Run everything inside the lab's terminal window (or over SSH -
-            <code>ssh -p 2222 workshop@localhost</code> on Docker, <code>ssh workshop@&lt;vm-ip&gt;</code> on the VM). The
+            <span class="docker-only"><code>ssh -p 2222 workshop@localhost</code></span><span class="vm-only"><code>ssh workshop@&lt;vm-ip&gt;</code></span>). The
             virtual bus is always <code>vcan0</code> here; on real hardware you would swap it for <code>can0</code>.</span>
           <span class="fr">Lancez tout dans la fenêtre terminal du lab (ou via SSH -
-            <code>ssh -p 2222 workshop@localhost</code> sur Docker, <code>ssh workshop@&lt;vm-ip&gt;</code> sur la VM). Le
+            <span class="docker-only"><code>ssh -p 2222 workshop@localhost</code></span><span class="vm-only"><code>ssh workshop@&lt;vm-ip&gt;</code></span>). Le
             bus virtuel est toujours <code>vcan0</code> ici ; sur du matériel réel, remplacez-le par <code>can0</code>.</span>
         </p>
       </div>
@@ -6183,39 +6340,39 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
               <th><span class="en">Command</span><span class="fr">Commande</span></th>
               <th><span class="en">What you use it for</span><span class="fr">À quoi ça sert</span></th>
               <th><span class="en">Typical example</span><span class="fr">Exemple typique</span></th>
-              <th style="text-align:right;"><span class="en">Go</span><span class="fr">Aller</span></th>
+              <th style="text-align:right;"><span class="en">Details</span><span class="fr">Détails</span></th>
             </tr>
           </thead>
           <tbody>
-            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});">
-              <td><a href="#cmd-candump" onclick="event.stopPropagation();document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>candump</code></a></td>
+            <tr style="--row-accent:var(--cyan);" onclick="document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td class="ci-cmd"><a href="#cmd-candump" onclick="event.stopPropagation();document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>candump</code></a><span class="ci-role"><span class="en">Observe</span><span class="fr">Observer</span></span></td>
               <td class="dim"><span class="en">Watch or log live traffic (the reconnaissance workhorse)</span><span class="fr">Observer ou journaliser le trafic en direct (l'outil de reconnaissance)</span></td>
-              <td><code>candump vcan0</code></td>
-              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+              <td class="ci-example"><code>candump vcan0</code></td>
+              <td class="ci-go"><a class="ci-go-btn" href="#cmd-candump" onclick="event.stopPropagation();document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="en">Open</span><span class="fr">Ouvrir</span> ↓</a></td>
             </tr>
-            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});">
-              <td><a href="#cmd-cansniffer" onclick="event.stopPropagation();document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cansniffer</code></a></td>
+            <tr style="--row-accent:var(--cyan);" onclick="document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td class="ci-cmd"><a href="#cmd-cansniffer" onclick="event.stopPropagation();document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cansniffer</code></a><span class="ci-role"><span class="en">Observe</span><span class="fr">Observer</span></span></td>
               <td class="dim"><span class="en">Grouped live view that highlights the bytes that change</span><span class="fr">Vue groupée en direct qui surligne les octets qui changent</span></td>
-              <td><code>cansniffer -c vcan0</code></td>
-              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+              <td class="ci-example"><code>cansniffer -c vcan0</code></td>
+              <td class="ci-go"><a class="ci-go-btn" href="#cmd-cansniffer" onclick="event.stopPropagation();document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="en">Open</span><span class="fr">Ouvrir</span> ↓</a></td>
             </tr>
-            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});">
-              <td><a href="#cmd-cansend" onclick="event.stopPropagation();document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cansend</code></a></td>
+            <tr style="--row-accent:var(--amber);" onclick="document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td class="ci-cmd"><a href="#cmd-cansend" onclick="event.stopPropagation();document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--amber);font-weight:600;font-size:0.98rem;"><code>cansend</code></a><span class="ci-role"><span class="en">Inject</span><span class="fr">Injecter</span></span></td>
               <td class="dim"><span class="en">Inject a single frame you built by hand (incl. RTR)</span><span class="fr">Injecter une seule trame construite à la main (RTR inclus)</span></td>
-              <td><code>cansend vcan0 244#0000003EDD</code></td>
-              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+              <td class="ci-example"><code>cansend vcan0 244#0000003EDD</code></td>
+              <td class="ci-go"><a class="ci-go-btn" href="#cmd-cansend" onclick="event.stopPropagation();document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="en">Open</span><span class="fr">Ouvrir</span> ↓</a></td>
             </tr>
-            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});">
-              <td><a href="#cmd-cangen" onclick="event.stopPropagation();document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>cangen</code></a></td>
+            <tr style="--row-accent:var(--green);" onclick="document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td class="ci-cmd"><a href="#cmd-cangen" onclick="event.stopPropagation();document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--green);font-weight:600;font-size:0.98rem;"><code>cangen</code></a><span class="ci-role"><span class="en">Generate</span><span class="fr">Générer</span></span></td>
               <td class="dim"><span class="en">Generate / flood frames for noise, fuzzing, load</span><span class="fr">Générer / inonder des trames pour bruit, fuzzing, charge</span></td>
-              <td><code>cangen vcan0 -g 100 -I r -D r -v</code></td>
-              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+              <td class="ci-example"><code>cangen vcan0 -g 100 -I r -D r -v</code></td>
+              <td class="ci-go"><a class="ci-go-btn" href="#cmd-cangen" onclick="event.stopPropagation();document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="en">Open</span><span class="fr">Ouvrir</span> ↓</a></td>
             </tr>
-            <tr style="cursor:pointer;" onclick="document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});">
-              <td><a href="#cmd-canplayer" onclick="event.stopPropagation();document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:var(--cyan);font-weight:600;font-size:0.98rem;"><code>canplayer</code></a></td>
+            <tr style="--row-accent:#b48ead;" onclick="document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});">
+              <td class="ci-cmd"><a href="#cmd-canplayer" onclick="event.stopPropagation();document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});return false;" style="color:#b48ead;font-weight:600;font-size:0.98rem;"><code>canplayer</code></a><span class="ci-role"><span class="en">Replay</span><span class="fr">Rejouer</span></span></td>
               <td class="dim"><span class="en">Replay a frame log recorded earlier with <code>candump -l</code></span><span class="fr">Rejouer un journal de trames enregistré avec <code>candump -l</code></span></td>
-              <td><code>canplayer -I dump.log vcan0=vcan0</code></td>
-              <td style="text-align:right;color:var(--cyan);font-weight:700;">→</td>
+              <td class="ci-example"><code>canplayer -I dump.log vcan0=vcan0</code></td>
+              <td class="ci-go"><a class="ci-go-btn" href="#cmd-canplayer" onclick="event.stopPropagation();document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});return false;"><span class="en">Open</span><span class="fr">Ouvrir</span> ↓</a></td>
             </tr>
           </tbody>
         </table>
@@ -6231,6 +6388,17 @@ cansend vcan0 <span class="hl-amber">7E0</span>#021002 ; sleep 0.1 ; cansend vca
           <strong>exemples</strong> prêts à copier, et un <strong>tableau d'options</strong> complet. L'étiquette colorée de
           chaque fiche indique à quoi sert l'outil.</span>
       </p>
+
+      <nav class="cmd-switcher" id="cmd-switcher" aria-label="Command switcher">
+        <span class="cmd-switcher-label"><span class="en">Jump to</span><span class="fr">Aller à</span></span>
+        <div class="cmd-switcher-pills">
+          <a class="cmd-pill" href="#cmd-candump" style="--pill-accent:var(--cyan);" onclick="document.getElementById('cmd-candump').scrollIntoView({behavior:'smooth',block:'start'});return false;">candump</a>
+          <a class="cmd-pill" href="#cmd-cansniffer" style="--pill-accent:var(--cyan);" onclick="document.getElementById('cmd-cansniffer').scrollIntoView({behavior:'smooth',block:'start'});return false;">cansniffer</a>
+          <a class="cmd-pill" href="#cmd-cansend" style="--pill-accent:var(--amber);" onclick="document.getElementById('cmd-cansend').scrollIntoView({behavior:'smooth',block:'start'});return false;">cansend</a>
+          <a class="cmd-pill" href="#cmd-cangen" style="--pill-accent:var(--green);" onclick="document.getElementById('cmd-cangen').scrollIntoView({behavior:'smooth',block:'start'});return false;">cangen</a>
+          <a class="cmd-pill" href="#cmd-canplayer" style="--pill-accent:#b48ead;" onclick="document.getElementById('cmd-canplayer').scrollIntoView({behavior:'smooth',block:'start'});return false;">canplayer</a>
+        </div>
+      </nav>
 
       <!-- ─────── candump ─────── -->
       <div class="tool-card" id="cmd-candump" style="--cmd-accent: var(--cyan);">
@@ -6674,7 +6842,7 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
       }
     }
 
-    // Restore saved theme on load
+    // Restore saved theme + environment on load (early, to avoid a flash)
     (function () {
       const saved = localStorage.getItem('theme');
       if (saved === 'light') {
@@ -6683,6 +6851,10 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
           const btn = document.getElementById('theme-toggle');
           if (btn) btn.textContent = '◑ Dark';
         });
+      }
+      const savedEnv = localStorage.getItem('env');
+      if (savedEnv === 'vm' || savedEnv === 'docker') {
+        document.documentElement.setAttribute('data-env', savedEnv);
       }
     })();
 
@@ -6749,16 +6921,23 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
       selectEnv(method);
     }
 
-    // -- Usage page: Docker vs VM environment ---------------------------
-    // Mirrors the Step-2 choice above, but can be flipped independently
-    // (someone may read Usage before ever touching Installation).
+    // -- Global Docker vs VM environment --------------------------------
+    // The single source of truth for "which environment's commands to show".
+    // Driven by the nav Docker/VM toggle, the Getting Started cards, and the
+    // Setup wizard (via selectMethod). Sets data-env on <html> so the
+    // .docker-only / .vm-only CSS reveals the right command variant guide-wide,
+    // and mirrors the choice into the Getting Started page panels.
     function selectEnv(env) {
+      if (env !== 'docker' && env !== 'vm') env = 'docker';
+      document.documentElement.setAttribute('data-env', env);
+      try { localStorage.setItem('env', env); } catch (e) {}
+      // Nav toggle buttons
+      document.querySelectorAll('.env-btn').forEach(b => b.classList.toggle('active', b.dataset.env === env));
+      // Getting Started page cards
       document.querySelectorAll('#env-cards .method-card').forEach(c => c.classList.remove('active'));
       const card = document.getElementById('env-' + env);
       if (card) card.classList.add('active');
-      // Toggle BOTH the setup-steps panel and the detached reference panel for
-      // this environment (Docker / VM). The querySelectorAll clears every usage
-      // option-panel first, so we just re-activate the two that match.
+      // Getting Started page: setup-steps panel + detached reference panel
       document.querySelectorAll('#page-usage .option-panel').forEach(p => p.classList.remove('active'));
       ['panel-env-', 'panel-envref-'].forEach(prefix => {
         const panel = document.getElementById(prefix + env);
@@ -6766,8 +6945,14 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
       });
     }
 
-    // Seed the wizard on load (Windows + Docker) so a panel is always shown.
-    document.addEventListener('DOMContentLoaded', () => selectOS('windows'));
+    // Seed the wizard on load (Windows + Docker) so a panel is always shown,
+    // then re-apply any saved environment (the seed forces Docker, so we read
+    // the saved value first and restore it after).
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedEnv = localStorage.getItem('env');
+      selectOS('windows');
+      if (savedEnv === 'vm' || savedEnv === 'docker') selectEnv(savedEnv);
+    });
 
     // -- Navigate to a specific solution -------------------------------
     function showSolution(challengeId) {
@@ -6848,7 +7033,7 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
         return btn;
       }
 
-      // Single whole-block button — used for raw transcripts / reference tables
+      // Single whole-block button - used for raw transcripts / reference tables
       // (data-raw) that are NOT lists of commands to execute.
       function wrapWithButton(pre, code) {
         if (pre.parentElement && pre.parentElement.classList.contains('code-wrap')) return;
@@ -6867,7 +7052,7 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
       // become a caption shown above the next command and are never copied;
       // a multi-line shell construct (while/for … do … done) stays one card so
       // it copies as a single runnable unit. Note: an inline `#` mid-line (e.g.
-      // the `#` in `cansend vcan0 188#01`) is preserved — only lines that START
+      // the `#` in `cansend vcan0 188#01`) is preserved - only lines that START
       // with `#` are treated as comments.
       function transformCommandBlock(pre, code) {
         const rawLines = code.innerHTML.split('\n');
@@ -6972,6 +7157,37 @@ canplayer -l i -t -I candump-2026-07-26_120000.log vcan0=vcan0</code></pre>
       } else {
         init();
       }
+    })();
+  </script>
+
+  <!-- CAN Commands: scroll-spy - highlight the active command pill ---- -->
+  <script>
+    (function () {
+      const pills = Array.from(document.querySelectorAll('.cmd-pill'));
+      const cards = Array.from(document.querySelectorAll('#page-cancmds .tool-card'));
+      if (!pills.length || !cards.length || !('IntersectionObserver' in window)) return;
+
+      const pillFor = {};
+      pills.forEach(p => { pillFor[p.getAttribute('href').slice(1)] = p; });
+
+      function setActive(id) {
+        pills.forEach(p => p.classList.remove('active'));
+        if (pillFor[id]) pillFor[id].classList.add('active');
+      }
+
+      const visible = new Set();
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) visible.add(e.target.id);
+          else visible.delete(e.target.id);
+        });
+        // Highlight the first card (in document order) currently in the band.
+        for (const c of cards) {
+          if (visible.has(c.id)) { setActive(c.id); return; }
+        }
+      }, { rootMargin: '-120px 0px -55% 0px', threshold: 0 });
+
+      cards.forEach(c => obs.observe(c));
     })();
   </script>
 </body>
